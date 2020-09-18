@@ -2,7 +2,7 @@ rm(list = ls())
 library(cape)
 
 # Number of Monte-Carlo simulations
-B = 10^2
+B = 10^4
 
 # Initial simulation seed
 seed = 1832
