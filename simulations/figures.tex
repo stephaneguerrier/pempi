@@ -11,28 +11,13 @@
 \begin{document}
 \input{figures-concordance}
 
-\begin{Schunk}
-\begin{Sinput}
-> x = rnorm(100)
-\end{Sinput}
-\end{Schunk}
+
 
 \begin{Schunk}
 \begin{Sinput}
 > library(tikzDevice)
-> tikz("graph1.tex", width = 6, height = 5)
-> boxplot(x)
-> dev.off()
-\end{Sinput}
-\begin{Soutput}
-null device 
-          1 
-\end{Soutput}
-\end{Schunk}
-
-\begin{figure}
-\input{graph1.tex}
-\end{figure}
-
-
-\end{document}
+> tikz("graph1.tex", width = 10, height = 9)
+> RMSE = function(x)
++   sqrt(mean(x)^2 + var(x))
+> cols = hcl(h = seq(15, 375, length = 4), l = 65, c = 100)[1:3]
+> rmse_survey = apply(erreur$error_survey, 2, RMSE)
