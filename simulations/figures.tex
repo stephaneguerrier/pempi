@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[active,tightpage,psfixbb]{preview}
+\PreviewEnvironment{pgfpicture}
+\setlength\PreviewBorder{0pt}
+\usepackage{amssymb}
+%\definecolor{mygreen}{HTML}{16AF11}
+%\definecolor{myred}{HTML}{F16A57}
+%\definecolor{myblue}{HTML}{0A71BD}
+\usepackage{Sweave}
+\begin{document}
+\input{figures-concordance}
+
+\begin{Schunk}
+\begin{Sinput}
+> x = rnorm(100)
+\end{Sinput}
+\end{Schunk}
+
+\begin{Schunk}
+\begin{Sinput}
+> library(tikzDevice)
+> tikz("graph1.tex", width = 6, height = 5)
+> boxplot(x)
+> dev.off()
+\end{Sinput}
+\begin{Soutput}
+null device 
+          1 
+\end{Soutput}
+\end{Schunk}
+
+\begin{figure}
+\input{graph1.tex}
+\end{figure}
+
+
+\end{document}

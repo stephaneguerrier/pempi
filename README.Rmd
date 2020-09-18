@@ -1,0 +1,97 @@
+---
+github_document:
+    pandoc_args: --webtex
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+library(CPreval)
+```
+
+[![Travis-CI Build Status](https://travis-ci.org/SMAC-Group/simts.svg?branch=master)](https://travis-ci.org/SMAC-Group/simts)
+[![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-green.svg)](https://github.com/SMAC-Group/simts)
+
+# `CPrval` Overview 
+
+This R package provides an implementation of the estimators discussed in *Accurate Prevalence Estimation for Emerging or Rare Infectious Diseases* by Stéphane Guerrier, Christoph Kuzmics and Maria-Pia Victoria-Feser (submitted manuscript available upon request). The pacakge can be installed from GitHub as follows:
+
+
+```{r, eval=FALSE}
+# Install devtools
+install.packages("devtools")
+
+# Install the package from GitHub
+devtools::install_github("stephaneguerrier/CPreval")
+```
+
+In this work, we consider a (random) survey sample, possibly a weighted one, of $n$ individuals in some population in order to estimate the proportion of people in this population who have been infected by the virus. Let $\pi$ denote this true proportion. We assume that we have available the proportion $\pi_0$ of people who **have been infected** by the virus in a sub population selected (e.g. as the ones presenting some types of symptoms) implying that $\pi_0 \leq \pi$. In the survey sample, among the ones who have been tested positive, there might be people that have been declared as infected before, and the objective is to investigate means to include this information for a more accurate estimation (and inference) for $\pi$. We also suppose that the medical devices used to measure $\pi_0$ and estimate $\pi$ have known  False Positive (FP) rates $\alpha$ and False Negative (FN) rates $\beta$, that might be different for the two samples, so that we actually  have information on $\alpha_0, \beta_0,\alpha,\beta$. This setting can be reparametrized using instead an *extrapolation* parameter $\lambda$ that is such that
+
+\begin{equation*}
+    \pi=\lambda \pi_0, \; \lambda > 1
+    \label{eqn:reparam}
+\end{equation*}
+
+Therefore, given an estimator for $\lambda$, one can obtain one for $\pi$ the above equation. The data set contains realizations  $r_0$ and $r$ of two random variables $R_0$ and $R$, $R_0 \leq R$, i.e. $R$ as the number of people, out of $n$, that have been declared positive in the survey sample, and among these ones, the ones that have been declared as infected before, i.e. $R_0$. 
+
+
+Consider the following data:
+
+```{r}
+seed = 18
+n    = 1500
+p0   = 3/100
+pi0  = 1/100
+(X = sim_Rs(p = p0, pi0 = pi0, n = n, seed = seed))
+```
+
+Estimators:
+
+```{r}
+survey_sample(X$R, X$n)
+moment_estimator(R0 = X$R0, R = X$R, pi0 = X$pi0, n = X$n)
+mle(R0 = X$R0, R = X$R, pi0 = X$pi0, n = X$n)
+```
+
+With measurement error:
+
+```{r}
+alpha0 = 1/100
+alpha  = 1/100
+beta0  = 6/100
+beta   = 6/100
+(X = sim_Rs(p = p0, pi0 = pi0, n = n, seed = seed,
+           alpha = alpha, alpha0 = alpha0, 
+           beta = beta, beta0 = beta0))
+```
+
+Without taking into account measurement error:
+
+```{r}
+survey_sample(X$R, X$n)
+moment_estimator(R0 = X$R0, R = X$R, pi0 = X$pi0, n = X$n)
+mle(R0 = X$R0, R = X$R, pi0 = X$pi0, n = X$n)
+```
+
+Taking into account measurement error:
+
+```{r}
+survey_sample(X$R, X$n, alpha = alpha, beta = beta)
+moment_estimator(R0 = X$R0, R = X$R, pi0 = X$pi0, n = X$n, 
+                 alpha = alpha, alpha0 = alpha0, 
+                 beta = beta, beta0 = beta0)
+mle(R0 = X$R0, R = X$R, pi0 = X$pi0, n = X$n, 
+                 alpha = alpha, alpha0 = alpha0, 
+                 beta = beta, beta0 = beta0)
+```
+
+## License
+
+The license this source code is released under is the GNU AFFERO GENERAL PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text. Otherwise, please consult [TLDR Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)) or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will provide a synopsis of the restrictions placed upon the code.

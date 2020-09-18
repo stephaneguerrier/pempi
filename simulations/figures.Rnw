@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[active,tightpage,psfixbb]{preview}
+\PreviewEnvironment{pgfpicture}
+\setlength\PreviewBorder{0pt}
+\usepackage{amssymb}
+%\definecolor{mygreen}{HTML}{16AF11}
+%\definecolor{myred}{HTML}{F16A57}
+%\definecolor{myblue}{HTML}{0A71BD}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+<<code1, c>>=
+x = rnorm(100)
+@
+
+<<graph1>>=
+library(tikzDevice)
+tikz("graph1.tex", width = 6, height = 5)
+boxplot(x)
+dev.off()
+@
+
+\begin{figure}
+\input{graph1.tex}
+\end{figure}
+
+
+\end{document}
