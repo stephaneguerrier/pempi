@@ -1,5 +1,5 @@
 #' @title Compute proportion in the survey sample (standard estimator)
-#' @description Proportion estimated using the survey sample and confidence intervals based on the Clopper–Pearson and the standard
+#' @description Proportion estimated using the survey sample and confidence intervals based on the Clopper-Pearson and the standard
 #' asymptotic approach.
 #' @param R        A \code{numeric} that provides the people of positive people in the sample.
 #' @param n        A \code{numeric} that provides the sample size.
@@ -14,7 +14,6 @@
 #'  \item estimate:    Estimated proportion.
 #'  \item sd:          Estimated standard error of the estimator.
 #'  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
-#'  \item ci_cp:       Confidence interval (1 - gamma confidence level) based on the Clopper–Pearson approach.
 #'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
 #'  \item method:      Estimation method (in this case sample survey)
 #'  \item measurement: A vector with (alpha0, alpha, beta0, beta)
@@ -32,6 +31,7 @@
 #' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
 #' survey_sample(R = X$R, n = X$n)
 #' survey_sample(R = X$R, n = X$n, alpha = 0.01, beta = 0.05)
+#' @importFrom stats qbeta qnorm
 survey_sample = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
   # Compute survey proportion
   pi_bar = R/n
@@ -71,7 +71,7 @@ survey_sample = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
   # Compute 1 - gamma asymptotic interval
   ci_asym = pi_bar + qnorm(1 - gamma/2)*c(-1,1)*sd
 
-  # Compute 1 - gamma confidence interval - Clopper–Pearson approach
+  # Compute 1 - gamma confidence interval - Clopper-Pearson approach
   upper = (qbeta(p = 1 - gamma/2, R + 1, n - R) - alpha)/(1 - alpha - beta)
   lower = (qbeta(p = gamma/2, R, n - R + 1) - alpha)/(1 - alpha - beta)
 
@@ -103,7 +103,7 @@ survey_sample = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
 #' @return Prints object
 #' @author Stephane Guerrier
 #' @examples
-#' X = sim_Rs(p = 3/100, pi0 = 1/100, n = 1500, seed = 18)
+#' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
 #' survey_sample(X$R, X$n)
 print.cpreval = function(x, ...){
   cat("Method: ")
@@ -124,7 +124,7 @@ print.cpreval = function(x, ...){
   cat(sprintf("%.4f", 100*x$ci_asym[2]))
   if (x$method == "Survey sample" || x$method == "Moment Estimator"){
     cat("%\n")
-    cat("Clopper–Pearson    : ")
+    cat("Clopper-Pearson    : ")
     cat(sprintf("%.4f", 100*x$ci_cp[1]))
     cat("% - ")
     cat(sprintf("%.4f", 100*x$ci_cp[2]))
@@ -153,7 +153,7 @@ print.cpreval = function(x, ...){
 
 #' @title Compute moment-based estimator.
 #' @description Proportion estimated using the moment-based estimator and confidence intervals based the asymptotic distribution of the estimator as well as
-#' the Clopper–Pearson approach.
+#' the Clopper-Pearson approach.
 #' @param R3        A \code{numeric} that provides the number of participants in the survey sample that are tested positive only with the second testing device.
 #' @param n         A \code{numeric} that provides the sample size.
 #' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
@@ -169,7 +169,7 @@ print.cpreval = function(x, ...){
 #'  \item estimate:    Estimated proportion.
 #'  \item sd:          Estimated standard error of the estimator.
 #'  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
-#'  \item ci_cp:       Confidence interval (1 - gamma confidence level) based on the Clopper–Pearson approach.
+#'  \item ci_cp:       Confidence interval (1 - gamma confidence level) based on the Clopper-Pearson approach.
 #'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
 #'  \item method:      Estimation method (in this case moment estimator)
 #'  \item measurement: A vector with (alpha0, alpha, beta0, beta)
@@ -188,7 +188,8 @@ print.cpreval = function(x, ...){
 #' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0)
 #' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0, alpha0 = 0.01,
 #' alpha = 0.01, beta0 = 0.05, beta = 0.05)
-moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, beta0 = 0){
+#' @importFrom stats qbeta qnorm
+moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, beta0 = 0, ...){
   # Compute point estimate
   Delta = 1 - alpha - beta
   Delta0 = 1 - alpha0 - beta0
@@ -241,6 +242,8 @@ log_modified = function(x){
 #' @param theta     A \code{numeric} value for the paramerer of interest.
 #' @param Rvect     A \code{vector} of observations, i.e. (R1, R2, R3, R4).
 #' @param n         A \code{numeric} that provides the sample size.
+#' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
+#' but systematic sampling (e.g. based on medical selection).
 #' @param alpha0    A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.
 #' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
 #' @param beta0     A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.
@@ -248,7 +251,7 @@ log_modified = function(x){
 #' @param ...       Additional arguments.
 #' @return Negative log-likelihood.
 #' @author Stephane Guerrier
-neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0){
+neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0, ...){
   probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + Rvect[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + Rvect[4]/n*log_modified(probs[4]))
 }
@@ -260,6 +263,8 @@ neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0){
 #' @param theta     A \code{numeric} value for the paramerer of interest.
 #' @param Rvect     A \code{vector} of observations, i.e. (R1, R2, R3, R4), but R2 and R4 are NOT used.
 #' @param n         A \code{numeric} that provides the sample size.
+#' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
+#' but systematic sampling (e.g. based on medical selection).
 #' @param alpha0    A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.
 #' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
 #' @param beta0     A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.
@@ -267,7 +272,7 @@ neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0){
 #' @param ...       Additional arguments.
 #' @return Negative marginalized log-likelihood.
 #' @author Stephane Guerrier
-neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0){
+neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0, ...){
   probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + probs[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + (n - Rvect[1] - Rvect[3] - probs[2])/n*log_modified(probs[4]))
 }
@@ -311,6 +316,7 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha, beta, alpha0, bet
 #' mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
 #' mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0,
 #' alpha0 = 0.01, alpha = 0.01, beta0 = 0.05, beta = 0.05)
+#' @importFrom stats optimize qnorm
 mle = function(R1, R2, R3, R4, n, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, ...){
   # Find MLE (TODO use closed form when possible)
   R = c(R1, R2, R3, R4)
@@ -386,7 +392,7 @@ mle = function(R1, R2, R3, R4, n, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta
 #' @examples
 #' # Samples without measurement error
 #' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
-#' mle(R1 = X$R1, R3 = X$R3, n = X$n, pi0 = X$pi0)
+#' mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
 #'
 #' # With measurement error
 #' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
@@ -394,6 +400,7 @@ mle = function(R1, R2, R3, R4, n, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta
 #' marginal_mle(R1 = X$R1, R3 = X$R3, n = X$n, pi0 = X$pi0)
 #' marginal_mle(R1 = X$R1, R3 = X$R3, n = X$n, pi0 = X$pi0,
 #' alpha0 = 0.01, alpha = 0.01, beta0 = 0.05, beta = 0.05)
+#' @importFrom stats optimize
 marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, beta0 = 0, ...){
   # Compute MLE (TODO use closed form when possible)
   R = c(R1, NA, R3, NA)

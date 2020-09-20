@@ -4,7 +4,7 @@
 \alias{neg_log_lik}
 \title{Negative Log-Likelihood function}
 \usage{
-neg_log_lik(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0)
+neg_log_lik(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0, ...)
 }
 \arguments{
 \item{theta}{A \code{numeric} value for the paramerer of interest.}
@@ -12,6 +12,9 @@ neg_log_lik(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0)
 \item{Rvect}{A \code{vector} of observations, i.e. (R1, R2, R3, R4).}
 
 \item{n}{A \code{numeric} that provides the sample size.}
+
+\item{pi0}{A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
+but systematic sampling (e.g. based on medical selection).}
 
 \item{alpha}{A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.}
 

@@ -28,7 +28,6 @@ A \code{cpreval} object with the structure:
  \item estimate:    Estimated proportion.
  \item sd:          Estimated standard error of the estimator.
  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
- \item ci_cp:       Confidence interval (1 - gamma confidence level) based on the Clopper–Pearson approach.
  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
  \item method:      Estimation method (in this case sample survey)
  \item measurement: A vector with (alpha0, alpha, beta0, beta)
@@ -36,7 +35,7 @@ A \code{cpreval} object with the structure:
 }
 }
 \description{
-Proportion estimated using the survey sample and confidence intervals based on the Clopper–Pearson and the standard
+Proportion estimated using the survey sample and confidence intervals based on the Clopper-Pearson and the standard
 asymptotic approach.
 }
 \examples{

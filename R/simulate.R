@@ -68,6 +68,7 @@ get_prob = function(theta, pi0, alpha, beta, alpha0, beta0){
 #' # With measurement error
 #' sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01,
 #' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
+#' @importFrom stats rmultinom
 sim_Rs = function(theta, pi0, n, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, seed = NULL, ...){
   # Simulation seed
   if (!is.null(seed)){

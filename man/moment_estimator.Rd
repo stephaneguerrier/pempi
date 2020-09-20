@@ -12,7 +12,8 @@ moment_estimator(
   alpha = 0,
   beta = 0,
   alpha0 = 0,
-  beta0 = 0
+  beta0 = 0,
+  ...
 )
 }
 \arguments{
@@ -41,7 +42,7 @@ A \code{cpreval} object with the structure:
  \item estimate:    Estimated proportion.
  \item sd:          Estimated standard error of the estimator.
  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
- \item ci_cp:       Confidence interval (1 - gamma confidence level) based on the Clopper–Pearson approach.
+ \item ci_cp:       Confidence interval (1 - gamma confidence level) based on the Clopper-Pearson approach.
  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
  \item method:      Estimation method (in this case moment estimator)
  \item measurement: A vector with (alpha0, alpha, beta0, beta)
@@ -50,7 +51,7 @@ A \code{cpreval} object with the structure:
 }
 \description{
 Proportion estimated using the moment-based estimator and confidence intervals based the asymptotic distribution of the estimator as well as
-the Clopper–Pearson approach.
+the Clopper-Pearson approach.
 }
 \examples{
 # Samples without measurement error
