@@ -1,0 +1,10 @@
+language: r
+
+sudo: false
+
+dist: trusty
+
+warnings_are_errors: true
+
+cache:
+  packages: true

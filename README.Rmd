@@ -1,6 +1,5 @@
 ---
-github_document:
-    pandoc_args: --webtex
+output: github_document
 bibliography: bibliography.bib
 ---
 

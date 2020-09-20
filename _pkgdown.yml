@@ -1,17 +1,28 @@
-template:
-  params:
-    bootswatch: flatly
+reference:
+  - title: Simulation
+    contents:
+    - sim_Rs
+  - title: Estimation
+    contents:
+    - mle
+    - marginal_mle
+    - moment_estimator
+    - survey_sample
+  - title: Print
+    contents:
+    - print.cpreval
+    - print.cpreval_sim
+  - title: Internal
+    contents:
+    - get_prob
+    - log_modified
+    - neg_log_lik
+    - neg_log_lik_integrated
 
 navbar:
   left:
-  - text: Simulation Study
-    href: articles/simulations.html
-  - text: Case Study
-    href: articles/case_study.html
-  - text: Figures
-    href: articles/figures.html
   - text: Reference
     href: reference/index.html
   right:
   - icon: fa-github
-    href: https://github.com/stephaneguerrier/CPreval
+    href: https://github.com/stephaneguerrier/cape

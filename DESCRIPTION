@@ -1,6 +1,6 @@
 Package: cape
 Type: Package
-Title: TO DO
+Title: Contional prevalence estimation for emerging or rare infectious diseases
 Version: 0.1
 Date: 2020-05-25
 LazyData: true
@@ -10,7 +10,7 @@ Authors@R: c(
     person("Christoph", "Kuzmics", role = c("aut"))
     )
 Maintainer: Stéphane Guerrier <stef.guerrier@gmail.com>
-Description: TO DO To DO
+Description: A system contains easy-to-use tools for the contional estimation of the prevalence of an emerging or rare infectious diseases.
 Depends:
     R (>= 3.5.0)
 License: AGPL-3
@@ -20,5 +20,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: TO DO
-BugReports: TO DO
+URL: https://github.com/stephaneguerrier/cape
+BugReports: https://github.com/stephaneguerrier/cape/issues
