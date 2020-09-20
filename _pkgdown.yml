@@ -1,3 +1,7 @@
+template:
+  params:
+    bootswatch: flatly
+
 reference:
   - title: Simulation
     contents:
@@ -21,6 +25,8 @@ reference:
 
 navbar:
   left:
+  - text: Vignette
+    href: articles/vignette.html
   - text: Reference
     href: reference/index.html
   right:
