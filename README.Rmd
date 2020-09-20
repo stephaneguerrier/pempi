@@ -16,7 +16,7 @@ library(cape)
 [![Travis build status](https://travis-ci.com/stephaneguerrier/cape.svg?branch=master)](https://travis-ci.com/stephaneguerrier/cape)
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
-[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-green.svg)](https://github.com/SMAC-Group/simts)
+[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-green.svg)](https://github.com/stephaneguerrier/cape)
 
 # `cape` Overview 
 
