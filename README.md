@@ -37,7 +37,7 @@ devtools::install_github("stephaneguerrier/cape")
 # How to cite
 
     @Manual{guerrier2020cape,
-        title = {{CAPE}: Conditional Prevalence Estimation for Emerging Infectious Diseases},
+        title = {{cape}: Conditional Prevalence Estimation for Emerging Infectious Diseases},
         author = {Guerrier, S and Kuzmics, C and Victoria-Feser, M.-P.},
         year = {2020},
         note = {R package},
