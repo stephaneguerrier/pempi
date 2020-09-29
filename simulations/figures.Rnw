@@ -38,7 +38,7 @@ lines(simu$pi0[1:30]/100, rmse_mle[1:30]/  rmse_mmle[1:30], col = cols[3], pch =
 lines(simu$pi0[1:30]/100, rmse_mle[1:30]/   rmse_mom[1:30], col = cols[2], pch = 17, type = "l", lwd = 2)
 mtext("Setting I", side = 2, line = 5, cex = 1)
 mtext("Ratio of RMSE", side = 2, line = 3, cex = 0.85)
-mtext("$p_0 = 5\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi = 5\\%$", side = 3, line = 1, cex = 1.25)
 
 plot(NA, xlim = c(0,20/100), ylim = c(0, 1.05), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
 grid()
@@ -47,7 +47,7 @@ abline(h = 1, lwd = 2)
 lines(simu$pi0[31:60]/100, rmse_mle[31:60]/rmse_survey[31:60], col = cols[1], pch = 15, type = "l", lwd = 2)
 lines(simu$pi0[31:60]/100, rmse_mle[31:60]/  rmse_mmle[31:60], col = cols[3], pch = 16, type = "l", lwd = 2)
 lines(simu$pi0[31:60]/100, rmse_mle[31:60]/   rmse_mom[31:60], col = cols[2], pch = 17, type = "l", lwd = 2)
-mtext("$p_0 = 20\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi = 20\\%$", side = 3, line = 1, cex = 1.25)
 
 plot(NA, xlim = c(0,75/100), ylim = c(0, 1.05), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
 grid()
@@ -56,7 +56,7 @@ abline(h = 1, lwd = 2)
 lines(simu$pi0[61:90]/100, rmse_mle[61:90]/rmse_survey[61:90], col = cols[1], pch = 15, type = "l", lwd = 2)
 lines(simu$pi0[61:90]/100, rmse_mle[61:90]/  rmse_mmle[61:90], col = cols[3], pch = 16, type = "l", lwd = 2)
 lines(simu$pi0[61:90]/100, rmse_mle[61:90]/   rmse_mom[61:90], col = cols[2], pch = 17, type = "l", lwd = 2)
-mtext("$p_0 = 75\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi = 75\\%$", side = 3, line = 1, cex = 1.25)
 
 plot(NA, xlim = c(0,5/100), ylim = c(0, 1.05), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
 axis(2, cex.axis = 1.15)
@@ -149,7 +149,7 @@ lines(simu$pi0[1:30]/100, cov_mom_cp[1:30], col = cols[2], pch = 17, type = "l",
 
 mtext("Setting I", side = 2, line = 5, cex = 1)
 mtext("Coverage probability", side = 2, line = 3, cex = 0.85)
-mtext("$p_0 = 5\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi = 5\\%$", side = 3, line = 1, cex = 1.25)
 
 
 plot(NA, xlim = c(0,20/100), ylim = c(86, 99), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
@@ -160,7 +160,7 @@ lines(simu$pi0[31:60]/100,   cov_survey[31:60], col = cols[1], pch = 15, type = 
 lines(simu$pi0[31:60]/100,      cov_mle[31:60], col = cols[3], pch = 16, type = "l", lwd = 2)
 lines(simu$pi0[31:60]/100,   cov_mom_cp[31:60], col = cols[2], pch = 17, type = "l", lwd = 2)
 
-mtext("$p_0= 20\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi= 20\\%$", side = 3, line = 1, cex = 1.25)
 
 
 plot(NA, xlim = c(0,75/100), ylim = c(86, 99), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
@@ -171,7 +171,7 @@ lines(simu$pi0[61:90]/100,   cov_survey[61:90], col = cols[1], pch = 15, type = 
 lines(simu$pi0[61:90]/100,      cov_mle[61:90], col = cols[3], pch = 16, type = "l", lwd = 2)
 lines(simu$pi0[61:90]/100,   cov_mom_cp[61:90], col = cols[2], pch = 17, type = "l", lwd = 2)
 
-mtext("$p_0= 75\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi= 75\\%$", side = 3, line = 1, cex = 1.25)
 
 
 plot(NA, xlim = c(0,5/100), ylim = c(86, 99), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
@@ -270,7 +270,7 @@ lines(simu$pi0[1:30]/100, len_mle[1:30]/len_mom_cp[1:30], col = cols[2], pch = 1
 mtext("Setting I", side = 2, line = 5)
 mtext("Relative CI mean lengths", side = 2, line = 3, cex = 0.85)
 
-mtext("$p_0 = 5\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi = 5\\%$", side = 3, line = 1, cex = 1.25)
 
 plot(NA, xlim = c(0,20/100), ylim = c(0.25, 1.55), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
 grid()
@@ -281,7 +281,7 @@ lines(simu$pi0[31:60]/100, len_mle[31:60]/  len_mmle[31:60], col = cols[3], pch 
 lines(simu$pi0[31:60]/100, len_mle[31:60]/len_mom_cp[31:60], col = cols[2], pch = 17, type = "l", lwd = 2)
 #lines(simu$pi0[1:30]/100, cov_mom_asym[1:30], col = cols[2], pch = 17, type = "l", lwd = 2, lty = 2)
 
-mtext("$p_0 = 20\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi = 20\\%$", side = 3, line = 1, cex = 1.25)
 
 
 plot(NA, xlim = c(0,75/100), ylim = c(0.25, 1.55), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
@@ -293,7 +293,7 @@ lines(simu$pi0[61:90]/100, len_mle[61:90]/  len_mmle[61:90], col = cols[3], pch 
 lines(simu$pi0[61:90]/100, len_mle[61:90]/len_mom_cp[61:90], col = cols[2], pch = 17, type = "l", lwd = 2)
 #lines(simu$pi0[1:30]/100, cov_mom_asym[1:30], col = cols[2], pch = 17, type = "l", lwd = 2, lty = 2)
 
-mtext("$p_0 = 75\\%$", side = 3, line = 1, cex = 1.25)
+mtext("$\\pi = 75\\%$", side = 3, line = 1, cex = 1.25)
 
 
 plot(NA, xlim = c(0,5/100), ylim = c(0.25, 1.55), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)

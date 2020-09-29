@@ -57,7 +57,7 @@ Proportion estimated using the MLE and confidence intervals based the asymptotic
 \examples{
 # Samples without measurement error
 X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
-mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
+conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
 
 # With measurement error
 X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,

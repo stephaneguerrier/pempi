@@ -19,7 +19,7 @@ Simple print function for the four estimators (i.e. mle, conditional mle, moment
 }
 \examples{
 X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
-survey_sample(X$R, X$n)
+survey_mle(X$R, X$n)
 }
 \author{
 Stephane Guerrier

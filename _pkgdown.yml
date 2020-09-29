@@ -8,10 +8,10 @@ reference:
     - sim_Rs
   - title: Estimation
     contents:
-    - mle
+    - conditional_mle
     - marginal_mle
     - moment_estimator
-    - survey_sample
+    - survey_mle
   - title: Print
     contents:
     - print.cpreval

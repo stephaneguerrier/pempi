@@ -18,7 +18,7 @@ library(cape)
 
 In epidemiological studies, an important quantity that needs to be estimated with great accuracy is the prevalence rate of a disease in order to learn more about central parameters such as case fatality rate and/or to plan and refine decisions about measures with regards to an epidemic or a pandemic. Traditionally, to measure the prevalence, a survey sample (of randomly chosen subjects from the population) is collected and the prevalence is estimated by the sample proportion. This process involves some financial and logistic efforts, which increase with the number of sampled participants, while at the same time, increasing the accuracy of the estimator. Having a sufficiently large sample is especially important when the (true) prevalence is very small, for example at the beginning of a new pandemic such as the one of the COVID-19. In this case, since the beginning of the outbreak, many measurements have been taken on the number of infected people, but only on the sub-population selected under some medical (and logistic) criteria. It is obvious that using these measurements as if they would be like a complete census, would lead to an underestimation of the prevalence. 
 
-In  @guerrier2020accurate, we propose to adequately use this information, together with data from a survey sample, in order to improve the accuracy of the prevalence estimation. In other terms, for a given (legal) statistical precision that might be required by authorities that finance a survey, the sample size can be a lot smaller if one adequately uses the information provided by the information collected in the sub-population. The possible misclassification  errors of the (medical) testing devices used to collect the data, are also taken into account. The misclassification  errors are actually induced by the sensitivity, i.e. the complement to the false positive rate, and by the specificity, i.e. the complement to the false negative rate, of the medical testing devices. The approach is a frequentist one, i.e. using cutoff values for the sensitivity and specificity, hence without the need to specify a (prior) distribution for these quantities. 
+In  @guerrier2020accurate, we propose to adequately use this information, together with data from a survey sample, in order to improve the accuracy of the prevalence estimation. In other terms, for a given (legal) statistical precision that might be required by authorities that finance a survey, the sample size can be a lot smaller if one adequately uses the information provided by the data collected in the sub-population. The possible misclassification  errors of the (medical) testing devices used to collect the data, are also taken into account. The misclassification  errors are actually induced by the sensitivity, i.e. the complement to the false positive rate, and by the specificity, i.e. the complement to the false negative rate, of the medical testing devices. The approach is a frequentist one, i.e. using cutoff values for the sensitivity and specificity, hence without the need to specify a (prior) distribution for these quantities. 
 
 
 # Model
@@ -89,13 +89,13 @@ We also suppose that the (medical) testing devices have known sensitivity and sp
     \label{eqn:missclasserrors}
 \end{equation}
 
-For proper modelling @guerrier2020accurate, we assume that $\alpha+\beta<1$ and $\alpha_0+\beta_0<1$. From the above definitions, we can deduce
+For proper modelling, we assume that $\alpha+\beta<1$ and $\alpha_0+\beta_0<1$ [see @guerrier2020accurate]. From the above definitions, we can deduce
 
 \begin{equation*}
     \pi^*_0=\Pr(V_i=1)=\frac{1}{\Delta_0}(\pi_0-\alpha_0) 
 \end{equation*}
 
-with $\Delta_0=1-(\alpha_0+\beta_0)$. In the figure below the probability tree associated to the variables presented previously:
+with $\Delta_0=1-(\alpha_0+\beta_0)$. In the figure below, we present the probability tree associated to the variables involved in this study:
 
 <center>
 <img src="prob.png" alt=" " width="600"/>
@@ -133,6 +133,9 @@ The respective distributions of $R_1,R_2,R_3$ are binomial distributions with su
 Data can be simulated using the function `sim_Rs()` as follows:
 
 ```{r}
+# Load cape package
+library(cape)
+
 # Measurement error
 alpha = alpha0 = 0.01
 beta = beta0 = 0.02
@@ -171,20 +174,20 @@ The success probabilities associated to $R_j,j=1,2,3$ are functions of the (true
     \label{eqn:tau-pi}
 \end{eqnarray}
 
-where $\Delta :=1-(\alpha+\beta)$. A likelihood function can be built based on the multinomial distribution (with categories $R_1,R_2,R_3,R_4$, with $R_4=1-R_1-R_2-R_3$) to obtain the Maximum Likelihood Estimator (MLE) for $\pi$ @guerrier2020accurate. The MLE has a closed form expressions if $\alpha_0=0$. If the information provided by $R_2$ is not available, the likelihood function is marginalized out on $R_2$ and one can still obtain an MLE for $\pi$. Alternatively, the package also contains a Method of Moments Estimator (MME) based on $R_3$ (with expectation $\tau_3(\pi)$), which is closed form for any $\alpha_0,\alpha,\beta_0,\beta$.
+where $\Delta :=1-(\alpha+\beta)$. A likelihood function can be built based on the multinomial distribution (with categories $R_1,R_2,R_3,R_4$, with $R_4=1-R_1-R_2-R_3$) to obtain the conditional Maximum Likelihood Estimator (MLE) for $\pi$ [see @guerrier2020accurate]. The MLE has a closed form expressions if $\alpha_0=0$. If the information provided by $R_2$ is not available, the likelihood function is marginalized out on $R_2$ and one can still obtain an MLE for $\pi$. Alternatively, the package also contains a Method of Moments Estimator (MME) based on $R_3$ (with expectation $\tau_3(\pi)$), which is closed form for any $\alpha_0,\alpha,\beta_0,\beta$.
 
-The confidence intervals for the MLE and the marginal MLE can be computed using asymptotic theory. They provide good coverage, with small interval length for survey sample sizes from $n=1,000$ @guerrier2020accurate. For the MME, since its finite sample distribution is known through $R_3\sim\mathcal{B}(n,\tau_3(\pi))$, exact confidence bounds can be computed using, for example, the (fiducial) Clopper–Pearson (CP) approach method, see @ClPe34, @fisher35 and @brown2001.  In the package are implemented, the CP method based on $R_3$, and the asymptotic theory method for the MLE (with $R_2$ known or not). An extensive simulation study is provided in @guerrier2020accurate that compares coverage probabilities with the different approaches.
+The confidence intervals for the conditional MLE and the marginal MLE can be computed using asymptotic theory. They provide good coverage, with small interval length for survey sample sizes from $n=1,000$ [see @guerrier2020accurate]. For the MME, since its finite sample distribution is known through $R_3\sim\mathcal{B}(n,\tau_3(\pi))$, exact confidence bounds can be computed using, for example, the (fiducial) Clopper–Pearson (CP) approach method, see @ClPe34, @fisher35 and @brown2001. In the package are implemented, the CP method based on $R_3$, and the asymptotic theory method for the conditional and marginal MLE (i.e. $R_2$ known or not). An extensive simulation study is provided in @guerrier2020accurate that compares coverage probabilities with the different approaches.
 
-To obtain these estimators, one can use the functions `mle()`, `marginal_mle()` and `moment_estimator()`. Indeed, the MLE can be estimate as follows on the data previously simulated:
+To obtain these estimators, one can use the functions `conditional_mle()`, `marginal_mle()` and `moment_estimator()`. Indeed, the conditional MLE can be estimated as follows on the previously simulated data:
 
 ```{r}
-fit_mle = mle(R1 = R$R1, R2 = R$R2, R3 = R$R3, R4 = R$R4, n = R$n, pi0 = R$pi0,
-              alpha0 = R$alpha0, alpha = R$alpha, 
-              beta0 = R$beta0, beta = R$beta)
-fit_mle
+fit_cmle = conditional_mle(R1 = R$R1, R2 = R$R2, R3 = R$R3, R4 = R$R4, n = R$n, pi0 = R$pi0,
+                           alpha0 = R$alpha0, alpha = R$alpha, 
+                           beta0 = R$beta0, beta = R$beta)
+fit_cmle
 ```
 
-Note that the MLE is based on $R_1$, $R_2$, $R_3$ and $R_4$ while the marginal MLE simply considered the information in $R_1$ and $R_3$. This estimator can be obtained as follows:
+Note that the conditional MLE is based on $R_1$, $R_2$, $R_3$ and $R_4$ while the marginal MLE is based on only $R_1$ and $R_3$. This estimator can be obtained as follows:
 
 ```{r}
 fit_mmle = marginal_mle(R1 = R$R1, R3 = R$R3, n = R$n, pi0 = R$pi0,
@@ -202,11 +205,11 @@ fit_mme = moment_estimator(R3 = R$R3, n = R$n, pi0 = R$pi0,
 fit_mme
 ```
 
-It can be observed that this estimator provides asymtoptic and CP confidence intervals. Finally for comparison purpuses, we implemented the standard sample average estimator which can be obtained as follows:
+It can be observed that the function `moment_estimator()` provides both asymtoptic and CP confidence intervals. Finally for comparison purposes, `cape` package also contains the MLE based on the sample survey, i.e. the sample average estimator, which can be obtained as follows:
 
 ```{r}
-fit_mean = survey_sample(R = R$R, n = R$n, alpha = R$alpha, beta = R$beta)
-fit_mean
+fit_smle = survey_mle(R = R$R, n = R$n, alpha = R$alpha, beta = R$beta)
+fit_smle
 ```
 
 

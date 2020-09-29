@@ -24,15 +24,15 @@
 #' @examples
 #' # Samples without measurement error
 #' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, seed = 18)
-#' survey_sample(R = X$R, n = X$n)
+#' survey_mle(R = X$R, n = X$n)
 #'
 #' # With measurement error
 #' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
 #' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
-#' survey_sample(R = X$R, n = X$n)
-#' survey_sample(R = X$R, n = X$n, alpha = 0.01, beta = 0.05)
+#' survey_mle(R = X$R, n = X$n)
+#' survey_mle(R = X$R, n = X$n, alpha = 0.01, beta = 0.05)
 #' @importFrom stats qbeta qnorm
-survey_sample = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
+survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
   # Compute survey proportion
   pi_bar = R/n
 
@@ -58,7 +58,7 @@ survey_sample = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
 
     # Construct output
     out = list(estimate = pi_bar, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp, gamma = gamma,
-               method = "Survey sample", measurement = c(NA, alpha, NA, beta),
+               method = "Survey MLE", measurement = c(NA, alpha, NA, beta),
                boundary = TRUE,...)
     class(out) = "cpreval"
     return(out)
@@ -104,7 +104,7 @@ survey_sample = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
 #' @author Stephane Guerrier
 #' @examples
 #' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
-#' survey_sample(X$R, X$n)
+#' survey_mle(X$R, X$n)
 print.cpreval = function(x, ...){
   cat("Method: ")
   cat(x$method)
@@ -122,7 +122,7 @@ print.cpreval = function(x, ...){
   cat(sprintf("%.4f", 100*x$ci_asym[1]))
   cat("% - ")
   cat(sprintf("%.4f", 100*x$ci_asym[2]))
-  if (x$method == "Survey sample" || x$method == "Moment Estimator"){
+  if (x$method == "Survey MLE" || x$method == "Moment Estimator"){
     cat("%\n")
     cat("Clopper-Pearson    : ")
     cat(sprintf("%.4f", 100*x$ci_cp[1]))
@@ -131,7 +131,7 @@ print.cpreval = function(x, ...){
   }
   cat("%\n\n")
 
-  if (x$method == "Survey sample"){
+  if (x$method == "Survey MLE"){
     cat("Assumed measurement error: alpha = ")
     cat(100*x$measurement[2])
     cat("%, beta = ")
@@ -308,16 +308,16 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha, beta, alpha0, bet
 #' @examples
 #' # Samples without measurement error
 #' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
-#' mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
+#' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
 #'
 #' # With measurement error
 #' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
 #' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
-#' mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
-#' mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0,
+#' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
+#' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0,
 #' alpha0 = 0.01, alpha = 0.01, beta0 = 0.05, beta = 0.05)
 #' @importFrom stats optimize qnorm
-mle = function(R1, R2, R3, R4, n, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, ...){
+conditional_mle = function(R1, R2, R3, R4, n, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, ...){
   # Find MLE (TODO use closed form when possible)
   R = c(R1, R2, R3, R4)
   eps = 10^(-5)
@@ -359,7 +359,7 @@ mle = function(R1, R2, R3, R4, n, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta
 
   # Construct output
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, gamma = gamma,
-             method = "MLE", measurement = c(alpha0, alpha, beta0, beta), ...)
+             method = "Conditional MLE", measurement = c(alpha0, alpha, beta0, beta), ...)
   class(out) = "cpreval"
   out
 }
@@ -392,7 +392,7 @@ mle = function(R1, R2, R3, R4, n, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta
 #' @examples
 #' # Samples without measurement error
 #' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
-#' mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
+#' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
 #'
 #' # With measurement error
 #' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
