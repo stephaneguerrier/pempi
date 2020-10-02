@@ -8,7 +8,7 @@ status](https://travis-ci.com/stephaneguerrier/cape.svg?branch=master)](https://
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.6.0-6666ff.svg)](https://cran.r-project.org/)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2020--09--29-green.svg)](https://github.com/stephaneguerrier/cape)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2020--10--02-green.svg)](https://github.com/stephaneguerrier/cape)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/stacks)](https://CRAN.R-project.org/package=stacks)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -33,6 +33,10 @@ install.packages("devtools")
 # Install the package from GitHub
 devtools::install_github("stephaneguerrier/cape")
 ```
+
+Note that Windows users are assumed that have Rtools installed (if this
+is not the case, please visit this
+[link](https://cran.r-project.org/bin/windows/Rtools/)).
 
 # How to cite
 

@@ -174,38 +174,41 @@ but systematic sampling (e.g. based on medical selection). Default value is <cod
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Samples without measurement error</span>
 <span class='no'>X</span> <span class='kw'>=</span> <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>30</span>/<span class='fl'>1000</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>10</span>/<span class='fl'>1000</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)
-<span class='fu'>survey_mle</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>)</div><div class='output co'>#&gt; Method: Survey sample
+<span class='fu'>survey_mle</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>)</div><div class='output co'>#&gt; Method: Survey MLE
 #&gt; 
 #&gt; Estimated proportion: 3.4667%
 #&gt; Standard error      : 0.4723%
 #&gt; 
 #&gt; Confidence intervals at the 95% level:
 #&gt; Asymptotic Approach: 2.5409% - 4.3924%
+#&gt; Clopper-Pearson    : 2.5997% - 4.5214%
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = NA%, alpha = 0%, 
-#&gt;                            beta0  = NA%, beta  = 0% </div><div class='input'>
+#&gt; Assumed measurement error: alpha = 0%, beta = 0% 
+#&gt; </div><div class='input'>
 <span class='co'># With measurement error</span>
 <span class='no'>X</span> <span class='kw'>=</span> <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>30</span>/<span class='fl'>1000</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>10</span>/<span class='fl'>1000</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
 <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)
-<span class='fu'>survey_mle</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>)</div><div class='output co'>#&gt; Method: Survey sample
+<span class='fu'>survey_mle</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>)</div><div class='output co'>#&gt; Method: Survey MLE
 #&gt; 
 #&gt; Estimated proportion: 3.4667%
 #&gt; Standard error      : 0.4723%
 #&gt; 
 #&gt; Confidence intervals at the 95% level:
 #&gt; Asymptotic Approach: 2.5409% - 4.3924%
+#&gt; Clopper-Pearson    : 2.5997% - 4.5214%
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = NA%, alpha = 0%, 
-#&gt;                            beta0  = NA%, beta  = 0% </div><div class='input'><span class='fu'>survey_mle</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; Method: Survey sample
+#&gt; Assumed measurement error: alpha = 0%, beta = 0% 
+#&gt; </div><div class='input'><span class='fu'>survey_mle</span>(<span class='kw'>R</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; Method: Survey MLE
 #&gt; 
 #&gt; Estimated proportion: 2.6241%
 #&gt; Standard error      : 0.5025%
 #&gt; 
 #&gt; Confidence intervals at the 95% level:
 #&gt; Asymptotic Approach: 1.6393% - 3.6090%
+#&gt; Clopper-Pearson    : 1.7018% - 3.7462%
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = NA%, alpha = 1%, 
-#&gt;                            beta0  = NA%, beta  = 5% </div></pre>
+#&gt; Assumed measurement error: alpha = 1%, beta = 5% 
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

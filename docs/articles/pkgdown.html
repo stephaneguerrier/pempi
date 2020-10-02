@@ -281,16 +281,16 @@ R_3:= \sum_{i=1}^nY_i(1-W_i)
 <p>It can be observed that the function <code><a href="../reference/moment_estimator.html">moment_estimator()</a></code> provides both asymtoptic and CP confidence intervals. Finally for comparison purposes, <code>cape</code> package also contains the MLE based on the sample survey, i.e. the sample average estimator, which can be obtained as follows:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">fit_smle</span> <span class="kw">=</span> <span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span>(<span class="kw">R</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">n</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">alpha</span>, <span class="kw">beta</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">beta</span>)
 <span class="no">fit_smle</span></pre></body></html></div>
-<pre><code>## Method: Survey sample
+<pre><code>## Method: Survey MLE
 ## 
 ## Estimated proportion: 3.8488%
 ## Standard error      : 0.5652%
 ## 
 ## Confidence intervals at the 95% level:
 ## Asymptotic Approach: 2.7409% - 4.9567%
+## Clopper-Pearson    : 2.7990% - 5.0858%
 ## 
-## Assumed measurement error: alpha0 = NA%, alpha = 1%, 
-##                            beta0  = NA%, beta  = 2%</code></pre>
+## Assumed measurement error: alpha = 1%, beta = 2%</code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">

@@ -50,5 +50,5 @@ survey_mle(R = X$R, n = X$n)
 survey_mle(R = X$R, n = X$n, alpha = 0.01, beta = 0.05)
 }
 \author{
-Stephane Guerrier
+Stephane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics
 }

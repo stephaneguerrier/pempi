@@ -38,6 +38,8 @@ install.packages("devtools")
 devtools::install_github("stephaneguerrier/cape")
 ```
 
+Note that Windows users are assumed that have Rtools installed (if this is not the case, please visit this [link](https://cran.r-project.org/bin/windows/Rtools/)).
+
 # How to cite
 
 ```{}

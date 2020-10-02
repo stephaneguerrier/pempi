@@ -5,11 +5,11 @@
 \title{Compute MLE based on the full information R1, R2, R3 and R4.}
 \usage{
 conditional_mle(
-  R1,
-  R2,
-  R3,
-  R4,
-  n,
+  R1 = NULL,
+  R2 = NULL,
+  R3 = NULL,
+  R4 = NULL,
+  n = R1 + R2 + R3 + R4,
   pi0,
   gamma = 0.05,
   alpha0 = 0,
@@ -28,7 +28,7 @@ conditional_mle(
 
 \item{R4}{A \code{numeric} that provides the number of participants that are tested negative with the second testing device (and are either members of the sub-population and have tested negative with the first testing device or are not members of the sub-population).}
 
-\item{n}{A \code{numeric} that provides the sample size.}
+\item{n}{A \code{numeric} that provides the sample size. Default value R1 + R2 + R3 + R4. If this value is provided it is used to verify that R1 + R2 + R3 + R4 = n.}
 
 \item{pi0}{A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 but systematic sampling (e.g. based on medical selection).}
@@ -63,15 +63,15 @@ Proportion estimated using the MLE and confidence intervals based the asymptotic
 \examples{
 # Samples without measurement error
 X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
-conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
+conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0)
 
 # With measurement error
 X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
 alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
-conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
-conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0,
+conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0)
+conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0,
 alpha0 = 0.01, alpha = 0.01, beta0 = 0.05, beta = 0.05)
 }
 \author{
-Stephane Guerrier
+Stephane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics
 }

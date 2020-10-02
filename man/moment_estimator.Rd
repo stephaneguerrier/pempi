@@ -66,5 +66,5 @@ moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0, alpha0 = 0.01,
 alpha = 0.01, beta0 = 0.05, beta = 0.05)
 }
 \author{
-Stephane Guerrier
+Stephane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics
 }
