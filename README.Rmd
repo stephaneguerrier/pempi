@@ -60,6 +60,8 @@ A Graphical User Interface (GUI) is available with the `cape` R package. This GU
 gui()
 ```
 
+![](https://i.imgur.com/Zq2rg6G.gif)
+
 It allows to compare the methods considered in the package as illustrated below: 
 
 ![](https://i.imgur.com/dxuTnHy.gif)

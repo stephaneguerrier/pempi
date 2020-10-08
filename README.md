@@ -57,6 +57,8 @@ This GUI which can be lauched as follows:
 gui()
 ```
 
+![](https://i.imgur.com/Zq2rg6G.gif)
+
 It allows to compare the methods considered in the package as
 illustrated below:
 
