@@ -41,7 +41,7 @@ is not the case, please visit this
 # How to cite
 
     @Manual{guerrier2020cape,
-        title = {{cape}: Conditional Prevalence Estimation for Emerging Infectious Diseases},
+        title = {{cape}: Conditional Prevalence Estimation using Random and Non-Random Sample Information},
         author = {Guerrier, S and Kuzmics, C and Victoria-Feser, M.-P.},
         year = {2020},
         note = {R package},
@@ -57,12 +57,10 @@ This GUI which can be lauched as follows:
 gui()
 ```
 
-![](https://i.imgur.com/Zq2rg6G.gif)
-
 It allows to compare the methods considered in the package as
 illustrated below:
 
-![](https://i.imgur.com/dxuTnHy.gif)
+![](https://i.imgur.com/k0UrJMC.gif)
 
 # License
 

@@ -44,7 +44,7 @@ Note that Windows users are assumed that have Rtools installed (if this is not t
 
 ```{}
 @Manual{guerrier2020cape,
-    title = {{cape}: Conditional Prevalence Estimation for Emerging Infectious Diseases},
+    title = {{cape}: Conditional Prevalence Estimation using Random and Non-Random Sample Information},
     author = {Guerrier, S and Kuzmics, C and Victoria-Feser, M.-P.},
     year = {2020},
     note = {R package},
@@ -60,11 +60,9 @@ A Graphical User Interface (GUI) is available with the `cape` R package. This GU
 gui()
 ```
 
-![](https://i.imgur.com/Zq2rg6G.gif)
-
 It allows to compare the methods considered in the package as illustrated below: 
 
-![](https://i.imgur.com/dxuTnHy.gif)
+![](https://i.imgur.com/k0UrJMC.gif)
 
 # License
 
