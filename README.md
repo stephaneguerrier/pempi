@@ -8,7 +8,7 @@ status](https://travis-ci.com/stephaneguerrier/cape.svg?branch=master)](https://
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.6.0-6666ff.svg)](https://cran.r-project.org/)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2020--10--02-green.svg)](https://github.com/stephaneguerrier/cape)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2020--10--08-green.svg)](https://github.com/stephaneguerrier/cape)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/stacks)](https://CRAN.R-project.org/package=stacks)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -47,6 +47,20 @@ is not the case, please visit this
         note = {R package},
         url = {https://github.com/stephaneguerrier/cape}
     }
+
+# Graphical user interface
+
+A Graphical User Interface (GUI) is available with the `cape` R package.
+This GUI which can be lauched as follows:
+
+``` r
+gui()
+```
+
+It allows to compare the methods considered in the package as
+illustrated below:
+
+![](https://i.imgur.com/dxuTnHy.gif)
 
 # License
 

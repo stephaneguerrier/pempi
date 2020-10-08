@@ -52,6 +52,18 @@ Note that Windows users are assumed that have Rtools installed (if this is not t
 }
 ```
 
+# Graphical user interface
+
+A Graphical User Interface (GUI) is available with the `cape` R package. This GUI which can be lauched as follows:
+
+```{r, eval = FALSE}
+gui()
+```
+
+It allows to compare the methods considered in the package as illustrated below: 
+
+![](https://i.imgur.com/dxuTnHy.gif)
+
 # License
 
 The license this source code is released under is the GNU AFFERO GENERAL PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text. Otherwise, please consult [TLDR Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)) or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will provide a synopsis of the restrictions placed upon the code.
