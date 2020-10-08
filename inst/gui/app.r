@@ -1,15 +1,6 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-library(shiny)
-library(shinythemes)
-library(DT)
-# Define UI for application that draws a histogram
+#library(shiny)
+#library(shinythemes)
+#library(DT)
 ui <- fluidPage(
   theme = shinytheme("cerulean"),
   withMathJax(),
@@ -21,19 +12,27 @@ ui <- fluidPage(
       h4("Entre Data:"),
       numericInput("R1",
                    withMathJax('\\(R_1 = \\)'),
-                   value = 30),
+                   value = 30,
+                   min = 0),
       numericInput("R2",
                    withMathJax('\\(R_2 = \\)'),
-                   value = 0),
+                   value = 0,
+                   min = 0),
       numericInput("R3",
                    withMathJax('\\(R_3 = \\)'),
-                   value = 10),
+                   value = 10,
+                   min = 0),
       numericInput("R4",
                    withMathJax('\\(R_4 = \\)'),
-                   value = 960),
+                   value = 960,
+                   min = 0),
       numericInput("pi0",
                    withMathJax('\\(\\pi_0 = \\)'),
-                   value = 0.01),
+                   value = 0.01,
+                   min = 0,
+                   max = 1),
+
+
       HTML("<br>"),
       h4("Summary Tab"),
       selectInput("select", "Select Estimator",
@@ -41,21 +40,32 @@ ui <- fluidPage(
                                  "Method of Moments" = 3, "Survey MLE" = 4), selected = 1),
       numericInput("gamma",
                    withMathJax('\\(\\gamma = \\)'),
-                   value = 0.05),
+                   value = 0.05,
+                   min = 0,
+                   max = 0.5),
+
       HTML("<br>"),
       h4("Misclassification error:"),
       numericInput("alpha0",
                    withMathJax('\\(\\alpha_0 = \\)'),
-                   value = 0),
+                   value = 0,
+                   min = 0,
+                   max = 0.5),
       numericInput("alpha",
                    withMathJax('\\(\\alpha = \\)'),
-                   value = 0),
+                   value = 0,
+                   min = 0,
+                   max = 0.5),
       numericInput("beta0",
                    withMathJax('\\(\\beta_0 = \\)'),
-                   value = 0),
+                   value = 0,
+                   min = 0,
+                   max = 0.5),
       numericInput("beta",
                    withMathJax('\\(\\beta = \\)'),
-                   value = 0)
+                   value = 0,
+                   min = 0,
+                   max = 0.5)
     ),
     # Show a plot of the generated distribution
     mainPanel(
@@ -69,18 +79,30 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   output$plot <- renderPlot({
-    cmle80 = conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = 0.2)
-    cmle95 = conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = 0.05)
-    cmle99 = conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = 0.01)
-    mmle80 = marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.2)
-    mmle95 = marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.05)
-    mmle99 = marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.01)
-    mom80 = moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.2)
-    mom95 = moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.05)
-    mom99 = moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.01)
-    sur80 = survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = 0.2)
-    sur95 = survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = 0.05)
-    sur99 = survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = 0.01)
+    cmle80 = conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = 0.2,
+                             alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    cmle95 = conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = 0.05,
+                             alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    cmle99 = conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = 0.01,
+                             alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    mmle80 = marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.2,
+                          alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    mmle95 = marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.05,
+                          alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    mmle99 = marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.01,
+                          alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    mom80 = moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.2,
+                             alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    mom95 = moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.05,
+                             alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    mom99 = moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = 0.01,
+                             alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    sur80 = survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = 0.2,
+                       alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    sur95 = survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = 0.05,
+                       alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    sur99 = survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = 0.01,
+                       alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
     cols = c("#adc2eb", "#7094db", "#2e5cb8", "#e68a00")
     cmle = c(cmle80$estimate, cmle80$ci_asym, cmle95$ci_asym, cmle99$ci_asym)
     mmle = c(mmle80$estimate, mmle80$ci_asym, mmle95$ci_asym, mmle99$ci_asym)
@@ -116,24 +138,32 @@ server <- function(input, output) {
   }, height = 500, width = 600)
   output$summary <- renderPrint({
     if (input$select == 1){
-      conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = input$gamma)
+      conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = input$gamma,
+                      alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
     }else{
       if (input$select == 2){
-        marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = input$gamma)
+        marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = input$gamma,
+                     alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
       }else{
         if (input$select == 3){
-          moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = input$gamma)
+          moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = input$gamma,
+                           alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
         }else{
-          survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = input$gamma)
+          survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = input$gamma,
+                     alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
         }
       }
     }
   })
   output$table <- DT::renderDataTable(DT::datatable({
-    cmle = conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = input$gamma)
-    mmle = marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = input$gamma)
-    mom = moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = input$gamma)
-    sur = survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = input$gamma)
+    cmle = conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = input$gamma,
+                           alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    mmle = marginal_mle(R1 = input$R1, R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = input$gamma,
+                        alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    mom = moment_estimator(R3 = input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, pi0 = input$pi0, gamma = input$gamma,
+                           alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
+    sur = survey_mle(R = input$R1 + input$R3, n = input$R1 + input$R2 + input$R3 + input$R4, gamma = input$gamma,
+                     alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta, beta0 = input$beta0)
     cmle = c(cmle$estimate, cmle$ci_asym)
     mmle = c(mmle$estimate, mmle$ci_asym)
     mom_asy = c(mom$estimate, mom$ci_asym)
