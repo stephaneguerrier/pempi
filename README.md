@@ -17,10 +17,10 @@ status](https://www.r-pkg.org/badges/version/stacks)](https://CRAN.R-project.org
 # `cape` Overview
 
 This R package provides an implementation of the ContionAl Prevalence
-Estimation (or `cape`) apporach proposed in *Accurate Prevalence
-Estimation for Emerging or Rare Infectious Diseases* by Stéphane
-Guerrier, Christoph Kuzmics and Maria-Pia Victoria-Feser (submitted
-manuscript available upon request).
+Estimation (or `cape`) approach proposed in *Prevalence Estimation using
+Random and Non-Random Sample Information* by Stéphane Guerrier,
+Christoph Kuzmics and Maria-Pia Victoria-Feser (submitted manuscript
+available upon request).
 
 # Package installation
 
