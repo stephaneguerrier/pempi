@@ -15,9 +15,10 @@
 #'  \item sd:          Estimated standard error of the estimator.
 #'  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
 #'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
-#'  \item method:      Estimation method (in this case sample survey)
-#'  \item measurement: A vector with (alpha0, alpha, beta0, beta)
-#'  \item ...:         Additional parameters
+#'  \item method:      Estimation method (in this case sample survey).
+#'  \item measurement: A vector with (alpha0, alpha, beta).
+#'  \item beta0        Estimated false negative rate of the official procedure.
+#'  \item ...:         Additional parameters.
 #' }
 #' @export
 #' @author Stephane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics
@@ -27,8 +28,7 @@
 #' survey_mle(R = X$R, n = X$n)
 #'
 #' # With measurement error
-#' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
-#' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
+#' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha = 0.01, beta = 0.05, seed = 18)
 #' survey_mle(R = X$R, n = X$n)
 #' survey_mle(R = X$R, n = X$n, alpha = 0.01, beta = 0.05)
 #' @importFrom stats qbeta qnorm
@@ -113,7 +113,7 @@ survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
 
   # Construct output
   out = list(estimate = pi_bar, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp, gamma = gamma,
-             method = "Survey MLE", measurement = c(NA, alpha, NA, beta))
+             method = "Survey MLE", measurement = c(NA, alpha, beta), beta0 = NA)
   class(out) = "cpreval"
   out
 }
@@ -160,19 +160,22 @@ print.cpreval = function(x, ...){
     cat("Assumed measurement error: alpha = ")
     cat(100*x$measurement[2])
     cat("%, beta = ")
-    cat(100*x$measurement[4])
-    cat("% \n\n")
-  }else{
-    cat("Assumed measurement error: alpha0 = ")
-    cat(100*x$measurement[1])
-    cat("%, alpha = ")
-    cat(100*x$measurement[2])
-    cat("%, \n")
-    cat("                           beta0  = ")
     cat(100*x$measurement[3])
-    cat("%, beta  = ")
-    cat(100*x$measurement[4])
     cat("% \n")
+  }else{
+    cat("Assumed measurement error: alpha  = ")
+    cat(100*x$measurement[2])
+    cat("%, beta = ")
+    cat(100*x$measurement[3])
+    cat("%,\n")
+    cat("                           alpha0 = ")
+    cat(100*x$measurement[1])
+    cat("% \n\n")
+
+    cat("Estimated false negative rate of the\n")
+    cat("official procedure: beta0 = ")
+    cat(round(100*x$beta0,4))
+    cat("%\n")
   }
 }
 
@@ -183,9 +186,10 @@ print.cpreval = function(x, ...){
 #' @param n         A \code{numeric} that provides the sample size.
 #' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 #' but systematic sampling (e.g. based on medical selection).
-#' @param alpha0    A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.
+#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero. Default value is \code{0}.
 #' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
-#' @param beta0     A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.
 #' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
 #' @param gamma     A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
 #' @param ...       Additional arguments.
@@ -196,9 +200,10 @@ print.cpreval = function(x, ...){
 #'  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
 #'  \item ci_cp:       Confidence interval (1 - gamma confidence level) based on the Clopper-Pearson approach.
 #'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
-#'  \item method:      Estimation method (in this case moment estimator)
-#'  \item measurement: A vector with (alpha0, alpha, beta0, beta)
-#'  \item ...:         Additional parameters
+#'  \item method:      Estimation method (in this case moment estimator).
+#'  \item measurement: A vector with (alpha0, alpha, beta).
+#'  \item beta0        Estimated false negative rate of the official procedure.
+#'  \item ...:         Additional parameters.
 #' }
 #' @export
 #' @author Stephane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics
@@ -208,16 +213,20 @@ print.cpreval = function(x, ...){
 #' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0)
 #'
 #' # With measurement error
-#' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01,
-#' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
+#' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.001,
+#' alpha = 0.01, beta = 0.05, seed = 18)
 #' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0)
-#' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0, alpha0 = 0.01,
-#' alpha = 0.01, beta0 = 0.05, beta = 0.05)
+#' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0, alpha0 = 0.001,
+#' alpha = 0.01, beta = 0.05)
 #' @importFrom stats qbeta qnorm
-moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, beta0 = 0, ...){
+moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, ...){
   # Check inputs
   if (R3%%1!=0 || R3 < 0){
     stop("R3 should be non-negative integer.")
+  }
+
+  if (alpha0 > pi0){
+    stop("The inputs pi0 and alpha0 must be such that alpha0 <= pi0.")
   }
 
   if (n%%1!=0 || n < 0){
@@ -236,8 +245,8 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
     stop("alpha and beta should be such that: (i) 0 <= alpha < 1, (ii) 0 <= beta < 1, (iii) alpha + beta < 1.")
   }
 
-  if (alpha0 < 0 || alpha0 >= 1 || beta0 < 0 || beta0 >= 1 || alpha0 + beta0 > 1){
-    stop("alpha and beta should be such that: (i) 0 <= alpha0 < 1, (ii) 0 <= beta0 < 1, (iii) alpha0 + beta0 < 1.")
+  if (alpha0 < 0 || alpha0 >= 1){
+    stop("alpha0 should be close to 0 and such that: 0 <= alpha0 < 1.")
   }
 
   if (gamma < 0 || gamma > 1){
@@ -245,6 +254,7 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   }
 
   # Compute point estimate
+  beta0 = 0 # This is not used (TO DO remove beta0 here)
   Delta = 1 - alpha - beta
   Delta0 = 1 - alpha0 - beta0
   pi0_star = (pi0 - alpha0)/Delta0
@@ -252,7 +262,8 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
 
   # Asymptotic CI (1-gamma)
   probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha,
-                   beta = beta, alpha0 = alpha0, beta0 = beta0)
+                   beta = beta, alpha0 = alpha0)
+
   sd = sqrt((probs[3]*(1 - probs[3]))/(n*Delta^2*(1 - alpha0)^2))
   ci_asym = estimate + qnorm(1 - gamma/2)*c(-1,1)*sd
 
@@ -270,9 +281,12 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   }
   ci_cp = c(lower, upper)
 
+  # Compute estimated false negative rate of the official procedure
+  beta0 = 1 - (pi0 - alpha0*(1 - estimate))/estimate
+
   # Construct output
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp, gamma = gamma,
-             method = "Moment Estimator", measurement = c(alpha0, alpha, beta0, beta))
+             method = "Moment Estimator", measurement = c(alpha0, alpha, beta), beta0 = beta0)
   class(out) = "cpreval"
   out
 }
@@ -298,15 +312,16 @@ log_modified = function(x){
 #' @param n         A \code{numeric} that provides the sample size.
 #' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 #' but systematic sampling (e.g. based on medical selection).
-#' @param alpha0    A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.
-#' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
-#' @param beta0     A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.
-#' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
+#' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R.
+#' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R.
+#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero.
 #' @param ...       Additional arguments.
 #' @return Negative log-likelihood.
 #' @author Stephane Guerrier
-neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0, ...){
-  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)
+neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, ...){
+  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + Rvect[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + Rvect[4]/n*log_modified(probs[4]))
 }
 
@@ -318,15 +333,16 @@ neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0, ...){
 #' @param n         A \code{numeric} that provides the sample size.
 #' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 #' but systematic sampling (e.g. based on medical selection).
-#' @param alpha0    A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.
-#' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
-#' @param beta0     A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.
-#' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
+#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero.
+#' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R.
+#' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R.
 #' @param ...       Additional arguments.
 #' @return Negative marginalized log-likelihood.
 #' @author Stephane Guerrier
-neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0, ...){
-  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)
+neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha0, alpha, beta, ...){
+  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + probs[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + (n - Rvect[1] - Rvect[3] - probs[2])/n*log_modified(probs[4]))
 }
 
@@ -341,9 +357,10 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha, beta, alpha0, bet
 #' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 #' but systematic sampling (e.g. based on medical selection).
 #' @param gamma     A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
-#' @param alpha0    A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.
+#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero. Default value is \code{0}.
 #' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
-#' @param beta0     A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.
 #' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
 #' @param ...       Additional arguments.
 #' @return A \code{cpreval} object with the structure:
@@ -352,9 +369,10 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha, beta, alpha0, bet
 #'  \item sd:          Estimated standard error of the estimator.
 #'  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
 #'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
-#'  \item method:      Estimation method (in this case mle)
-#'  \item measurement: A vector with (alpha0, alpha, beta0, beta)
-#'  \item ...:         Additional parameters
+#'  \item method:      Estimation method (in this case mle).
+#'  \item measurement: A vector with (alpha0, alpha, beta).
+#'  \item beta0:       Estimated false negative rate of the official procedure.
+#'  \item ...:         Additional parameters.
 #' }
 #' @export
 #' @author Stephane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics
@@ -364,17 +382,21 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha, beta, alpha0, bet
 #' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0)
 #'
 #' # With measurement error
-#' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
+#' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.001,
 #' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
 #' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0)
 #' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0,
-#' alpha0 = 0.01, alpha = 0.01, beta0 = 0.05, beta = 0.05)
+#' alpha0 = 0.001, alpha = 0.01, beta = 0.05)
 #' @importFrom stats optimize qnorm
-conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + R2 + R3 + R4, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, ...){
+conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + R2 + R3 + R4, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta = 0, ...){
   # Check inputs
   if (is.null(R1) + is.null(R2) + is.null(R3) + is.null(R4) == 1 && length(n) == 0){
     if (is.null(R1)){
       stop("R1 is missing.")
+    }
+
+    if (alpha0 > pi0){
+      stop("The inputs pi0 and alpha0 must be such that alpha0 <= pi0.")
     }
 
     if (is.null(R2)){
@@ -444,8 +466,8 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
     stop("alpha and beta should be such that: (i) 0 <= alpha < 1, (ii) 0 <= beta < 1, (iii) alpha + beta < 1.")
   }
 
-  if (alpha0 < 0 || alpha0 >= 1 || beta0 < 0 || beta0 >= 1 || alpha0 + beta0 > 1){
-    stop("alpha and beta should be such that: (i) 0 <= alpha0 < 1, (ii) 0 <= beta0 < 1, (iii) alpha0 + beta0 < 1.")
+  if (alpha0 < 0 || alpha0 >= 1){
+    stop("alpha0 should be close to 0 and such that 0 <= alpha0 < 1.")
   }
 
   if (gamma < 0 || gamma > 1){
@@ -455,12 +477,13 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
   # Find MLE (TODO use closed form when possible)
   R = c(R1, R2, R3, R4)
   eps = 10^(-5)
-  estimate = optimize(neg_log_lik, interval = c(pi0 + eps, 1 - eps), R = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)$minimum
+  estimate = optimize(neg_log_lik, interval = c(pi0 + eps, 1 - eps), R = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
 
   # Compute implied probs
-  probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)
+  probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
 
   # Deltas
+  beta0 = 0 # This is not used (TO DO remove beta0 here)
   Delta = 1 - alpha - beta
   Delta0 = 1 - alpha0 - beta0
 
@@ -491,9 +514,12 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
   sd = sqrt(mle_var)
   ci_asym = estimate + qnorm(1 - gamma/2)*c(-1,1)*sd
 
+  # Compute estimated false negative rate of the official procedure
+  beta0 = 1 - (pi0 - alpha0*(1 - estimate))/estimate
+
   # Construct output
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, gamma = gamma,
-             method = "Conditional MLE", measurement = c(alpha0, alpha, beta0, beta), ...)
+             method = "Conditional MLE", measurement = c(alpha0, alpha, beta), beta0 = beta0, ...)
   class(out) = "cpreval"
   out
 }
@@ -506,9 +532,10 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 #' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 #' but systematic sampling (e.g. based on medical selection).
 #' @param gamma     A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
-#' @param alpha0    A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.
+#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero. Default value is \code{0}.
 #' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
-#' @param beta0     A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.
 #' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
 #' @param ...       Additional arguments.
 #' @return A \code{cpreval} object with the structure:
@@ -517,8 +544,9 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 #'  \item sd:          Estimated standard error of the estimator.
 #'  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
 #'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
-#'  \item method:      Estimation method (in this case marginal mle)
-#'  \item measurement: A vector with (alpha0, alpha, beta0, beta)
+#'  \item method:      Estimation method (in this case marginal mle).
+#'  \item measurement: A vector with (alpha0, alpha, beta).
+#'  \item beta0:       Estimated false negative rate of the official procedure.
 #'  \item ...:         Additional parameters
 #' }
 #' @export
@@ -529,16 +557,20 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 #' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, n = X$n, pi0 = X$pi0)
 #'
 #' # With measurement error
-#' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
+#' X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.001,
 #' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
 #' marginal_mle(R1 = X$R1, R3 = X$R3, n = X$n, pi0 = X$pi0)
 #' marginal_mle(R1 = X$R1, R3 = X$R3, n = X$n, pi0 = X$pi0,
-#' alpha0 = 0.01, alpha = 0.01, beta0 = 0.05, beta = 0.05)
+#' alpha0 = 0.001, alpha = 0.01, beta0 = 0.05, beta = 0.05)
 #' @importFrom stats optimize
-marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, beta0 = 0, ...){
+marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, ...){
   # Check inputs
   if (R1%%1!=0 || R1 < 0){
     stop("R1 should be non-negative integer.")
+  }
+
+  if (alpha0 > pi0){
+    stop("The inputs pi0 and alpha0 must be such that alpha0 <= pi0.")
   }
 
   if (R3%%1!=0 || R3 < 0){
@@ -561,8 +593,8 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
     stop("alpha and beta should be such that: (i) 0 <= alpha < 1, (ii) 0 <= beta < 1, (iii) alpha + beta < 1.")
   }
 
-  if (alpha0 < 0 || alpha0 >= 1 || beta0 < 0 || beta0 >= 1 || alpha0 + beta0 > 1){
-    stop("alpha and beta should be such that: (i) 0 <= alpha0 < 1, (ii) 0 <= beta0 < 1, (iii) alpha0 + beta0 < 1.")
+  if (alpha0 < 0 || alpha0 >= 1){
+    stop("alpha0 should be close to 0 and such that 0 <= alpha0 < 1.")
   }
 
   if (gamma < 0 || gamma > 1){
@@ -572,12 +604,13 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   # Compute MLE (TODO use closed form when possible)
   R = c(R1, NA, R3, NA)
   eps = 10^(-5)
-  estimate = optimize(neg_log_lik_integrated, interval = c(pi0 + eps, 1 - eps), R = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)$minimum
+  estimate = optimize(neg_log_lik_integrated, interval = c(pi0 + eps, 1 - eps), R = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
 
   # Compute probs
-  probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)
+  probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
 
   # Deltas
+  beta0 = 0 # This is not used (TO DO remove beta0 here)
   Delta = 1 - alpha - beta
   Delta0 = 1 - alpha0 - beta0
 
@@ -612,9 +645,12 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   sd = sqrt(mle_var)
   ci_asym = estimate + qnorm(1 - gamma/2)*c(-1,1)*sd
 
+  # Compute estimated false negative rate of the official procedure
+  beta0 = 1 - (pi0 - alpha0*(1 - estimate))/estimate
+
   # Construct output
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, gamma = gamma,
-             method = "Marginal MLE", measurement = c(alpha0, alpha, beta0, beta), ...)
+             method = "Marginal MLE", measurement = c(alpha0, alpha, beta), beta0 = beta0, ...)
   class(out) = "cpreval"
   out
 }

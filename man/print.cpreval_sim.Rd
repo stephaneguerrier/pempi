@@ -23,7 +23,7 @@ sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
 
 # With measurement error
 sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01,
-alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
+alpha = 0.01, beta = 0.05, seed = 18)
 }
 \author{
 Stephane Guerrier

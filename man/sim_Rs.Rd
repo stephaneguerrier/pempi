@@ -4,17 +4,7 @@
 \alias{sim_Rs}
 \title{Simulate data (R, R0, R1, R2, R3 and R4)}
 \usage{
-sim_Rs(
-  theta,
-  pi0,
-  n,
-  alpha0 = 0,
-  alpha = 0,
-  beta0 = 0,
-  beta = 0,
-  seed = NULL,
-  ...
-)
+sim_Rs(theta, pi0, n, alpha0 = 0, alpha = 0, beta = 0, seed = NULL, ...)
 }
 \arguments{
 \item{theta}{A \code{numeric} that provides the true prevalence of a given disease.}
@@ -24,11 +14,11 @@ but systematic sampling (e.g. based on medical selection).}
 
 \item{n}{A \code{numeric} that corresponds to the sample size.}
 
-\item{alpha0}{A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.}
+\item{alpha0}{A \code{numeric} that corresponds to the probability that a random participant
+has been incorrectly declared positive through the nontransparent procedure. In most applications,
+this probability is likely very close to zero. Default value is \code{0}.}
 
 \item{alpha}{A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.}
-
-\item{beta0}{A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.}
 
 \item{beta}{A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.}
 
@@ -48,8 +38,7 @@ A \code{cpreval_sim} object (\code{list}) with the structure:
 \item n:      the sample size.
 \item alpha:  the False Negative (FN) rate for the sample R.
 \item beta:   the False Positive (FP) rate for the sample R.
-\item alpha0: the False Negative (FN) rate for the sample R0.
-\item beta0   the False Positive (FP) rate for the sample R0.
+\item alpha0: the alpha0 probability (as defined above).
 \item ...:    additional arguments.
 }
 }
@@ -61,8 +50,8 @@ Simulation function for random variables of interest.
 sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
 
 # With measurement error
-sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01,
-alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
+sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0,
+alpha = 0.01, beta = 0.05, seed = 18)
 }
 \author{
 Stephane Guerrier

@@ -8,7 +8,7 @@ Authors@R: c(
     person("Stéphane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
     person("Maria-Pia", "Victoria-Feser", role = c("aut")),
     person("Christoph", "Kuzmics", role = c("aut")),
-     person("Mucyo", "Karemera", role = c("aut"))
+    person("Mucyo", "Karemera", role = c("aut"))
     )
 Maintainer: Stéphane Guerrier <stef.guerrier@gmail.com>
 Description: A system contains easy-to-use tools for the contional estimation of the prevalence of an emerging or rare infectious diseases.

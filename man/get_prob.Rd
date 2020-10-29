@@ -4,7 +4,7 @@
 \alias{get_prob}
 \title{Compute sucess probabilities (tau_j's)}
 \usage{
-get_prob(theta, pi0, alpha, beta, alpha0, beta0)
+get_prob(theta, pi0, alpha, beta, alpha0)
 }
 \arguments{
 \item{theta}{A \code{numeric} that provides the true prevalence of a given disease.}
@@ -16,9 +16,9 @@ but systematic sampling (e.g. based on medical selection).}
 
 \item{beta}{A \code{numeric} that provides the False Positive (FP) rate for the sample R.}
 
-\item{alpha0}{A \code{numeric} that provides the False Negative (FN) rate for the sample R0.}
-
-\item{beta0}{A \code{numeric} that provides the False Positive (FP) rate for the sample R0.}
+\item{alpha0}{A \code{numeric} that corresponds to the probability that a random participant
+has been incorrectly declared positive through the nontransparent procedure. In most applications,
+this probability is likely very close to zero.}
 }
 \value{
 A \code{vector} containing tau1, tau2, tau3 and tau4.
@@ -27,11 +27,11 @@ A \code{vector} containing tau1, tau2, tau3 and tau4.
 Compute joint probabilities of P(W = j, Y = k) for j, k = 0, 1.
 }
 \examples{
-prob1 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0, beta = 0, alpha0 = 0, beta0 = 0)
+prob1 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0, beta = 0, alpha0 = 0)
 prob1
 sum(prob1)
 
-prob2 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0.001, beta = 0, alpha0 = 0.001, beta0 = 0)
+prob2 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0.001, beta = 0, alpha0 = 0.001)
 prob2
 sum(prob2)
 }

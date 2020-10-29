@@ -29,9 +29,10 @@ A \code{cpreval} object with the structure:
  \item sd:          Estimated standard error of the estimator.
  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
- \item method:      Estimation method (in this case sample survey)
- \item measurement: A vector with (alpha0, alpha, beta0, beta)
- \item ...:         Additional parameters
+ \item method:      Estimation method (in this case sample survey).
+ \item measurement: A vector with (alpha0, alpha, beta).
+ \item beta0        Estimated false negative rate of the official procedure.
+ \item ...:         Additional parameters.
 }
 }
 \description{
@@ -44,8 +45,7 @@ X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, seed = 18)
 survey_mle(R = X$R, n = X$n)
 
 # With measurement error
-X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
-alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
+X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha = 0.01, beta = 0.05, seed = 18)
 survey_mle(R = X$R, n = X$n)
 survey_mle(R = X$R, n = X$n, alpha = 0.01, beta = 0.05)
 }

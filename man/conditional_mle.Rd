@@ -14,7 +14,6 @@ conditional_mle(
   gamma = 0.05,
   alpha0 = 0,
   alpha = 0,
-  beta0 = 0,
   beta = 0,
   ...
 )
@@ -35,11 +34,11 @@ but systematic sampling (e.g. based on medical selection).}
 
 \item{gamma}{A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.}
 
-\item{alpha0}{A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.}
+\item{alpha0}{A \code{numeric} that corresponds to the probability that a random participant
+has been incorrectly declared positive through the nontransparent procedure. In most applications,
+this probability is likely very close to zero. Default value is \code{0}.}
 
 \item{alpha}{A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.}
-
-\item{beta0}{A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.}
 
 \item{beta}{A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.}
 
@@ -52,9 +51,10 @@ A \code{cpreval} object with the structure:
  \item sd:          Estimated standard error of the estimator.
  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
- \item method:      Estimation method (in this case mle)
- \item measurement: A vector with (alpha0, alpha, beta0, beta)
- \item ...:         Additional parameters
+ \item method:      Estimation method (in this case mle).
+ \item measurement: A vector with (alpha0, alpha, beta).
+ \item beta0:       Estimated false negative rate of the official procedure.
+ \item ...:         Additional parameters.
 }
 }
 \description{
@@ -66,11 +66,11 @@ X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
 conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0)
 
 # With measurement error
-X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.01,
+X = sim_Rs(theta = 30/1000, pi0 = 10/1000, n = 1500, alpha0 = 0.001,
 alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
 conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0)
 conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0,
-alpha0 = 0.01, alpha = 0.01, beta0 = 0.05, beta = 0.05)
+alpha0 = 0.001, alpha = 0.01, beta = 0.05)
 }
 \author{
 Stephane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics

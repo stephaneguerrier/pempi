@@ -4,7 +4,7 @@
 \alias{neg_log_lik_integrated}
 \title{Negative marginalized log-likelihood function based on R0 and R}
 \usage{
-neg_log_lik_integrated(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0, ...)
+neg_log_lik_integrated(theta, Rvect, n, pi0, alpha0, alpha, beta, ...)
 }
 \arguments{
 \item{theta}{A \code{numeric} value for the paramerer of interest.}
@@ -16,13 +16,13 @@ neg_log_lik_integrated(theta, Rvect, n, pi0, alpha, beta, alpha0, beta0, ...)
 \item{pi0}{A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 but systematic sampling (e.g. based on medical selection).}
 
-\item{alpha}{A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.}
+\item{alpha0}{A \code{numeric} that corresponds to the probability that a random participant
+has been incorrectly declared positive through the nontransparent procedure. In most applications,
+this probability is likely very close to zero.}
 
-\item{beta}{A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.}
+\item{alpha}{A \code{numeric} that provides the False Negative (FN) rate for the sample R.}
 
-\item{alpha0}{A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.}
-
-\item{beta0}{A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.}
+\item{beta}{A \code{numeric} that provides the False Positive (FP) rate for the sample R.}
 
 \item{...}{Additional arguments.}
 }

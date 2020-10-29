@@ -5,20 +5,22 @@
 #' but systematic sampling (e.g. based on medical selection).
 #' @param alpha        A \code{numeric} that provides the False Negative (FN) rate for the sample R.
 #' @param beta         A \code{numeric} that provides the False Positive (FP) rate for the sample R.
-#' @param alpha0       A \code{numeric} that provides the False Negative (FN) rate for the sample R0.
-#' @param beta0        A \code{numeric} that provides the False Positive (FP) rate for the sample R0.
+#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero.
 #' @return A \code{vector} containing tau1, tau2, tau3 and tau4.
 #' @export
 #' @author Stephane Guerrier
 #' @examples
-#' prob1 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0, beta = 0, alpha0 = 0, beta0 = 0)
+#' prob1 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0, beta = 0, alpha0 = 0)
 #' prob1
 #' sum(prob1)
 #'
-#' prob2 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0.001, beta = 0, alpha0 = 0.001, beta0 = 0)
+#' prob2 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0.001, beta = 0, alpha0 = 0.001)
 #' prob2
 #' sum(prob2)
-get_prob = function(theta, pi0, alpha, beta, alpha0, beta0){
+get_prob = function(theta, pi0, alpha, beta, alpha0){
+  beta0 = 1 - (pi0 - alpha0*(1 - theta))/theta
   Delta = 1 - alpha - beta
   Delta0 = 1 - alpha0 - beta0
   pi0_star = (pi0 - alpha0)/Delta0
@@ -40,8 +42,9 @@ get_prob = function(theta, pi0, alpha, beta, alpha0, beta0){
 #' @param n            A \code{numeric} that corresponds to the sample size.
 #' @param alpha        A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
 #' @param beta         A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
-#' @param alpha0       A \code{numeric} that provides the False Negative (FN) rate for the sample R0. Default value is \code{0}.
-#' @param beta0        A \code{numeric} that provides the False Positive (FP) rate for the sample R0. Default value is \code{0}.
+#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero. Default value is \code{0}.
 #' @param seed         A \code{numeric} that provides the simulation seed. Default value is \code{NULL}.
 #' @param ...          Additional arguments.
 #' @return A \code{cpreval_sim} object (\code{list}) with the structure:
@@ -55,8 +58,7 @@ get_prob = function(theta, pi0, alpha, beta, alpha0, beta0){
 #' \item n:      the sample size.
 #' \item alpha:  the False Negative (FN) rate for the sample R.
 #' \item beta:   the False Positive (FP) rate for the sample R.
-#' \item alpha0: the False Negative (FN) rate for the sample R0.
-#' \item beta0   the False Positive (FP) rate for the sample R0.
+#' \item alpha0: the alpha0 probability (as defined above).
 #' \item ...:    additional arguments.
 #' }
 #' @export
@@ -66,10 +68,10 @@ get_prob = function(theta, pi0, alpha, beta, alpha0, beta0){
 #' sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
 #'
 #' # With measurement error
-#' sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01,
-#' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
+#' sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0,
+#' alpha = 0.01, beta = 0.05, seed = 18)
 #' @importFrom stats rmultinom
-sim_Rs = function(theta, pi0, n, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, seed = NULL, ...){
+sim_Rs = function(theta, pi0, n, alpha0 = 0, alpha = 0, beta = 0, seed = NULL, ...){
   # Simulation seed
   if (!is.null(seed)){
     set.seed(seed)
@@ -80,8 +82,12 @@ sim_Rs = function(theta, pi0, n, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, see
     stop("The input n must be an integer.")
   }
 
+  if (alpha0 > pi0){
+    stop("The inputs pi0 and alpha0 must be such that alpha0 <= pi0.")
+  }
+
   if (min(theta, pi0) <= 0 || max(theta, pi0) >= 1 || pi0 >= theta){
-    stop("The inputs pi0 and theta must be such that 0 < pi0 < theta < 1")
+    stop("The inputs pi0 and theta must be such that 0 < pi0 < theta < 1.")
   }
 
   if (alpha0 < 0 || alpha0 > 1){
@@ -92,6 +98,7 @@ sim_Rs = function(theta, pi0, n, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, see
     stop("The input alpha must be such that 0 <= alpha < 1.")
   }
 
+  beta0 = 1 - (pi0 - alpha0*(1 - theta))/theta
   if (beta0 < 0 || beta0 > 1){
     stop("The input beta0 must be such that 0 <= beta0 < 1.")
   }
@@ -101,15 +108,15 @@ sim_Rs = function(theta, pi0, n, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, see
   }
 
   if (alpha + beta >= 1){
-    stop("The inputs alpha and beta must be alpha + beta < 1 (see Assumption 1)")
+    stop("The inputs alpha and beta must be alpha + beta < 1 (see Assumption 1).")
   }
 
   if (alpha0 + beta0 >= 1){
-    stop("The inputs alpha0 and beta0 must be alpha0 + beta0 < 1 (see Assumption 1)")
+    stop("The inputs alpha0 and beta0 must be alpha0 + beta0 < 1 (see Assumption 1).")
   }
 
   # Compute sucess probabilities
-  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, beta0 = beta0)
+  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
 
   # Draw data from a multinomial distribution
   X = rmultinom(n = 1, size = n, prob = probs)
@@ -137,7 +144,7 @@ sim_Rs = function(theta, pi0, n, alpha0 = 0, alpha = 0, beta0 = 0, beta = 0, see
 #'
 #' # With measurement error
 #' sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01,
-#' alpha = 0.01, beta0 = 0.05, beta = 0.05, seed = 18)
+#' alpha = 0.01, beta = 0.05, seed = 18)
 print.cpreval_sim = function(x, ...){
   cat("Data: R = ")
   cat(x$R)
@@ -155,16 +162,19 @@ print.cpreval_sim = function(x, ...){
   cat(x$R4)
   cat("\n\n")
 
-  cat("Assumed measurement error: alpha0 = ")
-  cat(100*x$alpha0)
-  cat("%, alpha = ")
+  cat("Assumed measurement error: alpha = ")
   cat(100*x$alpha)
-  cat("%, \n")
-  cat("                           beta0  = ")
-  cat(100*x$beta0)
+  cat("%, alpha0 = ")
+  cat(100*x$alpha0)
   cat("%, beta  = ")
   cat(100*x$beta)
-  cat("% \n")
+  cat("% \n\n")
+
+  cat("False negative rate of the official procedure: beta0 = ")
+  cat(round(100*x$beta0,2))
+  cat("%\n")
+
+
 }
 
 
