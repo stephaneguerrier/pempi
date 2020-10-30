@@ -18,7 +18,6 @@ simu = data.frame(Simulation = 1:270,
                                     seq(from = 1/100 + 1/1000, to = 75/100 - 5/1000, length.out = 30)), 1)),
                   n = rep(2000, 30*9),
                   alpha0 = 100*rep(0, 3*90),
-                  beta0 = 100*c(rep(0, 90), rep(0.02,90), rep(0.02,90)),
                   alpha = 100*c(rep(0, 90), rep(0, 90), rep(0.01,90)),
                   beta = 100*c(rep(0, 90), rep(0.02,90), rep(0.02,90)))
 
@@ -39,8 +38,7 @@ for (j in 1:m){
                pi0 = simu$pi0[j]/100,
                alpha = simu$alpha[j]/100,
                beta = simu$beta[j]/100,
-               alpha0 = simu$alpha0[j]/100,
-               beta0 = simu$beta0[j]/100)
+               alpha0 = simu$alpha0[j]/100)
 
     # ----------------------------------------------------
     # Fit survey sample estimator
@@ -69,7 +67,7 @@ for (j in 1:m){
     # ----------------------------------------------------
     moment_estim = moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0,
                                     alpha0 = X$alpha0, alpha = X$alpha,
-                                    beta0 = X$beta0, beta = X$beta)
+                                    beta = X$beta)
 
     # Estimation error
     error_moment[i,j] = moment_estim$estimate - simu$p0[j]/100
@@ -88,7 +86,7 @@ for (j in 1:m){
     # ----------------------------------------------------
     mle_estim = conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4,
                     n = X$n, pi0 = X$pi0, alpha = X$alpha,
-                    beta = X$beta, alpha0 = X$alpha0, beta0 = X$beta0)
+                    beta = X$beta, alpha0 = X$alpha0)
 
     # Estimation error
     error_mle[i,j] = mle_estim$estimate - simu$p0[j]/100
@@ -101,8 +99,7 @@ for (j in 1:m){
     # Fit Marginal MLE
     # ----------------------------------------------------
     marginal_mle_estim = marginal_mle(R1 = X$R1, R3 = X$R3, n = X$n, pi0 = X$pi0,
-                                      alpha = X$alpha, beta = X$beta, alpha0 = X$alpha0,
-                                      beta0 = X$beta0)
+                                      alpha = X$alpha, beta = X$beta, alpha0 = X$alpha0)
 
     # Estimation error
     error_mmle[i,j] = marginal_mle_estim$estimate - simu$p0[j]/100
