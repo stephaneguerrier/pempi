@@ -45,7 +45,9 @@ A \code{cpreval} object with the structure:
  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
  \item method:      Estimation method (in this case moment estimator).
  \item measurement: A vector with (alpha0, alpha, beta).
- \item beta0        Estimated false negative rate of the official procedure.
+ \item beta0:       Estimated false negative rate of the official procedure.
+ \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
+ \item pi0:         Value of pi0 (input value).
  \item ...:         Additional parameters.
 }
 }

@@ -129,7 +129,6 @@
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -167,11 +166,9 @@ but systematic sampling (e.g. based on medical selection).</p></td>
     </tr>
     <tr>
       <th>alpha0</th>
-      <td><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R0. Default value is <code>0</code>.</p></td>
-    </tr>
-    <tr>
-      <th>beta0</th>
-      <td><p>A <code>numeric</code> that provides the False Positive (FP) rate for the sample R0. Default value is <code>0</code>.</p></td>
+      <td><p>A <code>numeric</code> that corresponds to the probability that a random participant
+has been incorrectly declared positive through the nontransparent procedure. In most applications,
+this probability is likely very close to zero. Default value is <code>0</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -186,8 +183,11 @@ but systematic sampling (e.g. based on medical selection).</p></td>
 <li><p>sd:          Estimated standard error of the estimator.</p></li>
 <li><p>ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.</p></li>
 <li><p>gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.</p></li>
-<li><p>method:      Estimation method (in this case marginal mle)</p></li>
-<li><p>measurement: A vector with (alpha0, alpha, beta0, beta)</p></li>
+<li><p>method:      Estimation method (in this case marginal mle).</p></li>
+<li><p>measurement: A vector with (alpha0, alpha, beta).</p></li>
+<li><p>beta0:       Estimated false negative rate of the official procedure.</p></li>
+<li><p>boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.</p></li>
+<li><p>pi0:         Value of pi0 (input value).</p></li>
 <li><p>...:         Additional parameters</p></li>
 </ul>
 
@@ -197,37 +197,46 @@ but systematic sampling (e.g. based on medical selection).</p></td>
 <span class='no'>X</span> <span class='kw'>=</span> <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>100</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>100</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)
 <span class='fu'><a href='conditional_mle.html'>conditional_mle</a></span>(<span class='kw'>R1</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R1</span>, <span class='kw'>R2</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R2</span>, <span class='kw'>R3</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R3</span>, <span class='kw'>R4</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R4</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>pi0</span>)</div><div class='output co'>#&gt; Method: Conditional MLE
 #&gt; 
-#&gt; Estimated proportion: 3.2061%
-#&gt; Standard error      : 0.3792%
+#&gt; Estimated proportion: 1.0000%
+#&gt; Standard error      : 2.5690%
 #&gt; 
 #&gt; Confidence intervals at the 95% level:
-#&gt; Asymptotic Approach: 2.4629% - 3.9494%
+#&gt; Asymptotic Approach: -4.0352% - 6.0352%
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = 0%, alpha = 0%, 
-#&gt;                            beta0  = 0%, beta  = 0% </div><div class='input'>
+#&gt; Assumed measurement error: alpha  = 0%, beta = 0%,
+#&gt;                            alpha0 = 0% 
+#&gt; 
+#&gt; Estimated false negative rate of the
+#&gt; official procedure: beta0 = 0%</div><div class='output co'>#&gt; <span class='warning'>Warning: Parameter estimates is in the boundary of the space. Results may not be reliable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The asymptotic confidence interval is not be reliable. The point estimate is either too close from the boundary of the space or some of the values of alpha, beta and alpha0 may not be plausible given the data.</span></div><div class='input'>
 <span class='co'># With measurement error</span>
-<span class='no'>X</span> <span class='kw'>=</span> <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>30</span>/<span class='fl'>1000</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>10</span>/<span class='fl'>1000</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+<span class='no'>X</span> <span class='kw'>=</span> <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>30</span>/<span class='fl'>1000</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>10</span>/<span class='fl'>1000</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.001</span>,
 <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)
 <span class='fu'>marginal_mle</span>(<span class='kw'>R1</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R1</span>, <span class='kw'>R3</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R3</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>pi0</span>)</div><div class='output co'>#&gt; Method: Marginal MLE
 #&gt; 
-#&gt; Estimated proportion: 4.3670%
-#&gt; Standard error      : 0.4657%
+#&gt; Estimated proportion: 1.0000%
+#&gt; Standard error      : 2.5690%
 #&gt; 
 #&gt; Confidence intervals at the 95% level:
-#&gt; Asymptotic Approach: 3.4543% - 5.2796%
+#&gt; Asymptotic Approach: -4.0352% - 6.0352%
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = 0%, alpha = 0%, 
-#&gt;                            beta0  = 0%, beta  = 0% </div><div class='input'><span class='fu'>marginal_mle</span>(<span class='kw'>R1</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R1</span>, <span class='kw'>R3</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R3</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>pi0</span>,
-<span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; Method: Marginal MLE
+#&gt; Assumed measurement error: alpha  = 0%, beta = 0%,
+#&gt;                            alpha0 = 0% 
 #&gt; 
-#&gt; Estimated proportion: 2.6240%
-#&gt; Standard error      : 0.5026%
+#&gt; Estimated false negative rate of the
+#&gt; official procedure: beta0 = 0%</div><div class='output co'>#&gt; <span class='warning'>Warning: Parameter estimates is in the boundary of the space. Results may not be reliable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The asymptotic confidence interval is not be reliable. The point estimate is either too close from the boundary of the space or some of the values of alpha, beta and alpha0 may not be plausible given the data.</span></div><div class='input'><span class='fu'>marginal_mle</span>(<span class='kw'>R1</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R1</span>, <span class='kw'>R3</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R3</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>n</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>pi0</span>,
+<span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.001</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; Method: Marginal MLE
+#&gt; 
+#&gt; Estimated proportion: 2.6910%
+#&gt; Standard error      : 0.4433%
 #&gt; 
 #&gt; Confidence intervals at the 95% level:
-#&gt; Asymptotic Approach: 1.6390% - 3.6090%
+#&gt; Asymptotic Approach: 1.8223% - 3.5598%
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = 1%, alpha = 1%, 
-#&gt;                            beta0  = 5%, beta  = 5% </div></pre>
+#&gt; Assumed measurement error: alpha  = 1%, beta = 5%,
+#&gt;                            alpha0 = 0.1% 
+#&gt; 
+#&gt; Estimated false negative rate of the
+#&gt; official procedure: beta0 = 66.4558%</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

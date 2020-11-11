@@ -67,7 +67,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="pkgdown_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>
@@ -213,8 +213,9 @@ R_3:= \sum_{i=1}^nY_i(1-W_i)
 <pre><code>## Data: R = 71, R0 = 36, n = 1500
 ##       R1 = 19, R2 = 17, R3 = 52, R4 = 1412
 ## 
-## Assumed measurement error: alpha0 = 1%, alpha = 1%, 
-##                            beta0  = 2%, beta  = 2%</code></pre>
+## Assumed measurement error: alpha = 1%, alpha0 = 1%, beta  = 2% 
+## 
+## False negative rate of the official procedure: beta0 = 74%</code></pre>
 </div>
 </div>
 <div id="estimators" class="section level1">
@@ -231,7 +232,7 @@ R_3:= \sum_{i=1}^nY_i(1-W_i)
     \label{eqn:tau-pi}
 \end{eqnarray}\]</span></p>
 <p>where <span class="math inline">\(\Delta :=1-(\alpha+\beta)\)</span>. A likelihood function can be built based on the multinomial distribution (with categories <span class="math inline">\(R_1,R_2,R_3,R_4\)</span>, with <span class="math inline">\(R_4=1-R_1-R_2-R_3\)</span>) to obtain the conditional Maximum Likelihood Estimator (MLE) for <span class="math inline">\(\pi\)</span> <span class="citation">(see Guerrier, Kuzmics, and Victoria-Feser 2020)</span>. The MLE has a closed form expressions if <span class="math inline">\(\alpha_0=0\)</span>. If the information provided by <span class="math inline">\(R_2\)</span> is not available, the likelihood function is marginalized out on <span class="math inline">\(R_2\)</span> and one can still obtain an MLE for <span class="math inline">\(\pi\)</span>. Alternatively, the package also contains a Method of Moments Estimator (MME) based on <span class="math inline">\(R_3\)</span> (with expectation <span class="math inline">\(\tau_3(\pi)\)</span>), which is closed form for any <span class="math inline">\(\alpha_0,\alpha,\beta_0,\beta\)</span>.</p>
-<p>The confidence intervals for the conditional MLE and the marginal MLE can be computed using asymptotic theory. They provide good coverage, with small interval length for survey sample sizes from <span class="math inline">\(n=1,000\)</span> <span class="citation">(see Guerrier, Kuzmics, and Victoria-Feser 2020)</span>. For the MME, since its finite sample distribution is known through <span class="math inline">\(R_3\sim\mathcal{B}(n,\tau_3(\pi))\)</span>, exact confidence bounds can be computed using, for example, the (fiducial) Clopper–Pearson (CP) approach method, see <span class="citation">Clopper and Pearson (1934)</span>, <span class="citation">Fisher (1935)</span> and <span class="citation">Brown, Cai, and DasGupta (2001)</span>. In the package are implemented, the CP method based on <span class="math inline">\(R_3\)</span>, and the asymptotic theory method for the conditional and marginal MLE (i.e. <span class="math inline">\(R_2\)</span> known or not). An extensive simulation study is provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2020)</span> that compares coverage probabilities with the different approaches.</p>
+<p>The confidence intervals for the conditional MLE and the marginal MLE can be computed using asymptotic theory. They provide good coverage, with small interval length for survey sample sizes from <span class="math inline">\(n=1,000\)</span> <span class="citation">(see Guerrier, Kuzmics, and Victoria-Feser 2020)</span>. For the MME, since its finite sample distribution is known through <span class="math inline">\(R_3\sim\mathcal{B}(n,\tau_3(\pi))\)</span>, exact confidence bounds can be computed using, for example, the (fiducial) Clopper–Pearson (CP) approach method, see <span class="citation">Clopper and Pearson (1934)</span>, <span class="citation">Fisher (1935)</span> and <span class="citation">Brown, Cai, and DasGupta (2001)</span>. In the package are implemented, the CP method based on <span class="math inline">\(R_3\)</span>, and the asymptotic theory method for the conditional and marginal MLE (i.e. <span class="math inline">\(R_2\)</span> known or not). An extensive simulation study is provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2020)</span> that compares coverage probabilities with the different approaches.</p>
 <p>To obtain these estimators, one can use the functions <code><a href="../reference/conditional_mle.html">conditional_mle()</a></code>, <code><a href="../reference/marginal_mle.html">marginal_mle()</a></code> and <code><a href="../reference/moment_estimator.html">moment_estimator()</a></code>. Indeed, the conditional MLE can be estimated as follows on the previously simulated data:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">fit_cmle</span> <span class="kw">=</span> <span class="fu"><a href="../reference/conditional_mle.html">conditional_mle</a></span>(<span class="kw">R1</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R1</span>, <span class="kw">R2</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R2</span>, <span class="kw">R3</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R3</span>, <span class="kw">R4</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R4</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">n</span>, <span class="kw">pi0</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">pi0</span>,
                            <span class="kw">alpha0</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">alpha0</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">alpha</span>,
@@ -245,8 +246,11 @@ R_3:= \sum_{i=1}^nY_i(1-W_i)
 ## Confidence intervals at the 95% level:
 ## Asymptotic Approach: 2.6512% - 4.5823%
 ## 
-## Assumed measurement error: alpha0 = 1%, alpha = 1%, 
-##                            beta0  = 2%, beta  = 2%</code></pre>
+## Assumed measurement error: alpha  = 1%, beta = 2%,
+##                            alpha0 = 1% 
+## 
+## Estimated false negative rate of the
+## official procedure: beta0 = 71.351%</code></pre>
 <p>Note that the conditional MLE is based on <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span>, <span class="math inline">\(R_3\)</span> and <span class="math inline">\(R_4\)</span> while the marginal MLE is based on only <span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_3\)</span>. This estimator can be obtained as follows:</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">fit_mmle</span> <span class="kw">=</span> <span class="fu"><a href="../reference/marginal_mle.html">marginal_mle</a></span>(<span class="kw">R1</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R1</span>, <span class="kw">R3</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R3</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">n</span>, <span class="kw">pi0</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">pi0</span>,
                         <span class="kw">alpha0</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">alpha0</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">alpha</span>,
@@ -260,8 +264,11 @@ R_3:= \sum_{i=1}^nY_i(1-W_i)
 ## Confidence intervals at the 95% level:
 ## Asymptotic Approach: 2.6504% - 4.5816%
 ## 
-## Assumed measurement error: alpha0 = 1%, alpha = 1%, 
-##                            beta0  = 2%, beta  = 2%</code></pre>
+## Assumed measurement error: alpha  = 1%, beta = 2%,
+##                            alpha0 = 1% 
+## 
+## Estimated false negative rate of the
+## official procedure: beta0 = 71.3451%</code></pre>
 <p>Moreover, the moment estimator, which is simply based on <span class="math inline">\(R_3\)</span>, can be computed as follows:</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">fit_mme</span> <span class="kw">=</span> <span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span>(<span class="kw">R3</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R3</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">n</span>, <span class="kw">pi0</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">pi0</span>,
                            <span class="kw">alpha0</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">alpha0</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">alpha</span>,
@@ -276,8 +283,11 @@ R_3:= \sum_{i=1}^nY_i(1-W_i)
 ## Asymptotic Approach: 2.6355% - 4.5636%
 ## Clopper-Pearson    : 2.6968% - 4.6979%
 ## 
-## Assumed measurement error: alpha0 = 1%, alpha = 1%, 
-##                            beta0  = 2%, beta  = 2%</code></pre>
+## Assumed measurement error: alpha  = 1%, beta = 2%,
+##                            alpha0 = 1% 
+## 
+## Estimated false negative rate of the
+## official procedure: beta0 = 71.2189%</code></pre>
 <p>It can be observed that the function <code><a href="../reference/moment_estimator.html">moment_estimator()</a></code> provides both asymtoptic and CP confidence intervals. Finally for comparison purposes, <code>cape</code> package also contains the MLE based on the sample survey, i.e. the sample average estimator, which can be obtained as follows:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">fit_smle</span> <span class="kw">=</span> <span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span>(<span class="kw">R</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">R</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">n</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">alpha</span>, <span class="kw">beta</span> <span class="kw">=</span> <span class="no">R</span>$<span class="no">beta</span>)
 <span class="no">fit_smle</span></pre></body></html></div>

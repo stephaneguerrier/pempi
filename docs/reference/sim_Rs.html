@@ -120,17 +120,7 @@
     <p>Simulation function for random variables of interest.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sim_Rs</span>(
-  <span class='no'>theta</span>,
-  <span class='no'>pi0</span>,
-  <span class='no'>n</span>,
-  <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sim_Rs</span>(<span class='no'>theta</span>, <span class='no'>pi0</span>, <span class='no'>n</span>, <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,15 +140,13 @@ but systematic sampling (e.g. based on medical selection).</p></td>
     </tr>
     <tr>
       <th>alpha0</th>
-      <td><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R0. Default value is <code>0</code>.</p></td>
+      <td><p>A <code>numeric</code> that corresponds to the probability that a random participant
+has been incorrectly declared positive through the nontransparent procedure. In most applications,
+this probability is likely very close to zero. Default value is <code>0</code>.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
       <td><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R. Default value is <code>0</code>.</p></td>
-    </tr>
-    <tr>
-      <th>beta0</th>
-      <td><p>A <code>numeric</code> that provides the False Positive (FP) rate for the sample R0. Default value is <code>0</code>.</p></td>
     </tr>
     <tr>
       <th>beta</th>
@@ -186,8 +174,7 @@ but systematic sampling (e.g. based on medical selection).</p></td>
 <li><p>n:      the sample size.</p></li>
 <li><p>alpha:  the False Negative (FN) rate for the sample R.</p></li>
 <li><p>beta:   the False Positive (FP) rate for the sample R.</p></li>
-<li><p>alpha0: the False Negative (FN) rate for the sample R0.</p></li>
-<li><p>beta0   the False Positive (FP) rate for the sample R0.</p></li>
+<li><p>alpha0: the alpha0 probability (as defined above).</p></li>
 <li><p>...:    additional arguments.</p></li>
 </ul>
 
@@ -197,15 +184,17 @@ but systematic sampling (e.g. based on medical selection).</p></td>
 <span class='fu'>sim_Rs</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>100</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>100</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)</div><div class='output co'>#&gt; Data: R = 52, R0 = 19, n = 1500
 #&gt;       R1 = 19, R2 = 0, R3 = 33, R4 = 1448
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = 0%, alpha = 0%, 
-#&gt;                            beta0  = 0%, beta  = 0% </div><div class='input'>
-<span class='co'># With measurement error</span>
-<span class='fu'>sim_Rs</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>100</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>100</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)</div><div class='output co'>#&gt; Data: R = 52, R0 = 17, n = 1500
-#&gt;       R1 = 1, R2 = 16, R3 = 51, R4 = 1432
+#&gt; Assumed measurement error: alpha = 0%, alpha0 = 0%, beta  = 0% 
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = 1%, alpha = 1%, 
-#&gt;                            beta0  = 5%, beta  = 5% </div></pre>
+#&gt; False negative rate of the official procedure: beta0 = 66.67%</div><div class='input'>
+<span class='co'># With measurement error</span>
+<span class='fu'>sim_Rs</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>100</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>100</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)</div><div class='output co'>#&gt; Data: R = 56, R0 = 19, n = 1500
+#&gt;       R1 = 18, R2 = 1, R3 = 38, R4 = 1443
+#&gt; 
+#&gt; Assumed measurement error: alpha = 1%, alpha0 = 0%, beta  = 5% 
+#&gt; 
+#&gt; False negative rate of the official procedure: beta0 = 66.67%</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

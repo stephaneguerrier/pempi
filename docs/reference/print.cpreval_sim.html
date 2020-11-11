@@ -145,15 +145,12 @@
 <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>100</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>100</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)</div><div class='output co'>#&gt; Data: R = 52, R0 = 19, n = 1500
 #&gt;       R1 = 19, R2 = 0, R3 = 33, R4 = 1448
 #&gt; 
-#&gt; Assumed measurement error: alpha0 = 0%, alpha = 0%, 
-#&gt;                            beta0  = 0%, beta  = 0% </div><div class='input'>
+#&gt; Assumed measurement error: alpha = 0%, alpha0 = 0%, beta  = 0% 
+#&gt; 
+#&gt; False negative rate of the official procedure: beta0 = 66.67%</div><div class='input'>
 <span class='co'># With measurement error</span>
 <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>100</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>100</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)</div><div class='output co'>#&gt; Data: R = 52, R0 = 17, n = 1500
-#&gt;       R1 = 1, R2 = 16, R3 = 51, R4 = 1432
-#&gt; 
-#&gt; Assumed measurement error: alpha0 = 1%, alpha = 1%, 
-#&gt;                            beta0  = 5%, beta  = 5% </div></pre>
+<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)</div><div class='output co'>#&gt; <span class='error'>Error in sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01, alpha = 0.01,     beta = 0.05, seed = 18): The inputs alpha0 and beta0 must be alpha0 + beta0 &lt; 1 (see Assumption 1).</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

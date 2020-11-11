@@ -17,7 +17,9 @@
 #'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
 #'  \item method:      Estimation method (in this case sample survey).
 #'  \item measurement: A vector with (alpha0, alpha, beta).
-#'  \item beta0        Estimated false negative rate of the official procedure.
+#'  \item beta0:       Estimated false negative rate of the official procedure.
+#'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
+#'  \item pi0:         Value of pi0 (input value).
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -69,24 +71,27 @@ survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
   if (pi_bar < pi0 || pi_bar > 1){
     pi_bar = c(pi0, 1)[which.min(abs(pi_bar - c(pi0, 1)))]
     sd = NA
-    ci_asym = NA
+    ci_asym = c(NA, NA)
+    boundary = TRUE
 
     if (pi_bar == pi0){
-      upper = (qbeta(p = 1 - gamma/2, R + 1, n - R) - alpha)/(1 - alpha - beta)
+      upper = (qbeta(p = 1 - gamma, R + 1, n - R) - alpha)/(1 - alpha - beta)
       lower = pi0
     }else{
       upper = 1
-      lower = (qbeta(p = gamma/2, R, n - R + 1) - alpha)/(1 - alpha - beta)
+      lower = (qbeta(p = gamma, R, n - R + 1) - alpha)/(1 - alpha - beta)
     }
 
     ci_cp = c(lower, upper)
 
     # Construct output
     out = list(estimate = pi_bar, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp, gamma = gamma,
-               method = "Survey MLE", measurement = c(NA, alpha, NA, beta),
-               boundary = TRUE,...)
+               method = "Survey MLE", measurement = c(NA, alpha, beta),
+               boundary = boundary, pi0 = pi0, ...)
     class(out) = "cpreval"
     return(out)
+  }else{
+    boundary = FALSE
   }
 
   # Estimated standard error
@@ -99,21 +104,12 @@ survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
   # Compute 1 - gamma confidence interval - Clopper-Pearson approach
   upper = (qbeta(p = 1 - gamma/2, R + 1, n - R) - alpha)/(1 - alpha - beta)
   lower = (qbeta(p = gamma/2, R, n - R + 1) - alpha)/(1 - alpha - beta)
-
-  # Adjust CI - CP
-  if (lower < pi0){
-    lower = pi0
-  }
-
-  if (upper > 1){
-    upper = 1
-  }
-
   ci_cp = c(lower, upper)
 
   # Construct output
   out = list(estimate = pi_bar, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp, gamma = gamma,
-             method = "Survey MLE", measurement = c(NA, alpha, beta), beta0 = NA)
+             method = "Survey MLE", measurement = c(NA, alpha, beta), beta0 = NA,
+             boundary = boundary, pi0 = pi0, ...)
   class(out) = "cpreval"
   out
 }
@@ -177,6 +173,20 @@ print.cpreval = function(x, ...){
     cat(round(100*x$beta0,4))
     cat("%\n")
   }
+
+  if (x$boundary){
+    warning("Parameter estimates is in the boundary of the space. Results may not be reliable.")
+  }
+
+  if(x$method == "Survey MLE" || x$method == "Moment Estimator"){
+    if (x$ci_cp[1] > x$ci_cp[2] || x$ci_cp[1] < x$pi0 || x$ci_cp[2] > 1){
+      warning("The Clopper-Pearson confidence interval is not be reliable. Some of the values of alpha, beta and alpha0 may not be plausible given the data.")
+    }
+  }
+
+  if (is.na(x$ci_asym[1]) || x$ci_asym[1] < x$pi0 || x$ci_asym[2] > 1){
+    warning("The asymptotic confidence interval is not be reliable. The point estimate is either too close from the boundary of the space or some of the values of alpha, beta and alpha0 may not be plausible given the data.")
+  }
 }
 
 #' @title Compute moment-based estimator.
@@ -202,7 +212,9 @@ print.cpreval = function(x, ...){
 #'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
 #'  \item method:      Estimation method (in this case moment estimator).
 #'  \item measurement: A vector with (alpha0, alpha, beta).
-#'  \item beta0        Estimated false negative rate of the official procedure.
+#'  \item beta0:       Estimated false negative rate of the official procedure.
+#'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
+#'  \item pi0:         Value of pi0 (input value).
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -260,6 +272,19 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   pi0_star = (pi0 - alpha0)/Delta0
   estimate = 1/(Delta*(1 - alpha0))*(R3/n + pi0 - beta*pi0 - alpha0*Delta - alpha)
 
+  # Check if the estimate is in the range [pi0, 1]
+  if (estimate < pi0 || estimate > 1){
+    if (estimate < pi0){
+      estimate = pi0
+      boundary = "lower"
+    }else{
+      estimate = 1
+      boundary = "upper"
+    }
+  }else{
+    boundary = FALSE
+  }
+
   # Asymptotic CI (1-gamma)
   probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha,
                    beta = beta, alpha0 = alpha0)
@@ -268,16 +293,18 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   ci_asym = estimate + qnorm(1 - gamma/2)*c(-1,1)*sd
 
   # CP - CI (1 - gamma)
-  upper = (qbeta(p = 1 - gamma/2, R3 + 1, n - R3) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
-  lower = (qbeta(p = gamma/2, R3, n - R3 + 1) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
-
-  # Adjust CI - CP
-  if (lower < pi0){
-    lower = pi0
-  }
-
-  if (upper > 1){
-    upper = 1
+  if (boundary == FALSE){
+    upper = (qbeta(p = 1 - gamma/2, R3 + 1, n - R3) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+    lower = (qbeta(p = gamma/2, R3, n - R3 + 1) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+  }else{
+    if (boundary == "lower"){
+      upper = (1 - (gamma/2)^(1/n) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+      lower = pi0
+    }else{
+      upper = 1
+      lower = ((gamma/2)^(1/n) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+    }
+    boundary = TRUE
   }
   ci_cp = c(lower, upper)
 
@@ -286,7 +313,8 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
 
   # Construct output
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp, gamma = gamma,
-             method = "Moment Estimator", measurement = c(alpha0, alpha, beta), beta0 = beta0)
+             method = "Moment Estimator", measurement = c(alpha0, alpha, beta), beta0 = beta0,
+             boundary = boundary, pi0 = pi0, ...)
   class(out) = "cpreval"
   out
 }
@@ -372,6 +400,8 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha0, alpha, beta, ...
 #'  \item method:      Estimation method (in this case mle).
 #'  \item measurement: A vector with (alpha0, alpha, beta).
 #'  \item beta0:       Estimated false negative rate of the official procedure.
+#'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
+#'  \item pi0:         Value of pi0 (input value).
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -477,7 +507,17 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
   # Find MLE (TODO use closed form when possible)
   R = c(R1, R2, R3, R4)
   eps = 10^(-5)
-  estimate = optimize(neg_log_lik, interval = c(pi0 + eps, 1 - eps), R = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
+  estimate = optimize(neg_log_lik, interval = c(pi0 + eps, 1 - eps), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
+
+  # Check boundary
+  LL_mle = (-1)*neg_log_lik(theta = estimate, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  LL_pi0 = (-1)*neg_log_lik(theta = pi0, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  if (LL_mle < LL_pi0){
+    boundary = TRUE
+    estimate = pi0
+  }else{
+    boundary = FALSE
+  }
 
   # Compute implied probs
   probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
@@ -519,7 +559,10 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 
   # Construct output
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, gamma = gamma,
-             method = "Conditional MLE", measurement = c(alpha0, alpha, beta), beta0 = beta0, ...)
+             method = "Conditional MLE",
+             measurement = c(alpha0, alpha, beta),
+             beta0 = beta0,
+             boundary = boundary, pi0 = pi0, ...)
   class(out) = "cpreval"
   out
 }
@@ -547,6 +590,8 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 #'  \item method:      Estimation method (in this case marginal mle).
 #'  \item measurement: A vector with (alpha0, alpha, beta).
 #'  \item beta0:       Estimated false negative rate of the official procedure.
+#'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
+#'  \item pi0:         Value of pi0 (input value).
 #'  \item ...:         Additional parameters
 #' }
 #' @export
@@ -604,7 +649,17 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   # Compute MLE (TODO use closed form when possible)
   R = c(R1, NA, R3, NA)
   eps = 10^(-5)
-  estimate = optimize(neg_log_lik_integrated, interval = c(pi0 + eps, 1 - eps), R = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
+  estimate = optimize(neg_log_lik_integrated, interval = c(pi0 + eps, 1 - eps), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
+
+  # Check boundary
+  LL_mle = (-1)*neg_log_lik_integrated(theta = estimate, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  LL_pi0 = (-1)*neg_log_lik_integrated(theta = pi0, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  if (LL_mle < LL_pi0){
+    boundary = TRUE
+    estimate = pi0
+  }else{
+    boundary = FALSE
+  }
 
   # Compute probs
   probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
@@ -650,7 +705,8 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
 
   # Construct output
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, gamma = gamma,
-             method = "Marginal MLE", measurement = c(alpha0, alpha, beta), beta0 = beta0, ...)
+             method = "Marginal MLE", measurement = c(alpha0, alpha, beta),
+             beta0 = beta0, boundary = boundary, pi0 = pi0, ...)
   class(out) = "cpreval"
   out
 }

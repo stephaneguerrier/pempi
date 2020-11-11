@@ -120,7 +120,7 @@
     <p>Log-Likelihood function based on R1, R2, R3 and R4 multiplied by -1.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>neg_log_lik</span>(<span class='no'>theta</span>, <span class='no'>Rvect</span>, <span class='no'>n</span>, <span class='no'>pi0</span>, <span class='no'>alpha</span>, <span class='no'>beta</span>, <span class='no'>alpha0</span>, <span class='no'>beta0</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>neg_log_lik</span>(<span class='no'>theta</span>, <span class='no'>Rvect</span>, <span class='no'>n</span>, <span class='no'>pi0</span>, <span class='no'>alpha</span>, <span class='no'>beta</span>, <span class='no'>alpha0</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,19 +144,17 @@ but systematic sampling (e.g. based on medical selection).</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R. Default value is <code>0</code>.</p></td>
+      <td><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R.</p></td>
     </tr>
     <tr>
       <th>beta</th>
-      <td><p>A <code>numeric</code> that provides the False Positive (FP) rate for the sample R. Default value is <code>0</code>.</p></td>
+      <td><p>A <code>numeric</code> that provides the False Positive (FP) rate for the sample R.</p></td>
     </tr>
     <tr>
       <th>alpha0</th>
-      <td><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R0. Default value is <code>0</code>.</p></td>
-    </tr>
-    <tr>
-      <th>beta0</th>
-      <td><p>A <code>numeric</code> that provides the False Positive (FP) rate for the sample R0. Default value is <code>0</code>.</p></td>
+      <td><p>A <code>numeric</code> that corresponds to the probability that a random participant
+has been incorrectly declared positive through the nontransparent procedure. In most applications,
+this probability is likely very close to zero.</p></td>
     </tr>
     <tr>
       <th>...</th>
