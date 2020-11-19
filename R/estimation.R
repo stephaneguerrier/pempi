@@ -511,7 +511,8 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 
   # Check boundary
   LL_mle = (-1)*neg_log_lik(theta = estimate, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
-  LL_pi0 = (-1)*neg_log_lik(theta = pi0, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  LL_pi0 = (-1)*neg_log_lik(theta = pi0 + 10^(-7), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+
   if (LL_mle < LL_pi0){
     boundary = TRUE
     estimate = pi0
@@ -653,7 +654,7 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
 
   # Check boundary
   LL_mle = (-1)*neg_log_lik_integrated(theta = estimate, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
-  LL_pi0 = (-1)*neg_log_lik_integrated(theta = pi0, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  LL_pi0 = (-1)*neg_log_lik_integrated(theta = pi0 + 10^(-7), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   if (LL_mle < LL_pi0){
     boundary = TRUE
     estimate = pi0
