@@ -2,7 +2,7 @@
 #library(shinythemes)
 #library(DT)
 ui <- fluidPage(
-  theme = shinytheme("cerulean"),
+  theme = shinythemes::shinytheme("cerulean"),
   withMathJax(),
   # Application title
   titlePanel("Contional Prevalence Estimation"),
