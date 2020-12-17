@@ -106,6 +106,7 @@ server <- function(input, output) {
     sur_asy = c(sur80$estimate, sur80$ci_asym, sur95$ci_asym, sur99$ci_asym)
     sur_cp = c(sur80$estimate, sur80$ci_cp, sur95$ci_cp, sur99$ci_cp)
     mat = cbind(cmle, mmle, mom_asy, mom_cp, sur_asy, sur_cp)
+
     par(lend=1, mar = c(5,8,2,4))
     plot(NA, xlim = c(min(na.omit(mat)) - 0.1*diff(range(na.omit(mat))), max(na.omit(mat)) + 0.1*diff(range(na.omit(mat)))), ylim = c(0.5, 6.5), axes = FALSE, ann = FALSE)
     grid()
@@ -133,6 +134,7 @@ server <- function(input, output) {
   }, height = 500, width = 600)
   output$summary <- renderPrint({
     if (input$select == 1){
+      print(input$R3)
       conditional_mle(R1 = input$R1, R2 = input$R2, R3 = input$R3, R4 = input$R4, pi0 = input$pi0, gamma = input$gamma,
                       alpha = input$alpha, alpha0 = input$alpha0, beta = input$beta)
     }else{

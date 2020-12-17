@@ -10,12 +10,12 @@ seed = 1832
 # Simulation settings
 simu = data.frame(Simulation = 1:270,
                   p0 = 100*rep(c(rep(5/100, 30), rep(20/100, 30), rep(75/100, 30)), 3),
-                  pi0 = 100*c(rep(c(seq(from = 1/1000, to = 5/100 - 1/1000, length.out = 30),
-                                    seq(from = 1/1000, to = 20/100 - 2.5/1000, length.out = 30),
-                                    seq(from = 1/1000, to = 75/100 - 5/1000, length.out = 30)), 2),
-                              rep(c(seq(from = 1/100 + 1/1000, to = 5/100 - 1/1000, length.out = 30),
-                                    seq(from = 1/100 + 1/1000, to = 20/100 - 2.5/1000, length.out = 30),
-                                    seq(from = 1/100 + 1/1000, to = 75/100 - 5/1000, length.out = 30)), 1)),
+                  pi0 = 100*c(rep(c(seq(from = 1/1000, to = 0.9*(5/100), length.out = 30),
+                                    seq(from = 1/1000, to = 0.9*(20/100), length.out = 30),
+                                    seq(from = 1/1000, to = 0.9*(75/100), length.out = 30)), 2),
+                              rep(c(seq(from = 1/100 + 1/1000, to = 0.9*(5/100), length.out = 30),
+                                    seq(from = 1/100 + 1/1000, to = 0.9*(20/100), length.out = 30),
+                                    seq(from = 1/100 + 1/1000, to = 0.9*(75/100), length.out = 30)), 1)),
                   n = rep(2000, 30*9),
                   alpha0 = 100*rep(0, 3*90),
                   alpha = 100*c(rep(0, 90), rep(0, 90), rep(0.01,90)),
@@ -27,6 +27,7 @@ length_survey_cp = length_moment_cp = matrix(NA, B, m)
 length_survey_asy = length_moment_asy = length_mle_asy = length_mmle_asy = matrix(NA, B, m)
 coverage_survey_cp = coverage_moment_cp = matrix(NA, B, m)
 coverage_survey_asy = coverage_moment_asy = coverage_mle_asy = coverage_mmle_asy = matrix(NA, B, m)
+pb = txtProgressBar(min = 0, max = m, style = 3)
 
 # Start Monte-Carlo
 for (j in 1:m){
@@ -109,7 +110,9 @@ for (j in 1:m){
     length_mmle_asy[i,j] = diff(marginal_mle_estim$ci_asym)
 
   }
+  setTxtProgressBar(pb, j)
 }
+close(pb)
 
 # Save results
 coverage = list(mle = coverage_mle_asy,

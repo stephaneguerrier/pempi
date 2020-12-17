@@ -11,7 +11,7 @@
 \SweaveOpts{concordance=TRUE}
 
 <<load>>=
-load("/Users/guerries/Documents/cape/simulations/simulations.RData")
+load("/Users/stephaneguerrier/Documents/GitHub/cape/simulations/simulations.RData")
 @
 
 <<graph1>>=
@@ -98,7 +98,7 @@ mtext("Setting III", side = 2, line = 5, cex = 1)
 mtext("Ratio of RMSE", side = 2, line = 3, cex = 0.85)
 mtext("$\\pi_0$", side = 1, line = 3, cex = 1.25)
 
-legend(0, 0.4, c("Unconditional MLE", "Marginal MLE", "MME"), col = cols[c(1,3,2)],
+legend(0, 0.4, c("Survey MLE", "Marginal MLE", "MME"), col = cols[c(1,3,2)],
        lwd = 2, bty = "n", cex = 1.25)
 
 plot(NA, xlim = c(0,20/100), ylim = c(0, 1.05), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
@@ -219,7 +219,7 @@ mtext("Coverage probability", side = 2, line = 3, cex = 0.85)
 
 mtext("$\\pi_0$", side = 1, line = 3, cex = 1.25)
 
-legend("bottomleft", c("CP based on $R$", "Conditional MLE", "CP based on $R_3$"), col = cols[c(1,3,2)],
+legend("bottomleft", c("CP based on $R_{\\ast 1}$", "Conditional MLE", "CP based on $R_{01}$"), col = cols[c(1,3,2)],
        lwd = 2, bty = "n", cex = 1.25)
 
 plot(NA, xlim = c(0,20/100), ylim = c(86, 99), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)
@@ -341,7 +341,7 @@ mtext("Relative CI mean lengths", side = 2, line = 3, cex = 0.85)
 
 mtext("$\\pi_0$", side = 1, line = 3, cex = 1.25)
 
-legend("topleft", c("CP based on $R$", "Marginal MLE", "CP based on $R_3$"), col = cols[c(1,3,2)],
+legend("topleft", c("CP based on $R_{\\ast1}$", "Marginal MLE", "CP based on $R_{01}$"), col = cols[c(1,3,2)],
        lwd = 2, bty = "n", cex = 1.25)
 
 plot(NA, xlim = c(0,20/100), ylim = c(0.25, 4.85), xlab = "Simulation ID", ylab = "Ratio of RMSE", axes = FALSE)

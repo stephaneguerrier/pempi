@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  17 DEC 2020 10:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  17 DEC 2020 11:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**figures.tex
-(./figures.tex
+**case_study.tex
+(./case_study.tex
 LaTeX2e <2020-02-02> patch level 5
 L3 programming layer <2020-03-06>
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls
@@ -406,8 +406,8 @@ File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count266
 \l__pdf_internal_box=\box59
 )
-(./figures.aux)
-\openout1 = `figures.aux'.
+(./case_study.aux)
+\openout1 = `case_study.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
@@ -486,26 +486,26 @@ e
 ))
 Preview: Fontsize 10pt
 Preview: PDFoutput 1
-(./figures-concordance.tex)
+(./case_study-concordance.tex)
 LaTeX Font Info:    Trying to load font information for T1+aett on input line 1
 5.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
-) (./rmse.tex
-LaTeX Font Info:    Trying to load font information for U+msa on input line 192
+) (./casestudy.tex
+LaTeX Font Info:    Trying to load font information for U+msa on input line 108
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 192
+LaTeX Font Info:    Trying to load font information for U+msb on input line 108
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (88.62pt too wide) in paragraph at lines 1547--1547
+Overfull \hbox (88.62pt too wide) in paragraph at lines 1959--1959
 [][] 
  []
 
@@ -515,44 +515,23 @@ Non-PDF special ignored!
 <special> psfile=/dev/null
 Non-PDF special ignored!
 <special> psfile=/dev/null
-]) (./coverage.tex
-Overfull \hbox (88.62pt too wide) in paragraph at lines 1569--1569
-[][] 
- []
-
-[2
-Non-PDF special ignored!
-<special> psfile=/dev/null
-Non-PDF special ignored!
-<special> psfile=/dev/null
-]) (./length.tex
-Overfull \hbox (88.62pt too wide) in paragraph at lines 1490--1490
-[][] 
- []
-
-[3
-Non-PDF special ignored!
-<special> psfile=/dev/null
-Non-PDF special ignored!
-<special> psfile=/dev/null
-]) (./figures.aux) ) 
+]) (./case_study.aux) ) 
 Here is how much of TeX's memory you used:
  13307 strings out of 480608
- 263181 string characters out of 5903630
- 548064 words of memory out of 5000000
- 28921 multiletter control sequences out of 15000+600000
+ 263018 string characters out of 5903630
+ 545777 words of memory out of 5000000
+ 28926 multiletter control sequences out of 15000+600000
  537592 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,9n,60p,434b,765s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb>
-Output written on figures.pdf (3 pages, 71660 bytes).
+ 60i,9n,60p,437b,763s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr7.pfb>
+Output written on case_study.pdf (1 page, 45794 bytes).
 PDF statistics:
- 34 PDF objects out of 1000 (max. 8388607)
- 23 compressed objects within 1 object stream
+ 24 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  17 words of extra memory for PDF output out of 10000 (max. 10000000)
 
