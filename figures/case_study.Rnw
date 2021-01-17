@@ -14,7 +14,7 @@
 load("/Users/stephaneguerrier/Documents/GitHub/cape/simulations/simulations.RData")
 @
 
-<<graph1>>=
+<<graph1, eval=FALSE>>=
 library(tikzDevice)
 library(cape)
 tikz("casestudy.tex", width = 6, height = 5.4)
@@ -99,8 +99,133 @@ polygon(100*c(beta, rev(beta)),
 dev.off()
 @
 
+<<graph1bw>>=
+library(tikzDevice)
+library(cape)
+tikz("casestudy_bw.tex", width = 6, height = 5.4)
+
+# Data
+R1 = 32
+R2 = 0
+R3 = 39
+R4 = 2287
+n = R1 + R2 + R3 + R4
+
+# Assumptions
+pi0 = 0.013105
+alpha = 1/100
+alpha0 = 0
+m = 300
+beta = seq(from = 0, to = 30, length.out = m)/100
+res_moment = res_cmle = res_umle = matrix(NA, m, 5)
+
+for (i in 1:m){
+  # Moment estimator
+  inter = moment_estimator(R3 = R3, n = n, pi0 = pi0,
+                           alpha = alpha, alpha0 = alpha0,
+                           beta = beta[i])
+  inter2 = moment_estimator(R3 = R3, n = n, pi0 = pi0,
+                            alpha = alpha, alpha0 = alpha0,
+                            beta = beta[i], gamma = 0.2)
+  res_moment[i,] = c(inter$estimate, inter$ci_cp, inter2$ci_cp)
+
+  inter = conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4,
+                          n = n, pi0 = pi0, alpha = alpha, alpha0 = alpha0,
+                          beta = beta[i])
+  inter2 = conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4,
+                           n = n, pi0 = pi0, alpha = alpha, alpha0 = alpha0,
+                           beta = beta[i], gamma = 0.2)
+  res_cmle[i,] = c(inter$estimate, inter$ci_asym, inter2$ci_asym)
+
+  inter = survey_mle(R = R1 + R3, n = n, pi0 = pi0,
+                     alpha = alpha, alpha0 = alpha0,
+                     beta = beta[i])
+  inter2 = survey_mle(R = R1 + R3, n = n, pi0 = pi0,
+                      alpha = alpha, alpha0 = alpha0,
+                      beta = beta[i], gamma = 0.2)
+  res_umle[i,] = c(inter$estimate, inter$ci_cp, inter2$ci_cp)
+}
+
+gg_color_hue <- function(n, alpha) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100, alpha)[1:n]
+}
+
+## Transparent colors
+## Mark Gardener 2015
+## www.dataanalytics.org.uk
+
+t_col <- function(color, percent = 50, name = NULL) {
+  #      color = color name
+  #    percent = % transparency
+  #       name = an optional name for the color
+
+## Get RGB values for named color
+rgb.val <- col2rgb(color)
+
+## Make new color using input color as base and alpha set by transparency
+t.col <- rgb(rgb.val[1], rgb.val[2], rgb.val[3],
+             max = 255,
+             alpha = (100 - percent) * 255 / 100,
+             names = name)
+
+## Save the color
+invisible(t.col)
+}
+
+cols = c("grey40", "grey80")
+cols2 = c(t_col(cols[1], percent = 5), t_col(cols[2], percent = 5))
+
+plot(NA, xlim = 100*range(beta), ylim = c(1, 4), axes = FALSE, ann = FALSE)
+grid()
+box()
+axis(1)
+axis(2)
+mtext("$\\beta$ (\\%)", side = 1, line = 3, cex = 1.15)
+mtext("Prevalence (\\%)", side = 2, line = 3, cex = 1.15)
+abline(h = 100*pi0, lwd = 2, lty = 2)
+
+text(2.5, 1.18, "$\\pi_0$", cex = 1.15)
+delta = 0.03
+text(2.5, 3.9, "MME", pos = 4)
+text(2.5, 3.7+delta, "95\\% CI", pos = 4)
+text(2.5, 3.5+2*delta, "Survey MLE", pos = 4)
+text(2.5, 3.3+3*delta, "95\\% CI", pos = 4)
+
+lines(c(0, 2), c(3.9, 3.9), col = cols[1], lwd = 4.5, lty = 3)
+polygon(c(0.25, 1.75, 1.75, 0.25), c(3.78, 3.78, 3.62, 3.62)+delta,
+        col = cols2[1], border = NA, density = 18, angle = -45)
+lines(c(0.25, 1.75), c(3.78, 3.78)+delta, lwd = 1, col = cols2[1], lty = 1)
+lines(c(0.25, 1.75), c(3.62, 3.62)+delta, lwd = 1, col = cols2[1], lty = 1)
+lines(c(0, 2), c(3.5, 3.5)+2*delta, col = cols[2], lwd = 4.5, lty = 1)
+polygon(c(0.25, 1.75, 1.75, 0.25), c(3.78, 3.78, 3.62, 3.62) - 0.4+3*delta,
+        col = cols2[2], border = NA, density = 30, angle = 45)
+lines(c(0.25, 1.75), c(3.78, 3.78)- 0.4+3*delta, lwd = 1, col = cols2[2], lty = 1)
+lines(c(0.25, 1.75), c(3.62, 3.62)- 0.4+3*delta, lwd = 1, col = cols2[2], lty = 1)
+
+lines(100*beta, 100*res_moment[,1], lwd = 4.5, col = cols[1], lty = 3)
+polygon(100*c(beta, rev(beta)),
+        100*c(res_moment[,2], rev(res_moment[,3])),
+        col = cols2[1], border = NA, density = 10, angle = -45)
+lines(100*beta, 100*res_moment[,3], lwd = 1, col = cols2[1], lty = 1)
+lines(100*beta, 100*res_moment[,2], lwd = 1, col = cols2[1], lty = 1)
+
+lines(100*beta, 100*res_umle[,1], lwd = 4.5, col = cols[2])
+polygon(100*c(beta, rev(beta)),
+        100*c(res_umle[,2], rev(res_umle[,3])),
+        col = cols2[2], border = NA, density = 20, angle = 45)
+lines(100*beta, 100*res_umle[,3], lwd = 1, col = cols[2], lty = 1)
+lines(100*beta, 100*res_umle[,2], lwd = 1, col = cols[2], lty = 1)
+
+dev.off()
+@
+
 \begin{figure}
 \input{casestudy.tex}
+\end{figure}
+
+\begin{figure}
+\input{casestudy_bw.tex}
 \end{figure}
 
 

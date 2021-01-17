@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  17 DEC 2020 10:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  24 DEC 2020 12:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -515,8 +515,8 @@ Non-PDF special ignored!
 <special> psfile=/dev/null
 Non-PDF special ignored!
 <special> psfile=/dev/null
-]) (./coverage.tex
-Overfull \hbox (88.62pt too wide) in paragraph at lines 1569--1569
+]) (./rmse_bw.tex
+Overfull \hbox (88.62pt too wide) in paragraph at lines 1547--1547
 [][] 
  []
 
@@ -525,8 +525,8 @@ Non-PDF special ignored!
 <special> psfile=/dev/null
 Non-PDF special ignored!
 <special> psfile=/dev/null
-]) (./length.tex
-Overfull \hbox (88.62pt too wide) in paragraph at lines 1490--1490
+]) (./coverage.tex
+Overfull \hbox (88.62pt too wide) in paragraph at lines 1569--1569
 [][] 
  []
 
@@ -535,24 +535,53 @@ Non-PDF special ignored!
 <special> psfile=/dev/null
 Non-PDF special ignored!
 <special> psfile=/dev/null
+]) (./coverage_bw.tex
+Overfull \hbox (88.62pt too wide) in paragraph at lines 1569--1569
+[][] 
+ []
+
+[4
+Non-PDF special ignored!
+<special> psfile=/dev/null
+Non-PDF special ignored!
+<special> psfile=/dev/null
+]) (./length.tex
+Overfull \hbox (88.62pt too wide) in paragraph at lines 1520--1520
+[][] 
+ []
+
+[5
+Non-PDF special ignored!
+<special> psfile=/dev/null
+Non-PDF special ignored!
+<special> psfile=/dev/null
+]) (./length_bw.tex
+Overfull \hbox (88.62pt too wide) in paragraph at lines 1520--1520
+[][] 
+ []
+
+[6
+Non-PDF special ignored!
+<special> psfile=/dev/null
+Non-PDF special ignored!
+<special> psfile=/dev/null
 ]) (./figures.aux) ) 
 Here is how much of TeX's memory you used:
- 13307 strings out of 480608
- 263181 string characters out of 5903630
- 548064 words of memory out of 5000000
- 28921 multiletter control sequences out of 15000+600000
+ 13319 strings out of 480608
+ 263737 string characters out of 5903630
+ 553925 words of memory out of 5000000
+ 28924 multiletter control sequences out of 15000+600000
  537592 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,9n,60p,434b,765s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb>
-Output written on figures.pdf (3 pages, 71660 bytes).
+s/cm/cmr7.pfb>
+Output written on figures.pdf (6 pages, 96248 bytes).
 PDF statistics:
- 34 PDF objects out of 1000 (max. 8388607)
- 23 compressed objects within 1 object stream
+ 39 PDF objects out of 1000 (max. 8388607)
+ 26 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  17 words of extra memory for PDF output out of 10000 (max. 10000000)
 
