@@ -156,8 +156,8 @@ polygon(100*c(beta, rev(beta)),
 
 The results summarized in Section 3.4 and presented in Appendix D of @guerrier2020prevalence can be replicated as follows:
 
-1. Run the file `cape/simulations/simulation_script.R` which should take a couple of hours on a standard laptop.
-2. Run the file `cape/simulations/figures.Rnw` to generates Figures 2, 3 and 4 (as well as color versions of these figures).
+1. Run the file `cape/simulations/simulation_script.R` which should take a couple of hours on a standard laptop and generate the file `cape/simulations/simulations.RData`.
+2. Run the file `cape/simulations/figures.Rnw` (which reads `cape/simulations/simulations.RData`) to generates Figures 2, 3 and 4 (as well as color versions of these figures).
 
 # References
 

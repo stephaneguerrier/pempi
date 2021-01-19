@@ -29,7 +29,7 @@ The ContionAl Prevalence Estimation (cape) package, allows to estimate and build
 
 # Remark on notation
 
-The notation and conventions used in @guerrier2020prevalence and slightly amended for convenience in this package. In particular, we used R1 instead R11, R2 instead of R10, R3 instead of R01 and R4 instead of R00.
+The notation and conventions used in @guerrier2020prevalence are slightly amended for convenience in this package. In particular, we use R1 instead R11, R2 instead of R10, R3 instead of R01 and R4 instead of R00.
 
 # Package installation
 

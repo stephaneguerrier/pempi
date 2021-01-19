@@ -27,8 +27,8 @@ Kuzmics, and Victoria-Feser (2020).
 # Remark on notation
 
 The notation and conventions used in Guerrier, Kuzmics, and
-Victoria-Feser (2020) and slightly amended for convenience in this
-package. In particular, we used R1 instead R11, R2 instead of R10, R3
+Victoria-Feser (2020) are slightly amended for convenience in this
+package. In particular, we use R1 instead R11, R2 instead of R10, R3
 instead of R01 and R4 instead of R00.
 
 # Package installation
