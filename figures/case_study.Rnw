@@ -14,20 +14,20 @@
 load("/Users/stephaneguerrier/Documents/GitHub/cape/simulations/simulations.RData")
 @
 
-<<graph1, eval=FALSE>>=
+<<graph1, eval=TRUE>>=
 library(tikzDevice)
 library(cape)
-tikz("casestudy.tex", width = 6, height = 5.4)
+tikz("case_study_col.tex", width = 6, height = 5.4)
 
 # Data
+n = 2287
 R1 = 32
 R2 = 0
 R3 = 39
-R4 = 2287
-n = R1 + R2 + R3 + R4
+R4 = n - R1 - R2 - R3
 
 # Assumptions
-pi0 = 0.013105
+pi0 = 93914/7166167
 alpha = 1/100
 alpha0 = 0
 m = 300
@@ -61,15 +61,10 @@ for (i in 1:m){
   res_umle[i,] = c(inter$estimate, inter$ci_cp, inter2$ci_cp)
 }
 
-gg_color_hue <- function(n, alpha) {
-  hues = seq(15, 375, length = n + 1)
-  hcl(h = hues, l = 65, c = 100, alpha)[1:n]
-}
+cols = c("#F8766DFF", "#00BFC4FF")
+cols2 = c("#F8766D1F", "#00BFC41F")
 
-cols = gg_color_hue(2, alpha = 1)
-cols2 = gg_color_hue(2, alpha = 0.12)
-
-plot(NA, xlim = 100*range(beta), ylim = c(1, 4), axes = FALSE, ann = FALSE)
+plot(NA, xlim = 100*range(beta), ylim = c(1, 4.25), axes = FALSE, ann = FALSE)
 grid()
 box()
 axis(1)
@@ -102,17 +97,17 @@ dev.off()
 <<graph1bw>>=
 library(tikzDevice)
 library(cape)
-tikz("casestudy_bw.tex", width = 6, height = 5.4)
+tikz("case_study_bw.tex", width = 6, height = 5.4)
 
 # Data
+n = 2287
 R1 = 32
 R2 = 0
 R3 = 39
-R4 = 2287
-n = R1 + R2 + R3 + R4
+R4 = n - R1 - R2 - R3
 
 # Assumptions
-pi0 = 0.013105
+pi0 = 93914/7166167
 alpha = 1/100
 alpha0 = 0
 m = 300
@@ -146,37 +141,10 @@ for (i in 1:m){
   res_umle[i,] = c(inter$estimate, inter$ci_cp, inter2$ci_cp)
 }
 
-gg_color_hue <- function(n, alpha) {
-  hues = seq(15, 375, length = n + 1)
-  hcl(h = hues, l = 65, c = 100, alpha)[1:n]
-}
-
-## Transparent colors
-## Mark Gardener 2015
-## www.dataanalytics.org.uk
-
-t_col <- function(color, percent = 50, name = NULL) {
-  #      color = color name
-  #    percent = % transparency
-  #       name = an optional name for the color
-
-## Get RGB values for named color
-rgb.val <- col2rgb(color)
-
-## Make new color using input color as base and alpha set by transparency
-t.col <- rgb(rgb.val[1], rgb.val[2], rgb.val[3],
-             max = 255,
-             alpha = (100 - percent) * 255 / 100,
-             names = name)
-
-## Save the color
-invisible(t.col)
-}
-
 cols = c("grey40", "grey80")
-cols2 = c(t_col(cols[1], percent = 5), t_col(cols[2], percent = 5))
+cols2 = c("#666666F2", "#CCCCCCF2")
 
-plot(NA, xlim = 100*range(beta), ylim = c(1, 4), axes = FALSE, ann = FALSE)
+plot(NA, xlim = 100*range(beta), ylim = c(1, 4.25), axes = FALSE, ann = FALSE)
 grid()
 box()
 axis(1)
@@ -221,12 +189,11 @@ dev.off()
 @
 
 \begin{figure}
-\input{casestudy.tex}
+\input{case_study_col.tex}
 \end{figure}
 
 \begin{figure}
-\input{casestudy_bw.tex}
+\input{case_study_bw.tex}
 \end{figure}
-
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  23 DEC 2020 22:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  19 JAN 2021 14:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -492,7 +492,8 @@ LaTeX Font Info:    Trying to load font information for T1+aett on input line 1
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
-) (./casestudy.tex
+)
+(./case_study_col.tex
 LaTeX Font Info:    Trying to load font information for U+msa on input line 108
 .
 
@@ -515,8 +516,8 @@ Non-PDF special ignored!
 <special> psfile=/dev/null
 Non-PDF special ignored!
 <special> psfile=/dev/null
-]) (./casestudy_bw.tex
-Overfull \hbox (88.62pt too wide) in paragraph at lines 3457--3457
+]) (./case_study_bw.tex
+Overfull \hbox (88.62pt too wide) in paragraph at lines 3451--3451
 [][] 
  []
 
@@ -528,8 +529,8 @@ Non-PDF special ignored!
 ]) (./case_study.aux) ) 
 Here is how much of TeX's memory you used:
  13312 strings out of 480608
- 263252 string characters out of 5903630
- 566461 words of memory out of 5000000
+ 263249 string characters out of 5903630
+ 562165 words of memory out of 5000000
  28928 multiletter control sequences out of 15000+600000
  537592 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -538,7 +539,7 @@ Here is how much of TeX's memory you used:
 msfonts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr7.pfb>
-Output written on case_study.pdf (2 pages, 64577 bytes).
+Output written on case_study.pdf (2 pages, 64469 bytes).
 PDF statistics:
  27 PDF objects out of 1000 (max. 8388607)
  18 compressed objects within 1 object stream

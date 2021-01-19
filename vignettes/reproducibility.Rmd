@@ -1,0 +1,169 @@
+---
+title: "Results Reproducibility"
+bibliography: bibliography.bib
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Reproducibility}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Case study: Application to Austrian COVID-19 survey
+
+We use the methodology developed in this paper for the case of the COVID-19 prevalence estimation using the results of a survey done in November 2020 by @StatAU20. We also compare the different approaches, in order to illustrate, in practice, the impact of choosing one method rather than another one. In November 2020, a survey sample of $n=2287$ was collected to test for COVID-19 using PCR-tests. Seventy-one participants were tested positive, and among these ones, thirty-two ($R_1=32$) had declared to have been tested positive with the official procedure, during the same month. In November, there were $93914$  declared cases among the official (approximately) $7166167$ inhabitants in Austria (above 16 years old), so that $\pi_0 \approx 1.3105\%$. The sensitivity ($1-\alpha$) and the specificity ($1-\beta$) are not known with precision, so that we present estimates of the prevalence without misclassification error as well as for values for the FP and FN rates, that are plausible given the data and according to the sensitivity and specificity reported in \cite{KoWeGr:20} or \cite{surkova2020false}.
+
+The results presented in Table 1 of @guerrier2020prevalence can be reproduced as follows:
+
+```{r}
+# Load cape
+library(cape)
+
+# Austrian data (November 2020)
+pi0 = 93914/7166167
+n = 2287
+R1 = 32
+R2 = 0
+R3 = 39
+R4 = n - R1 - R2 - R3
+
+# Meas. error
+alpha0 = 0
+alpha = 1/100
+beta = 10/100
+
+# Fit survey MLE (no meas. error)
+survey_mle(R = R1 + R3, n = n, pi0 = pi0) 
+
+# Fit survey MLE (with meas. error)
+survey_mle(R = R1 + R3, n = n, pi0 = pi0, alpha = alpha, beta = beta) 
+
+# Conditional MLE (no meas. error)
+conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, n = n, pi0 = pi0)
+
+# Conditional MLE (with meas. error)
+conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, n = n, pi0 = pi0,
+                alpha0 = alpha0, alpha = alpha, beta = beta) 
+
+# Moment estimator (no meas. error)
+moment_estimator(R3 = R3, n = n, pi0 = pi0)
+
+# Moment estimator (with meas. error)
+moment_estimator(R3 = R3, n = n, pi0 = pi0,
+                 alpha0 = alpha0, alpha = alpha, beta = beta) 
+
+# Fit survey MLE (no meas. error) with increased sample size k = 1.5
+k = 1.5
+survey_mle(R = ceiling(k*(R1 + R3)), n = ceiling(k*n), pi0 = pi0) 
+
+# Fit survey MLE (with meas. error) with increased sample size k = 1.5
+survey_mle(R = ceiling(k*(R1 + R3)), n = ceiling(k*n), pi0 = pi0, 
+                       alpha = alpha, beta = beta)
+           
+# Fit survey MLE (no meas. error) with increased sample size k = 2
+k = 2
+survey_mle(R = ceiling(k*(R1 + R3)), n = ceiling(k*n), pi0 = pi0) 
+
+# Fit survey MLE (with meas. error) with increased sample size k = 2
+survey_mle(R = ceiling(k*(R1 + R3)), n = ceiling(k*n), pi0 = pi0, 
+                       alpha = alpha, beta = beta)           
+```
+
+Moreover, Figure 1 can be obtained by running the file `cape/figures/case_study.Rnw`. A base R version can be obtained as follows:
+
+```{r, fig.align='center', fig.height=7, fig.width=8}
+# Austrian data (November 2020)
+pi0 = 93914/7166167
+n = 2287
+R1 = 32
+R2 = 0
+R3 = 39
+R4 = n - R1 - R2 - R3
+
+# Assumptions
+pi0 = 0.013105
+alpha = 1/100
+alpha0 = 0
+m = 300
+beta = seq(from = 0, to = 30, length.out = m)/100
+res_moment = res_cmle = res_umle = matrix(NA, m, 5)
+
+for (i in 1:m){
+  # Moment estimator
+  inter = moment_estimator(R3 = R3, n = n, pi0 = pi0,
+                           alpha = alpha, alpha0 = alpha0,
+                           beta = beta[i])
+  inter2 = moment_estimator(R3 = R3, n = n, pi0 = pi0,
+                            alpha = alpha, alpha0 = alpha0,
+                            beta = beta[i], gamma = 0.2)
+  res_moment[i,] = c(inter$estimate, inter$ci_cp, inter2$ci_cp)
+
+  # Conditional MLE
+  inter = conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4,
+                          n = n, pi0 = pi0, alpha = alpha, alpha0 = alpha0,
+                          beta = beta[i])
+  inter2 = conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4,
+                           n = n, pi0 = pi0, alpha = alpha, alpha0 = alpha0,
+                           beta = beta[i], gamma = 0.2)
+  res_cmle[i,] = c(inter$estimate, inter$ci_asym, inter2$ci_asym)
+
+  # Survey MLE
+  inter = survey_mle(R = R1 + R3, n = n, pi0 = pi0,
+                     alpha = alpha, alpha0 = alpha0,
+                     beta = beta[i])
+  inter2 = survey_mle(R = R1 + R3, n = n, pi0 = pi0,
+                      alpha = alpha, alpha0 = alpha0,
+                      beta = beta[i], gamma = 0.2)
+  res_umle[i,] = c(inter$estimate, inter$ci_cp, inter2$ci_cp)
+}
+
+cols = c("#F8766DFF", "#00BFC4FF")
+cols2 = c("#F8766D1F", "#00BFC41F")
+
+plot(NA, xlim = 100*range(beta), ylim = c(1, 4.5), axes = FALSE, ann = FALSE)
+grid()
+box()
+axis(1)
+axis(2)
+mtext(expression(paste(beta, " (%)")), side = 1, line = 3, cex = 1.15)
+mtext("Prevalence (%)", side = 2, line = 3, cex = 1.15)
+abline(h = 100*pi0, lwd = 2, lty = 2)
+
+text(2.5, 1.18, expression(pi[0]), cex = 1.15)
+
+legend("topleft", c("MME", "95% CI",
+                     "Survey MLE", "95% CI"),
+       bty = "n", col = c(cols[1], cols2[1],cols[2], cols2[2]),
+       lwd = c(3, NA, 3, NA), pch = c(NA, 15, NA, 15),
+       pt.cex = 2.5)
+lines(100*beta, 100*res_moment[,1], lwd = 3, col = cols[1])
+polygon(100*c(beta, rev(beta)),
+        100*c(res_moment[,2], rev(res_moment[,3])),
+        col = cols2[1], border = NA)
+
+lines(100*beta, 100*res_umle[,1], lwd = 3, col = cols[2])
+polygon(100*c(beta, rev(beta)),
+        100*c(res_umle[,2], rev(res_umle[,3])),
+        col = cols2[2], border = NA)
+```
+
+# Simulation Study
+
+The results summarized in Section 3.4 and presented in Appendix D of @guerrier2020prevalence can be replicated as follows:
+
+1. Run the file `cape/simulations/simulation_script.R` which should take a couple of hours on a standard laptop.
+2. Run the file `cape/simulations/figures.Rnw` to generates Figures 2, 3 and 4 (as well as color versions of these figures).
+
+# References
+
+
+
+
+
+
+

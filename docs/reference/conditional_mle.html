@@ -88,6 +88,9 @@
   <a href="../articles/pkgdown.html">Get started</a>
 </li>
 <li>
+  <a href="../articles/reproducibility.html">Reproducibility</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -207,33 +210,33 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 <span class='no'>X</span> <span class='kw'>=</span> <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>100</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>100</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)
 <span class='fu'>conditional_mle</span>(<span class='kw'>R1</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R1</span>, <span class='kw'>R2</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R2</span>, <span class='kw'>R3</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R3</span>, <span class='kw'>R4</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R4</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>pi0</span>)</div><div class='output co'>#&gt; Method: Conditional MLE
 #&gt; 
-#&gt; Estimated proportion: 1.0000%
-#&gt; Standard error      : 2.5690%
+#&gt; Estimated proportion: 3.2061%
+#&gt; Standard error      : 0.3792%
 #&gt; 
 #&gt; Confidence intervals at the 95% level:
-#&gt; Asymptotic Approach: -4.0352% - 6.0352%
+#&gt; Asymptotic Approach: 2.4629% - 3.9494%
 #&gt; 
 #&gt; Assumed measurement error: alpha  = 0%, beta = 0%,
 #&gt;                            alpha0 = 0% 
 #&gt; 
 #&gt; Estimated false negative rate of the
-#&gt; official procedure: beta0 = 0%</div><div class='output co'>#&gt; <span class='warning'>Warning: Parameter estimates is in the boundary of the space. Results may not be reliable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The asymptotic confidence interval is not be reliable. The point estimate is either too close from the boundary of the space or some of the values of alpha, beta and alpha0 may not be plausible given the data.</span></div><div class='input'>
+#&gt; official procedure: beta0 = 68.8099%</div><div class='input'>
 <span class='co'># With measurement error</span>
 <span class='no'>X</span> <span class='kw'>=</span> <span class='fu'><a href='sim_Rs.html'>sim_Rs</a></span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>30</span>/<span class='fl'>1000</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='fl'>10</span>/<span class='fl'>1000</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1500</span>, <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.001</span>,
 <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>18</span>)
 <span class='fu'>conditional_mle</span>(<span class='kw'>R1</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R1</span>, <span class='kw'>R2</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R2</span>, <span class='kw'>R3</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R3</span>, <span class='kw'>R4</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R4</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>pi0</span>)</div><div class='output co'>#&gt; Method: Conditional MLE
 #&gt; 
-#&gt; Estimated proportion: 1.0000%
-#&gt; Standard error      : 2.5690%
+#&gt; Estimated proportion: 3.6736%
+#&gt; Standard error      : 0.4164%
 #&gt; 
 #&gt; Confidence intervals at the 95% level:
-#&gt; Asymptotic Approach: -4.0352% - 6.0352%
+#&gt; Asymptotic Approach: 2.8574% - 4.4899%
 #&gt; 
 #&gt; Assumed measurement error: alpha  = 0%, beta = 0%,
 #&gt;                            alpha0 = 0% 
 #&gt; 
 #&gt; Estimated false negative rate of the
-#&gt; official procedure: beta0 = 0%</div><div class='output co'>#&gt; <span class='warning'>Warning: Parameter estimates is in the boundary of the space. Results may not be reliable.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The asymptotic confidence interval is not be reliable. The point estimate is either too close from the boundary of the space or some of the values of alpha, beta and alpha0 may not be plausible given the data.</span></div><div class='input'><span class='fu'>conditional_mle</span>(<span class='kw'>R1</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R1</span>, <span class='kw'>R2</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R2</span>, <span class='kw'>R3</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R3</span>, <span class='kw'>R4</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R4</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>pi0</span>,
+#&gt; official procedure: beta0 = 72.7791%</div><div class='input'><span class='fu'>conditional_mle</span>(<span class='kw'>R1</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R1</span>, <span class='kw'>R2</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R2</span>, <span class='kw'>R3</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R3</span>, <span class='kw'>R4</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>R4</span>, <span class='kw'>pi0</span> <span class='kw'>=</span> <span class='no'>X</span>$<span class='no'>pi0</span>,
 <span class='kw'>alpha0</span> <span class='kw'>=</span> <span class='fl'>0.001</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; Method: Conditional MLE
 #&gt; 
 #&gt; Estimated proportion: 2.6929%

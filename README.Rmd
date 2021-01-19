@@ -1,5 +1,6 @@
 ---
 output: github_document
+bibliography: ref.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -24,11 +25,15 @@ library(cape)
 
 # `cape` Overview 
 
-This R package provides an implementation of the ContionAl Prevalence Estimation (or `cape`) approach proposed in *Prevalence Estimation using Random and Non-Random Sample Information* by Stéphane Guerrier, Christoph Kuzmics and Maria-Pia Victoria-Feser (submitted manuscript available upon request).
+The ContionAl Prevalence Estimation (cape) package, allows to estimate and build confidence intervals for proportions, from random samples and census data with participation bias. Measurement errors in the form of false positive and false negative are also included the the inferential procedure. The cape package also contains code for simulation studies and sensitivity analysis reported in the companion paper @guerrier2020prevalence.
+
+# Remark on notation
+
+The notation and conventions used in @guerrier2020prevalence and slightly amended for convenience in this package. In particular, we used R1 instead R11, R2 instead of R10, R3 instead of R01 and R4 instead of R00.
 
 # Package installation
 
-The `cape` pacakge can be installed from GitHub as follows:
+The `cape` package can be installed from GitHub as follows:
 
 ```{r, eval=FALSE}
 # Install devtools
@@ -54,7 +59,7 @@ Note that Windows users are assumed that have Rtools installed (if this is not t
 
 # Graphical user interface
 
-A Graphical User Interface (GUI) is available with the `cape` R package. This GUI which can be lauched as follows:
+A Graphical User Interface (GUI) is available with the `cape` R package. This GUI which can be launched as follows:
 
 ```{r, eval = FALSE}
 gui()
@@ -67,3 +72,6 @@ It allows to compare the methods considered in the package as illustrated below:
 # License
 
 The license this source code is released under is the GNU AFFERO GENERAL PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text. Otherwise, please consult [TLDR Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)) or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will provide a synopsis of the restrictions placed upon the code.
+
+# References
+

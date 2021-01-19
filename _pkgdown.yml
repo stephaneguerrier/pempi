@@ -29,6 +29,8 @@ navbar:
     href: index.html
   - text: Get started
     href: articles/pkgdown.html
+  - text: Reproducibility
+    href: articles/reproducibility.html
   - text: Reference
     href: reference/index.html
   right:
