@@ -16,17 +16,24 @@ status](https://www.r-pkg.org/badges/version/stacks)](https://CRAN.R-project.org
 
 # `cape` Overview
 
-Harrar and Spence (2013)
+The ContionAl Prevalence Estimation (cape) package, allows to estimate
+and build confidence intervals for proportions, from random samples and
+census data with participation bias. Measurement errors in the form of
+false positive and false negative are also included the the inferential
+procedure. The cape package also contains code for simulation studies
+and sensitivity analysis reported in the companion paper Guerrier,
+Kuzmics, and Victoria-Feser (2020).
 
-This R package provides an implementation of the ContionAl Prevalence
-Estimation (or `cape`) approach proposed in *Prevalence Estimation using
-Random and Non-Random Sample Information* by Stéphane Guerrier,
-Christoph Kuzmics and Maria-Pia Victoria-Feser (submitted manuscript
-available upon request).
+# Remark on notation
+
+The notation and conventions used in Guerrier, Kuzmics, and
+Victoria-Feser (2020) and slightly amended for convenience in this
+package. In particular, we used R1 instead R11, R2 instead of R10, R3
+instead of R01 and R4 instead of R00.
 
 # Package installation
 
-The `cape` pacakge can be installed from GitHub as follows:
+The `cape` package can be installed from GitHub as follows:
 
 ``` r
 # Install devtools
@@ -53,7 +60,7 @@ is not the case, please visit this
 # Graphical user interface
 
 A Graphical User Interface (GUI) is available with the `cape` R package.
-This GUI which can be lauched as follows:
+This GUI which can be launched as follows:
 
 ``` r
 gui()
@@ -73,13 +80,15 @@ Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-\(agpl
 or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will
 provide a synopsis of the restrictions placed upon the code.
 
+# References
+
 <div id="refs" class="references">
 
-<div id="ref-harrar2013taste">
+<div id="ref-guerrier2020prevalence">
 
-Harrar, Vanessa, and Charles Spence. 2013. “The Taste of Cutlery: How
-the Taste of Food Is Affected by the Weight, Size, Shape, and Colour of
-the Cutlery Used to Eat It.” *Flavour* 2 (1): 21.
+Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.
+2020. “Prevalence Estimation from Random Samples and Census Data with
+Participation Bias.” <http://arxiv.org/abs/2012.10745>.
 
 </div>
 

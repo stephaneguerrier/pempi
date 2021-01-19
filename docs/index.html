@@ -77,13 +77,17 @@
 <div id="cape-overview" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#cape-overview" class="anchor"></a><code>cape</code> Overview</h1></div>
-<p>Harrar and Spence (2013)</p>
-<p>This R package provides an implementation of the ContionAl Prevalence Estimation (or <code>cape</code>) approach proposed in <em>Prevalence Estimation using Random and Non-Random Sample Information</em> by Stéphane Guerrier, Christoph Kuzmics and Maria-Pia Victoria-Feser (submitted manuscript available upon request).</p>
+<p>The ContionAl Prevalence Estimation (cape) package, allows to estimate and build confidence intervals for proportions, from random samples and census data with participation bias. Measurement errors in the form of false positive and false negative are also included the the inferential procedure. The cape package also contains code for simulation studies and sensitivity analysis reported in the companion paper Guerrier, Kuzmics, and Victoria-Feser (2020).</p>
+</div>
+<div id="remark-on-notation" class="section level1">
+<h1 class="hasAnchor">
+<a href="#remark-on-notation" class="anchor"></a>Remark on notation</h1>
+<p>The notation and conventions used in Guerrier, Kuzmics, and Victoria-Feser (2020) and slightly amended for convenience in this package. In particular, we used R1 instead R11, R2 instead of R10, R3 instead of R01 and R4 instead of R00.</p>
 </div>
 <div id="package-installation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#package-installation" class="anchor"></a>Package installation</h1>
-<p>The <code>cape</code> pacakge can be installed from GitHub as follows:</p>
+<p>The <code>cape</code> package can be installed from GitHub as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="co"># Install devtools</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
 
@@ -105,7 +109,7 @@
 <div id="graphical-user-interface" class="section level1">
 <h1 class="hasAnchor">
 <a href="#graphical-user-interface" class="anchor"></a>Graphical user interface</h1>
-<p>A Graphical User Interface (GUI) is available with the <code>cape</code> R package. This GUI which can be lauched as follows:</p>
+<p>A Graphical User Interface (GUI) is available with the <code>cape</code> R package. This GUI which can be launched as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="reference/gui.html">gui</a></span>()</pre></div>
 <p>It allows to compare the methods considered in the package as illustrated below:</p>
 <p><img src="https://i.imgur.com/k0UrJMC.gif"></p>
@@ -114,9 +118,16 @@
 <h1 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h1>
 <p>The license this source code is released under is the GNU AFFERO GENERAL PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text. Otherwise, please consult <a href="https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)">TLDR Legal</a> or <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">GNU</a> which will provide a synopsis of the restrictions placed upon the code.</p>
+</div>
+<div id="references" class="section level1">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
-<div id="ref-harrar2013taste">
-<p>Harrar, Vanessa, and Charles Spence. 2013. “The Taste of Cutlery: How the Taste of Food Is Affected by the Weight, Size, Shape, and Colour of the Cutlery Used to Eat It.” <em>Flavour</em> 2 (1): 21.</p>
+<div id="ref-guerrier2020prevalence">
+<p>Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.</p>
+<ol>
+<li>“Prevalence Estimation from Random Samples and Census Data with Participation Bias.” <a href="http://arxiv.org/abs/2012.10745" class="uri">http://arxiv.org/abs/2012.10745</a>.</li>
+</ol>
 </div>
 </div>
 </div>
