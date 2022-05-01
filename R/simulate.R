@@ -143,7 +143,7 @@ sim_Rs = function(theta, pi0, n, alpha0 = 0, alpha = 0, beta = 0, seed = NULL, .
 #' sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
 #'
 #' # With measurement error
-#' sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01,
+#' sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0,
 #' alpha = 0.01, beta = 0.05, seed = 18)
 print.cpreval_sim = function(x, ...){
   cat("Data: R = ")
@@ -173,8 +173,6 @@ print.cpreval_sim = function(x, ...){
   cat("False negative rate of the official procedure: beta0 = ")
   cat(round(100*x$beta0,2))
   cat("%\n")
-
-
 }
 
 

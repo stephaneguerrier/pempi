@@ -5,3 +5,4 @@
 ^pkgdown$
 ^appveyor\.yml$
 ^\.travis\.yml$
+^README.Rmd

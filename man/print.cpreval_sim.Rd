@@ -22,7 +22,7 @@ Simple print function for the \code{cpreval_sim} objects
 sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
 
 # With measurement error
-sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.01,
+sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0,
 alpha = 0.01, beta = 0.05, seed = 18)
 }
 \author{
