@@ -2,15 +2,12 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.com/stephaneguerrier/cape.svg?branch=master)](https://travis-ci.com/stephaneguerrier/cape)
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
-version](https://img.shields.io/badge/R%3E%3D-3.6.0-6666ff.svg)](https://cran.r-project.org/)
+version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
 [![Last-changedate](https://img.shields.io/badge/last%20change-2022--05--01-green.svg)](https://github.com/stephaneguerrier/cape)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/stacks)](https://CRAN.R-project.org/package=stacks)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R-CMD-check](https://github.com/stephaneguerrier/cape/workflows/R-CMD-check/badge.svg)](https://github.com/stephaneguerrier/cape/actions)
 <!-- badges: end -->
 
 # `cape` Overview
@@ -20,15 +17,14 @@ and build confidence intervals for proportions, from random samples and
 census data with participation bias. Measurement errors in the form of
 false positive and false negative are also included the the inferential
 procedure. The cape package also contains code for simulation studies
-and sensitivity analysis reported in the companion paper Guerrier,
-Kuzmics, and Victoria-Feser (2022).
+and sensitivity analysis reported in the companion paper Guerrier et
+al. (2022)
 
 # Remark on notation
 
-The notation and conventions used in Guerrier, Kuzmics, and
-Victoria-Feser (2022) are slightly amended for convenience in this
-package. In particular, we use R1 instead R11, R2 instead of R10, R3
-instead of R01 and R4 instead of R00.
+The notation and conventions used in Guerrier et al. (2022) are slightly
+amended for convenience in this package. In particular, we use R1
+instead R11, R2 instead of R10, R3 instead of R01 and R4 instead of R00.
 
 # Package installation
 
@@ -67,14 +63,7 @@ provide a synopsis of the restrictions placed upon the code.
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-guerrier2022prevalence" class="csl-entry">
-
 Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.
-2022. “Prevalence Estimation from Random Samples and Census Data with
-Participation Bias.” <http://arxiv.org/abs/2012.10745>.
-
-</div>
-
-</div>
+2022. “Assessing Coronavirus SARS-CoV-2 Prevalence in Austria in 2020,
+with Sample Surveys and Census Data with Participation Bias”,
+<http://arxiv.org/abs/2012.10745>.
