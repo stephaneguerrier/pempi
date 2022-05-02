@@ -129,6 +129,15 @@ In the case of a stratified sampling, the Survey MLE (with and without measureme
 ```
 
 
+# Marginal MLE
+
+Only implemented for random sampling
+
+```{r}
+marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0)
+marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+```
+
 ```{r, eval = FALSE}
 # Survey (weighted) MLE with measurement error
 (wsmle_no_meas_error = survey_mle(R = R1w + R3w, n = n))
