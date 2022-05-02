@@ -16,19 +16,13 @@ reference:
     contents:
     - print.cpreval
     - print.cpreval_sim
-  - title: Internal
-    contents:
-    - get_prob
-    - log_modified
-    - neg_log_lik
-    - neg_log_lik_integrated
 
 navbar:
   left:
   - icon: fa-home
     href: index.html
   - text: Get started
-    href: articles/pkgdown.html
+    href: articles/get_started.html
   - text: Reproducibility
     href: articles/reproducibility.html
   - text: Reference

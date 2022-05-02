@@ -456,20 +456,21 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha0, alpha, beta, ...
 
 #' @title Compute MLE based on the full information R1, R2, R3 and R4.
 #' @description Proportion estimated using the MLE and confidence intervals based the asymptotic distribution of the estimator.
-#' @param R1        A \code{numeric} that provides the number of participants in the survey sample that were tested positive with both (medical) testing devices (and are, thus, members of the sub-population).
-#' @param R2        A \code{numeric} that provides the number of participants in the survey sample that are tested positive only with the first testing device (and are, thus,  members of the sub-population).
-#' @param R3        A \code{numeric} that provides the number of participants in the survey sample that are tested positive only with the second testing device.
-#' @param R4        A \code{numeric} that provides the number of participants that are tested negative with the second testing device (and are either members of the sub-population and have tested negative with the first testing device or are not members of the sub-population).
-#' @param n         A \code{numeric} that provides the sample size. Default value R1 + R2 + R3 + R4. If this value is provided it is used to verify that R1 + R2 + R3 + R4 = n.
-#' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
+#' @param R1         A \code{numeric} that provides the number of participants in the survey sample that were tested positive with both (medical) testing devices (and are, thus, members of the sub-population).
+#' @param R2         A \code{numeric} that provides the number of participants in the survey sample that are tested positive only with the first testing device (and are, thus,  members of the sub-population).
+#' @param R3         A \code{numeric} that provides the number of participants in the survey sample that are tested positive only with the second testing device.
+#' @param R4         A \code{numeric} that provides the number of participants that are tested negative with the second testing device (and are either members of the sub-population and have tested negative with the first testing device or are not members of the sub-population).
+#' @param n          A \code{numeric} that provides the sample size. Default value R1 + R2 + R3 + R4. If this value is provided it is used to verify that R1 + R2 + R3 + R4 = n.
+#' @param pi0        A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 #' but systematic sampling (e.g. based on medical selection).
-#' @param gamma     A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
-#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' @param gamma      A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param alpha0     A \code{numeric} that corresponds to the probability that a random participant
 #' has been incorrectly declared positive through the nontransparent procedure. In most applications,
 #' this probability is likely very close to zero. Default value is \code{0}.
-#' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
-#' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
-#' @param ...       Additional arguments.
+#' @param alpha      A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
+#' @param beta       A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
+#' @param V          A \code{numeric} that corresponds to the average of squared sampling weights. Default value is \code{NULL}.
+#' @param ...        Additional arguments.
 #' @return A \code{cpreval} object with the structure:
 #' \itemize{
 #'  \item estimate:    Estimated proportion.
@@ -479,8 +480,11 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha0, alpha, beta, ...
 #'  \item method:      Estimation method (in this case mle).
 #'  \item measurement: A vector with (alpha0, alpha, beta).
 #'  \item beta0:       Estimated false negative rate of the official procedure.
+#'  \item ci_beta0:    Asymptotic confidence interval (1 - gamma confidence level) for beta0.
 #'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
 #'  \item pi0:         Value of pi0 (input value).
+#'  \item sampling:    Type of sampling considered ("random" or "weighted").
+#'  \item V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -497,7 +501,7 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha0, alpha, beta, ...
 #' conditional_mle(R1 = X$R1, R2 = X$R2, R3 = X$R3, R4 = X$R4, pi0 = X$pi0,
 #' alpha0 = 0.001, alpha = 0.01, beta = 0.05)
 #' @importFrom stats optimize qnorm
-conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + R2 + R3 + R4, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta = 0, ...){
+conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + R2 + R3 + R4, pi0, gamma = 0.05, alpha0 = 0, alpha = 0, beta = 0, V = NULL, ...){
   # Check inputs
   if (is.null(R1) + is.null(R2) + is.null(R3) + is.null(R4) == 1 && length(n) == 0){
     if (is.null(R1)){
@@ -544,26 +548,52 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
   }
 
   if (R1%%1!=0 || R1 < 0){
-    stop("R1 should be non-negative integer.")
+    if (is.null(V)){
+      stop("R1 should be non-negative integer. To use sampling weights you need to provide a value for V.")
+    }else{
+      if (R1 < 0){
+        stop("R1 should be non-negative.")
+      }
+    }
   }
 
   if (R2%%1!=0 || R2 < 0){
-    stop("R2 should be non-negative integer.")
+    if (is.null(V)){
+      stop("R2 should be non-negative integer. To use sampling weights you need to provide a value for V.")
+    }else{
+      if (R2 < 0){
+        stop("R2 should be non-negative.")
+      }
+    }
   }
 
   if (R3%%1!=0 || R3 < 0){
-    stop("R3 should be non-negative integer.")
+    if (is.null(V)){
+      stop("R3 should be non-negative integer. To use sampling weights you need to provide a value for V.")
+    }else{
+      if (R3 < 0){
+        stop("R3 should be non-negative.")
+      }
+    }
   }
 
   if (R4%%1!=0 || R4 < 0){
-    stop("R4 should be non-negative integer.")
+    if (is.null(V)){
+      stop("R4 should be non-negative integer. To use sampling weights you need to provide a value for V.")
+    }else{
+      if (R4 < 0){
+        stop("R4 should be non-negative.")
+      }
+    }
   }
 
+  # To avoid rounding error
+  n = round(n, 6)
   if (n%%1!=0 || n < 0){
     stop("n should be non-negative integer.")
   }
 
-  if (R1 + R2 + R3 + R4 != n){
+  if (abs(R1 + R2 + R3 + R4 - n) > 10^(-6)){
     stop("The sum of R_i should be equal to n.")
   }
 
@@ -586,11 +616,22 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
   # Find MLE (TODO use closed form when possible)
   R = c(R1, R2, R3, R4)
   eps = 10^(-5)
-  estimate = optimize(neg_log_lik, interval = c(pi0 + eps, 1 - eps), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
 
-  # Check boundary
-  LL_mle = (-1)*neg_log_lik(theta = estimate, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
-  LL_pi0 = (-1)*neg_log_lik(theta = pi0 + 10^(-7), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  if (is.null(V)){
+    sampling = "random"
+    estimate = optimize(neg_log_lik, interval = c(pi0 + eps, 1 - eps), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
+
+    # Check boundary
+    LL_mle = (-1)*neg_log_lik(theta = estimate, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+    LL_pi0 = (-1)*neg_log_lik(theta = pi0 + 10^(-7), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  }else{
+    sampling = "weighted"
+    estimate = optimize(neg_log_wlik, interval = c(pi0 + eps, 1 - eps), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)$minimum
+
+    # Check boundary
+    LL_mle = (-1)*neg_log_lik(theta = estimate, Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+    LL_pi0 = (-1)*neg_log_lik(theta = pi0 + 10^(-7), Rvect = R, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  }
 
   if (LL_mle < LL_pi0){
     boundary = TRUE
@@ -602,10 +643,8 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
   # Compute implied probs
   probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
 
-  # Deltas
-  beta0 = 0 # This is not used (TO DO remove beta0 here)
+  # Delta
   Delta = 1 - alpha - beta
-  Delta0 = 1 - alpha0 - beta0
 
   # Compute Fisher Info
   a1 = ((1 - alpha0)^2*Delta^2*probs[4])/((1 - alpha0)*(1 - estimate*Delta - alpha) - beta*(pi0 - alpha0))^2
@@ -628,7 +667,11 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
     fisher_info = fisher_info + a4
 
   # Asymptotic variance
-  mle_var = 1/(n*fisher_info)
+  if (is.null(V)){
+    mle_var = 1/(n*fisher_info)
+  }else{
+    mle_var = V/(n*fisher_info)
+  }
 
   # Compute Asymptotic CI
   sd = sqrt(mle_var)
@@ -636,13 +679,15 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 
   # Compute estimated false negative rate of the official procedure
   beta0 = 1 - (pi0 - alpha0*(1 - estimate))/estimate
+  var_beta_asym = (sd^2*n*(pi0 - alpha0)^2)/(estimate^4)
+  ci_beta0 = beta0 + qnorm(1 - gamma/2)*c(-1,1)*sqrt(var_beta_asym/n)
 
   # Construct output
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, gamma = gamma,
              method = "Conditional MLE",
              measurement = c(alpha0, alpha, beta),
-             beta0 = beta0,
-             boundary = boundary, pi0 = pi0, ...)
+             beta0 = beta0, ci_beta0 = ci_beta0,
+             boundary = boundary, pi0 = pi0, sampling = sampling, V = V,...)
   class(out) = "cpreval"
   out
 }
@@ -799,6 +844,43 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
              sampling = "random", V = V, ...)
   class(out) = "cpreval"
   out
+}
+
+#' @export
+neg_log_wlik = function(theta, Rvect, n, pi0, alpha, beta, alpha0){
+  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+  (-1)*(Rvect[1]/n*log_modified(probs[1]) + Rvect[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + Rvect[4]/n*log_modified(probs[4]))
+}
+
+#' @export
+asym_var_cmle_weigth = function(theta, alpha, beta, alpha0, pi0, V){
+  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+
+  # Deltas
+  Delta = 1 - alpha - beta
+
+  # Compute Fisher Info
+  a1 = ((1 - alpha0)^2*Delta^2*probs[4])/((1 - alpha0)*(1 - theta*Delta - alpha) - beta*(pi0 - alpha0))^2
+  a2 = (alpha0^2*Delta^2*probs[1])/(alpha*alpha0 + (1-beta)*(pi0 - alpha0) + theta*alpha0*Delta)^2
+  a3 = (alpha0^2*Delta^2*probs[2])/(alpha0*(1 - theta*Delta - alpha) + beta*(pi0 - alpha0))^2
+  a4 = ((1 - alpha0)^2*Delta^2*probs[3])/((1-beta)*(pi0 - alpha0) - theta*(1-alpha0)*Delta - alpha*(1-alpha0))^2
+
+  fisher_info = 0
+
+  if (!is.na(a1))
+    fisher_info = fisher_info + a1
+
+  if (!is.na(a2))
+    fisher_info = fisher_info + a2
+
+  if (!is.na(a3))
+    fisher_info = fisher_info + a3
+
+  if (!is.na(a4))
+    fisher_info = fisher_info + a4
+
+  # Asymptotic variance
+  V/fisher_info
 }
 
 
