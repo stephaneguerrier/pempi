@@ -8,6 +8,7 @@
 #' @param alpha    A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
 #' @param beta     A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
 #' @param gamma    A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param V        A \code{numeric} that corresponds to the average of squared sampling weights. Default value is \code{NULL}.
 #' @param ...      Additional arguments.
 #' @return A \code{cpreval} object with the structure:
 #' \itemize{
@@ -20,7 +21,8 @@
 #'  \item beta0:       Estimated false negative rate of the official procedure.
 #'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
 #'  \item pi0:         Value of pi0 (input value).
-#'  \item V:           Average of squared sampling weights
+#'  \item sampling:    Type of sampling considered ("random" or "weighted").
+#'  \item V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -174,7 +176,11 @@ print.cpreval = function(x, ...){
   cat("Standard error      : ")
   cat(sprintf("%.4f", 100*x$sd))
   cat("%\n\n")
-  cat("Confidence intervals at the ")
+  cat("Confidence interval")
+  if (x$sampling == "random" && (x$method == "Survey MLE" || x$method == "Moment Estimator")){
+    cat("s")
+  }
+  cat(" at the ")
   cat(100*(1 - x$gamma))
   cat("% level:\n")
   cat("Asymptotic Approach: ")
@@ -256,6 +262,7 @@ print.cpreval = function(x, ...){
 #' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
 #' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
 #' @param gamma     A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param V         A \code{numeric} that corresponds to the average of squared sampling weights. Default value is \code{NULL}.
 #' @param ...       Additional arguments.
 #' @return A \code{cpreval} object with the structure:
 #' \itemize{
@@ -269,6 +276,8 @@ print.cpreval = function(x, ...){
 #'  \item beta0:       Estimated false negative rate of the official procedure.
 #'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
 #'  \item pi0:         Value of pi0 (input value).
+#'  \item sampling:    Type of sampling considered ("random" or "weighted").
+#'  \item V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -285,10 +294,16 @@ print.cpreval = function(x, ...){
 #' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0, alpha0 = 0.001,
 #' alpha = 0.01, beta = 0.05)
 #' @importFrom stats qbeta qnorm
-moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, ...){
+moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, V = NULL, ...){
   # Check inputs
   if (R3%%1!=0 || R3 < 0){
-    stop("R3 should be non-negative integer.")
+    if (is.null(V)){
+      stop("R3 should be non-negative integer. To use sampling weights you need to provide a value for V.")
+    }else{
+      if (R3 < 0){
+        stop("R3 should be non-negative.")
+      }
+    }
   }
 
   if (alpha0 > pi0){
@@ -320,10 +335,7 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   }
 
   # Compute point estimate
-  beta0 = 0 # This is not used (TO DO remove beta0 here)
   Delta = 1 - alpha - beta
-  Delta0 = 1 - alpha0 - beta0
-  pi0_star = (pi0 - alpha0)/Delta0
   estimate = 1/(Delta*(1 - alpha0))*(R3/n + pi0 - beta*pi0 - alpha0*Delta - alpha)
 
   # Check if the estimate is in the range [pi0, 1]
@@ -343,24 +355,34 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha,
                    beta = beta, alpha0 = alpha0)
 
-  sd = sqrt((probs[3]*(1 - probs[3]))/(n*Delta^2*(1 - alpha0)^2))
+  if (is.null(V)){
+    sd = sqrt((probs[3]*(1 - probs[3]))/(n*Delta^2*(1 - alpha0)^2))
+    sampling = "random"
+  }else{
+    sd = sqrt((V*probs[3]*(1 - probs[3]))/(n*Delta^2*(1 - alpha0)^2))
+    sampling = "weighted"
+  }
   ci_asym = estimate + qnorm(1 - gamma/2)*c(-1,1)*sd
 
-  # CP - CI (1 - gamma)
-  if (boundary == FALSE){
-    upper = (qbeta(p = 1 - gamma/2, R3 + 1, n - R3) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
-    lower = (qbeta(p = gamma/2, R3, n - R3 + 1) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
-  }else{
-    if (boundary == "lower"){
-      upper = (1 - (gamma/2)^(1/n) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
-      lower = pi0
+  if (is.null(V)){
+    # CP - CI (1 - gamma)
+    if (boundary == FALSE){
+      upper = (qbeta(p = 1 - gamma/2, R3 + 1, n - R3) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+      lower = (qbeta(p = gamma/2, R3, n - R3 + 1) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
     }else{
-      upper = 1
-      lower = ((gamma/2)^(1/n) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+      if (boundary == "lower"){
+        upper = (1 - (gamma/2)^(1/n) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+        lower = pi0
+      }else{
+        upper = 1
+        lower = ((gamma/2)^(1/n) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+      }
+      boundary = TRUE
     }
-    boundary = TRUE
+    ci_cp = c(lower, upper)
+  }else{
+    ci_cp = NA
   }
-  ci_cp = c(lower, upper)
 
   # Compute estimated false negative rate of the official procedure
   beta0 = 1 - (pi0 - alpha0*(1 - estimate))/estimate
@@ -372,7 +394,7 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
              gamma = gamma, method = "Moment Estimator",
              measurement = c(alpha0, alpha, beta), beta0 = beta0,
              ci_beta0 = ci_beta0, boundary = boundary,
-             pi0 = pi0, sampling = "random", ...)
+             pi0 = pi0, sampling = sampling, V = V, ...)
   class(out) = "cpreval"
   out
 }

@@ -119,6 +119,15 @@ In the case of a stratified sampling, the Survey MLE (with and without measureme
           pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0))
 ```
 
+```{r}
+# MME without measurement error
+(mme_no_meas_error = moment_estimator(R3 = R3w, n = n, pi0 = pi0, V = mean(covid19_austria$weights^2)))
+
+# MME with measurement error (as defined above)
+(mme_with_meas_error = moment_estimator(R3 = R3w, n = n,
+          pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, V = mean(covid19_austria$weights^2)))
+```
+
 
 ```{r, eval = FALSE}
 # Survey (weighted) MLE with measurement error
