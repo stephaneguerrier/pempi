@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Case study: Application to Austrian COVID-19 survey
 
-We use the methodology developed in this paper for the case of the COVID-19 prevalence estimation using the results of a survey done in November 2020 by @StatAU20. We also compare the different approaches, in order to illustrate, in practice, the impact of choosing one method rather than another one. In November 2020, a survey sample of $n=2287$ was collected to test for COVID-19 using PCR-tests. Seventy-one participants were tested positive, and among these ones, thirty-two ($R_1=32$) had declared to have been tested positive with the official procedure, during the same month. In November, there were $93914$  declared cases among the official (approximately) $7166167$ inhabitants in Austria (above 16 years old), so that $\pi_0 \approx 1.3105\%$. The sensitivity ($1-\alpha$) and the specificity ($1-\beta$) are not known with precision, so that we present estimates of the prevalence without misclassification error as well as for values for the FP and FN rates, that are plausible given the data and according to the sensitivity and specificity reported in \cite{KoWeGr:20} or \cite{surkova2020false}.
+We use the methodology developed in this paper for the case of the COVID-19 prevalence estimation using the results of a survey done in November 2020 by @StatAU20. We also compare the different approaches, in order to illustrate, in practice, the impact of choosing one method rather than another one. In November 2020, a survey sample of $n=2287$ was collected to test for COVID-19 using PCR-tests. Seventy-two participants were tested positive, and among these ones, thirty-five ($R_1=35$) had declared to have been tested positive with the official procedure, during the same month. In November, there were $93914$  declared cases among the official (approximately) $7166167$ inhabitants in Austria (above 16 years old), so that $\pi_0 \approx 1.3105\%$. The sensitivity ($1-\alpha$) and the specificity ($1-\beta$) are not known with precision, so that we present estimates of the prevalence without misclassification error as well as for values for the FP and FN rates, that are plausible given the data and according to the sensitivity and specificity reported in \cite{KoWeGr:20} or \cite{surkova2020false}.
 
 The results presented in Table 1 of @guerrier2020prevalence can be reproduced as follows:
 
@@ -26,16 +26,106 @@ library(cape)
 
 # Austrian data (November 2020)
 pi0 = 93914/7166167
-n = 2287
-R1 = 32
-R2 = 0
-R3 = 39
-R4 = n - R1 - R2 - R3
 
-# Meas. error
+# Load data
+data("covid19_austria")
+
+# Unweighted sampling
+n = nrow(covid19_austria)
+R1 = sum(covid19_austria$Y == 1 & covid19_austria$Z == 1)
+R2 = sum(covid19_austria$Y == 0 & covid19_austria$Z == 1)
+R3 = sum(covid19_austria$Y == 1 & covid19_austria$Z == 0)
+R4 = sum(covid19_austria$Y == 0 & covid19_austria$Z == 0)
+
+# Weighted sampling
+R1w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 1])
+R2w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 1])
+R3w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 0])
+R4w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 0])
+
+# Print table
+data_mat = matrix(c(R1w, R2w, R3w, R4w, R1, R2, R3, R4), 2, 4, byrow = TRUE)
+rownames(data_mat) = c("Weighted sampling", "Unweighted sampling")
+colnames(data_mat) = c("R1 (R11)", "R2 (R10)", "R3 (R01)", "R4 (R00)")
+knitr::kable(round(data_mat, 4))
+```
+
+The data can be summarized as follows: 
+
+- $n$ = `r n`
+- $\pi_0$ = `r round(pi0*100,4)`%
+- $R_{11}$ = `r R1` (which is denoted as `R1` in the package).
+- $\bar{R}_{11}$ = `r round(R1w,4)` (which is denoted as `R1` or `R1w` in the package).
+- $R_{10}$ = `r R2` (which is denoted as `R2` in the package).
+- $\bar{R}_{10}$ = `r round(R2w,4)` (which is denoted as `R2` or `R2w` in the package).
+- $R_{01}$ = `r R3` (which is denoted as `R3` in the package).
+- $\bar{R}_{01}$ = `r round(R3w,4)` (which is denoted as `R3` or `R3w` in the package).
+- $R_{00}$ = `r R4` (which is denoted as `R4` in the package).
+- $\bar{R}_{00}$ = `r round(R4w,4)` (which is denoted as `R4` or `R4w` in the package).
+
+We can check that $R_{11} + R_{10} + R_{01} + R_{00} = n$
+
+```{r}
+R1 + R2 + R3 + R4
+```
+
+and $\bar{R}_{11} + \bar{R}_{10} + \bar{R}_{01} + \bar{R}_{00} = n$
+
+```{r}
+R1w + R2w + R3w + R4w
+```
+
+For the analysis we consider the possibility of measurement error, in which we use the following values:
+
+```{r}
+# Measurement error
 alpha0 = 0
 alpha = 1/100
 beta = 10/100
+```
+
+# Survey MLE with random sampling
+
+The Survey MLE (with and without measurement error) can be compute as follows: 
+
+```{r}
+# Survey MLE without measurement error
+(smle_no_meas_error = survey_mle(R = R1 + R3, n = n))
+
+# Survey MLE with measurement error (as defined above)
+(smle_with_meas_error = survey_mle(R = R1 + R3, n = n, alpha = alpha, beta = beta))
+```
+
+# Survey MLE with weighted sampling
+
+In the case of a stratified sampling, the Survey MLE (with and without measurement error) can be compute as follows: 
+
+```{r}
+# Survey (weighted) MLE without measurement error
+(wsmle_no_meas_error = survey_mle(R = R1w + R3w, n = n, V = mean(covid19_austria$weights^2)))
+
+# Survey MLE with measurement error (as defined above)
+(wsmle_with_meas_error = survey_mle(R = R1w + R3w, n = n, alpha = alpha, beta = beta, V = mean(covid19_austria$weights^2)))
+```
+
+# MME
+
+```{r}
+# MME without measurement error
+(mme_no_meas_error = moment_estimator(R3 = R3, n = n, pi0 = pi0))
+
+# MME with measurement error (as defined above)
+(mme_with_meas_error = moment_estimator(R3 = R3, n = n,
+          pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0))
+```
+
+
+```{r, eval = FALSE}
+# Survey (weighted) MLE with measurement error
+(wsmle_no_meas_error = survey_mle(R = R1w + R3w, n = n))
+
+
+
 
 # Fit survey MLE (no meas. error)
 survey_mle(R = R1 + R3, n = n, pi0 = pi0) 

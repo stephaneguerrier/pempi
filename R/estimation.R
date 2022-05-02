@@ -20,6 +20,7 @@
 #'  \item beta0:       Estimated false negative rate of the official procedure.
 #'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
 #'  \item pi0:         Value of pi0 (input value).
+#'  \item V:           Average of squared sampling weights
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -34,14 +35,20 @@
 #' survey_mle(R = X$R, n = X$n)
 #' survey_mle(R = X$R, n = X$n, alpha = 0.01, beta = 0.05)
 #' @importFrom stats qbeta qnorm
-survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
+survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, V = NULL, ...){
   # Check inputs
   if (R%%1!=0 || R < 0){
-    stop("R should be non-negative integer.")
+    if (is.null(V)){
+      stop("R should be non-negative integer. To use sampling weights you need to provide a value for V.")
+    }else{
+      if (R < 0){
+        stop("R should be non-negative.")
+      }
+    }
   }
 
   if (n%%1!=0 || n < 0){
-    stop("n should be non-negative integer.")
+      stop("n should be non-negative integer.")
   }
 
   if (R > n){
@@ -60,12 +67,43 @@ survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
     stop("gamma should be between 0 and 1.")
   }
 
+  # Check V
+  if (!is.null(V)){
+    if (V < 0){
+      stop("V should be larger than 0")
+    }
+    if (V < 1){
+      warning("V should be larger than 1.")
+    }
+  }
+
   # Compute survey proportion
   pi_bar = R/n
 
   # Adjust for false positive/negative
   if (max(alpha, beta) > 0){
     pi_bar = (pi_bar - alpha)/(1 - alpha - beta)
+  }
+
+  if (!is.null(V)){
+    if ((pi_bar < pi0 || pi_bar > 1)){
+      out = list(estimate = min(max(pi_bar, pi0), 1), sd = NA,
+                 ci_asym = NA, ci_cp = NA, gamma = gamma,
+                 method = "Survey MLE", measurement = c(NA, alpha, beta), beta0 = NA,
+                 boundary = TRUE, pi0 = pi0, sampling = "weighted", V = V, ...)
+      class(out) = "cpreval"
+      return(out)
+    }else{
+      sd = sqrt((V/(1 - alpha - beta)^2*(alpha + pi_bar*(1 - alpha - beta))*(1 - alpha - pi_bar*(1 - alpha - beta)))/n)
+      ci_asym = pi_bar + c(-1, 1)*qnorm(1 - gamma/2)*sd
+
+      # Construct output
+      out = list(estimate = pi_bar, sd = sd, ci_asym = ci_asym, ci_cp = NA, gamma = gamma,
+                 method = "Survey MLE", measurement = c(NA, alpha, beta), beta0 = NA,
+                 boundary = FALSE, pi0 = pi0, sampling = "weighted", V = V, ...)
+      class(out) = "cpreval"
+      return(out)
+    }
   }
 
   if (pi_bar < pi0 || pi_bar > 1){
@@ -87,7 +125,7 @@ survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
     # Construct output
     out = list(estimate = pi_bar, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp, gamma = gamma,
                method = "Survey MLE", measurement = c(NA, alpha, beta),
-               boundary = boundary, pi0 = pi0, ...)
+               boundary = boundary, pi0 = pi0, sampling = "random", V = V, ...)
     class(out) = "cpreval"
     return(out)
   }else{
@@ -109,7 +147,7 @@ survey_mle = function(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...){
   # Construct output
   out = list(estimate = pi_bar, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp, gamma = gamma,
              method = "Survey MLE", measurement = c(NA, alpha, beta), beta0 = NA,
-             boundary = boundary, pi0 = pi0, ...)
+             boundary = boundary, pi0 = pi0, sampling = "random", V = V, ...)
   class(out) = "cpreval"
   out
 }
@@ -143,7 +181,7 @@ print.cpreval = function(x, ...){
   cat(sprintf("%.4f", 100*x$ci_asym[1]))
   cat("% - ")
   cat(sprintf("%.4f", 100*x$ci_asym[2]))
-  if (x$method == "Survey MLE" || x$method == "Moment Estimator"){
+  if (x$sampling == "random" && (x$method == "Survey MLE" || x$method == "Moment Estimator")){
     cat("%\n")
     cat("Clopper-Pearson    : ")
     cat(sprintf("%.4f", 100*x$ci_cp[1]))
@@ -170,15 +208,31 @@ print.cpreval = function(x, ...){
 
     cat("Estimated false negative rate of the\n")
     cat("official procedure: beta0 = ")
-    cat(round(100*x$beta0,4))
+    cat(round(100*x$beta0,2))
     cat("%\n")
+    cat("CI at the ")
+    cat(100*(1 - x$gamma))
+    cat("% level: ")
+    cat(sprintf("%.2f", 100*x$ci_beta0[1]))
+    cat("% - ")
+    cat(sprintf("%.2f", 100*x$ci_beta0[2]))
+    cat("%\n")
+  }
+
+  cat("Sampling: ")
+  if (x$sampling == "random"){
+    cat("Random")
+  }else{
+    cat("Stratified with V = ")
+    cat(round(x$V, 4))
+    cat("\n")
   }
 
   if (x$boundary){
     warning("Parameter estimates is in the boundary of the space. Results may not be reliable.")
   }
 
-  if(x$method == "Survey MLE" || x$method == "Moment Estimator"){
+  if(x$sampling == "random" && (x$method == "Survey MLE" || x$method == "Moment Estimator")){
     if (x$ci_cp[1] > x$ci_cp[2] || x$ci_cp[1] < x$pi0 || x$ci_cp[2] > 1){
       warning("The Clopper-Pearson confidence interval is not be reliable. Some of the values of alpha, beta and alpha0 may not be plausible given the data.")
     }
@@ -188,3 +242,138 @@ print.cpreval = function(x, ...){
     warning("The asymptotic confidence interval is not be reliable. The point estimate is either too close from the boundary of the space or some of the values of alpha, beta and alpha0 may not be plausible given the data.")
   }
 }
+
+#' @title Compute moment-based estimator.
+#' @description Proportion estimated using the moment-based estimator and confidence intervals based the asymptotic distribution of the estimator as well as
+#' the Clopper-Pearson approach.
+#' @param R3        A \code{numeric} that provides the number of participants in the survey sample that are tested positive only with the second testing device.
+#' @param n         A \code{numeric} that provides the sample size.
+#' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
+#' but systematic sampling (e.g. based on medical selection).
+#' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero. Default value is \code{0}.
+#' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
+#' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
+#' @param gamma     A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param ...       Additional arguments.
+#' @return A \code{cpreval} object with the structure:
+#' \itemize{
+#'  \item estimate:    Estimated proportion.
+#'  \item sd:          Estimated standard error of the estimator.
+#'  \item ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.
+#'  \item ci_cp:       Confidence interval (1 - gamma confidence level) based on the Clopper-Pearson approach.
+#'  \item gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.
+#'  \item method:      Estimation method (in this case moment estimator).
+#'  \item measurement: A vector with (alpha0, alpha, beta).
+#'  \item beta0:       Estimated false negative rate of the official procedure.
+#'  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
+#'  \item pi0:         Value of pi0 (input value).
+#'  \item ...:         Additional parameters.
+#' }
+#' @export
+#' @author Stephane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics
+#' @examples
+#' # Samples without measurement error
+#' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, seed = 18)
+#' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0)
+#'
+#' # With measurement error
+#' X = sim_Rs(theta = 3/100, pi0 = 1/100, n = 1500, alpha0 = 0.001,
+#' alpha = 0.01, beta = 0.05, seed = 18)
+#' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0)
+#' moment_estimator(R3 = X$R3, n = X$n, pi0 = X$pi0, alpha0 = 0.001,
+#' alpha = 0.01, beta = 0.05)
+#' @importFrom stats qbeta qnorm
+moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha0 = 0, ...){
+  # Check inputs
+  if (R3%%1!=0 || R3 < 0){
+    stop("R3 should be non-negative integer.")
+  }
+
+  if (alpha0 > pi0){
+    stop("The inputs pi0 and alpha0 must be such that alpha0 <= pi0.")
+  }
+
+  if (n%%1!=0 || n < 0){
+    stop("n should be non-negative integer.")
+  }
+
+  if (R3 > n){
+    stop("R3 and n should be such that R3 <= n.")
+  }
+
+  if (pi0 < 0 || pi0 > 1){
+    stop("pi0 should be such that 0 <= pi0 <= 1.")
+  }
+
+  if (alpha < 0 || alpha >= 1 || beta < 0 || beta >= 1 || alpha + beta > 1){
+    stop("alpha and beta should be such that: (i) 0 <= alpha < 1, (ii) 0 <= beta < 1, (iii) alpha + beta < 1.")
+  }
+
+  if (alpha0 < 0 || alpha0 >= 1){
+    stop("alpha0 should be close to 0 and such that: 0 <= alpha0 < 1.")
+  }
+
+  if (gamma < 0 || gamma > 1){
+    stop("gamma should be between 0 and 1.")
+  }
+
+  # Compute point estimate
+  beta0 = 0 # This is not used (TO DO remove beta0 here)
+  Delta = 1 - alpha - beta
+  Delta0 = 1 - alpha0 - beta0
+  pi0_star = (pi0 - alpha0)/Delta0
+  estimate = 1/(Delta*(1 - alpha0))*(R3/n + pi0 - beta*pi0 - alpha0*Delta - alpha)
+
+  # Check if the estimate is in the range [pi0, 1]
+  if (estimate < pi0 || estimate > 1){
+    if (estimate < pi0){
+      estimate = pi0
+      boundary = "lower"
+    }else{
+      estimate = 1
+      boundary = "upper"
+    }
+  }else{
+    boundary = FALSE
+  }
+
+  # Asymptotic CI (1-gamma)
+  probs = get_prob(theta = estimate, pi0 = pi0, alpha = alpha,
+                   beta = beta, alpha0 = alpha0)
+
+  sd = sqrt((probs[3]*(1 - probs[3]))/(n*Delta^2*(1 - alpha0)^2))
+  ci_asym = estimate + qnorm(1 - gamma/2)*c(-1,1)*sd
+
+  # CP - CI (1 - gamma)
+  if (boundary == FALSE){
+    upper = (qbeta(p = 1 - gamma/2, R3 + 1, n - R3) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+    lower = (qbeta(p = gamma/2, R3, n - R3 + 1) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+  }else{
+    if (boundary == "lower"){
+      upper = (1 - (gamma/2)^(1/n) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+      lower = pi0
+    }else{
+      upper = 1
+      lower = ((gamma/2)^(1/n) - alpha*(1 - alpha0) + (pi0 - alpha0)*(1 - beta))/(Delta*(1 - alpha0))
+    }
+    boundary = TRUE
+  }
+  ci_cp = c(lower, upper)
+
+  # Compute estimated false negative rate of the official procedure
+  beta0 = 1 - (pi0 - alpha0*(1 - estimate))/estimate
+  var_beta_asym = (sd^2*n*(pi0 - alpha0)^2)/(estimate^4)
+  ci_beta0 = beta0 + qnorm(1 - gamma/2)*c(-1,1)*sqrt(var_beta_asym/n)
+
+  # Construct output
+  out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, ci_cp = ci_cp,
+             gamma = gamma, method = "Moment Estimator",
+             measurement = c(alpha0, alpha, beta), beta0 = beta0,
+             ci_beta0 = ci_beta0, boundary = boundary,
+             pi0 = pi0, sampling = "random", ...)
+  class(out) = "cpreval"
+  out
+}
+

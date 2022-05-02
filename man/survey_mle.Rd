@@ -4,7 +4,7 @@
 \alias{survey_mle}
 \title{Compute proportion in the survey sample (standard estimator)}
 \usage{
-survey_mle(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, ...)
+survey_mle(R, n, pi0 = 0, alpha = 0, beta = 0, gamma = 0.05, V = NULL, ...)
 }
 \arguments{
 \item{R}{A \code{numeric} that provides the people of positive people in the sample.}
@@ -34,6 +34,7 @@ A \code{cpreval} object with the structure:
  \item beta0:       Estimated false negative rate of the official procedure.
  \item boundary:    A boolean variable indicating if the estimates falls at the boundary of the parameter space.
  \item pi0:         Value of pi0 (input value).
+ \item V:           Average of squared sampling weights
  \item ...:         Additional parameters.
 }
 }

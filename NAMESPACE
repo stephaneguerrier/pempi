@@ -3,6 +3,7 @@
 S3method(print,cpreval)
 S3method(print,cpreval_sim)
 export(get_prob)
+export(moment_estimator)
 export(sim_Rs)
 export(survey_mle)
 importFrom(stats,qbeta)
