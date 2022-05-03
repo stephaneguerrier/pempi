@@ -1,0 +1,322 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[active,tightpage,psfixbb]{preview}
+\PreviewEnvironment{pgfpicture}
+\setlength\PreviewBorder{0pt}
+\usepackage{amssymb}
+%\definecolor{mygreen}{HTML}{16AF11}
+%\definecolor{myred}{HTML}{F16A57}
+%\definecolor{myblue}{HTML}{0A71BD}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+<<graph2, eval=TRUE>>=
+library(tikzDevice)
+library(cape)
+
+tikz("case_study_ci.tex", width = 6, height = 5.4)
+
+# Load Austrian data (November 2020)
+data("covid19_austria")
+
+# Random sampling
+n = nrow(covid19_austria)
+R1 = sum(covid19_austria$Y == 1 & covid19_austria$Z == 1)
+R2 = sum(covid19_austria$Y == 0 & covid19_austria$Z == 1)
+R3 = sum(covid19_austria$Y == 1 & covid19_austria$Z == 0)
+R4 = sum(covid19_austria$Y == 0 & covid19_austria$Z == 0)
+
+# Weighted sampling
+R1w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 1])
+R2w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 1])
+R3w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 0])
+R4w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 0])
+V = mean(covid19_austria$weights^2)
+
+# Assumptions
+pi0 = 93914/7166167
+alpha = 1/100
+alpha0 = 0
+beta = 10/100
+
+# Compute results
+# Survey MLE without measurement error - random
+smle_no_meas_error_random = survey_mle(R = R1 + R3, n = n)
+
+# Survey MLE with measurement error (as defined above) - random
+smle_with_meas_error_random = survey_mle(R = R1 + R3, n = n,
+                                         alpha = alpha, beta = beta)
+
+# Survey (weighted) MLE without measurement error - stratified
+smle_no_meas_error_strat = survey_mle(R = R1w + R3w, n = n,
+                                       V = mean(covid19_austria$weights^2))
+
+# Survey MLE with measurement error (as defined above) - stratified
+smle_with_meas_error_strat = survey_mle(R = R1w + R3w, n = n,
+                                        alpha = alpha, beta = beta,
+                                        V = mean(covid19_austria$weights^2))
+
+# MME without measurement error - random
+mme_no_meas_error_random = moment_estimator(R3 = R3, n = n,
+                                            pi0 = pi0)
+
+# MME with measurement error (as defined above) - random
+mme_with_meas_error_random = moment_estimator(R3 = R3, n = n,
+                             pi0 = pi0, alpha = alpha,
+                             beta = beta, alpha0 = alpha0)
+
+# MME without measurement error - stratified
+mme_no_meas_error_strat = moment_estimator(R3 = R3w, n = n,
+                          pi0 = pi0,
+                          V = mean(covid19_austria$weights^2))
+
+# MME with measurement error (as defined above) - stratified
+mme_with_meas_error_strat = moment_estimator(R3 = R3w, n = n,
+                            pi0 = pi0, alpha = alpha, beta = beta,
+                            alpha0 = alpha0,
+                            V = mean(covid19_austria$weights^2))
+
+# Assumptions
+pi0 = 93914/7166167
+alpha = 1/100
+alpha0 = 0
+
+cols = c("#F8766DFF", "#00BFC4FF")
+delta = 0.1
+cex_pt = 1.5
+lwd_ci = 2 #1.25
+pch_mme = 16
+pch_smle = 15
+
+plot(NA, xlim = c(0.75, 4.25), ylim = c(1, 4), axes = FALSE, ann = FALSE)
+grid()
+box()
+col_text = "grey60"
+cex_text = 1
+cex_text2 = 0.85
+abline(v = c(1.5, 2.5, 3.5), col = col_text)
+
+axis(2)
+
+mtext("Stratified sampling", side = 3, line = 1.75, cex = cex_text, at = 1, col = col_text)
+mtext("no measurment error", side = 3, line = 0.75, cex = cex_text2, at = 1, col = col_text)
+
+mtext("Random sampling", side = 3, line = 1.75, cex = cex_text, at = 2, col = col_text)
+mtext("no measurment error", side = 3, line = 0.75, cex = cex_text2, at = 2, col = col_text)
+
+mtext("Stratified sampling", side = 3, line = 1.75, cex = cex_text, at = 3, col = col_text)
+mtext("with measurment error", side = 3, line = 0.75, cex = cex_text2, at = 3, col = col_text)
+
+mtext("Random sampling", side = 3, line = 1.75, cex = cex_text, at = 4, col = col_text)
+mtext("with measurment error", side = 3, line = 0.75, cex = cex_text2, at = 4, col = col_text)
+
+mtext("Prevalence (\\%)", side = 2, line = 3, cex = 1.15)
+abline(h = 100*pi0, lwd = 2, lty = 2)
+
+text(1, 1.18, "$\\pi_0$", cex = 1.15)
+
+legend("topright", c("MME", "95\\% CI",
+                    "Survey MLE", "95\\% CI"),
+       bty = "n", col = c(cols[1], cols[1], cols[2], cols[2]),
+       lwd = c(NA, lwd_ci, NA, lwd_ci), pch = c(pch_mme, NA, pch_smle, NA),
+       pt.cex = 1.5, cex = 0.85)
+
+# 1) Stratified sampling, without ME
+points(1 - delta, 100*mme_no_meas_error_strat$estimate, col = cols[1], pch = pch_mme, cex = cex_pt)
+lines(c(1, 1) - delta, 100*mme_no_meas_error_strat$ci_asym, col = cols[1], lwd = lwd_ci)
+
+points(1 + delta, 100*smle_no_meas_error_strat$estimate, col = cols[2], pch = pch_smle, cex = cex_pt)
+lines(c(1, 1) + delta, 100*smle_no_meas_error_strat$ci_asym, col = cols[2], lwd = lwd_ci)
+
+# 2) Random sampling, without ME
+points(2 - delta, 100*mme_no_meas_error_random$estimate, col = cols[1], pch = pch_mme, cex = cex_pt)
+lines(c(2, 2) - delta, 100*mme_no_meas_error_random$ci_asym, col = cols[1], lwd = lwd_ci)
+
+points(2 + delta, 100*smle_no_meas_error_random$estimate, col = cols[2], pch = pch_smle, cex = cex_pt)
+lines(c(2, 2) + delta, 100*smle_no_meas_error_random$ci_asym, col = cols[2], lwd = lwd_ci)
+
+# 3) Stratified sampling, with ME
+points(3 - delta, 100*mme_with_meas_error_strat$estimate, col = cols[1], pch = pch_mme, cex = cex_pt)
+lines(c(3, 3) - delta, 100*mme_with_meas_error_strat$ci_asym, col = cols[1], lwd = lwd_ci)
+
+points(3 + delta, 100*smle_with_meas_error_strat$estimate, col = cols[2], pch = pch_smle, cex = cex_pt)
+lines(c(3, 3) + delta, 100*smle_with_meas_error_strat$ci_asym, col = cols[2], lwd = lwd_ci)
+
+# 4) Random sampling, with ME
+points(4 - delta, 100*mme_with_meas_error_random$estimate, col = cols[1], pch = pch_mme, cex = cex_pt)
+lines(c(4, 4) - delta, 100*mme_with_meas_error_random$ci_asym, col = cols[1], lwd = lwd_ci)
+
+points(4 + delta, 100*smle_with_meas_error_random$estimate, col = cols[2], pch = pch_smle, cex = cex_pt)
+lines(c(4, 4) + delta, 100*smle_with_meas_error_random$ci_asym, col = cols[2], lwd = lwd_ci)
+dev.off()
+@
+
+<<graph2, eval=TRUE>>=
+library(tikzDevice)
+library(cape)
+tikz("case_study_col.tex", width = 6, height = 5.4)
+
+# Load Austrian data (November 2020)
+data("covid19_austria")
+
+# Weighted sampling
+R1w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 1])
+R2w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 1])
+R3w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 0])
+R4w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 0])
+V = mean(covid19_austria$weights^2)
+n = round(R1w + R2w + R3w + R4w)
+
+tikz("case_study_col.tex", width = 6, height = 5.4)
+
+# Assumptions
+pi0 = 93914/7166167
+alpha = 1/100
+alpha0 = 0
+m = 300
+beta = seq(from = 0, to = 30, length.out = m)/100
+res_moment = res_smle = matrix(NA, m, 3)
+
+for (i in 1:m){
+  # Moment estimator
+  inter = moment_estimator(R3 = R3w, n = n, pi0 = pi0,
+                           alpha = alpha, alpha0 = alpha0,
+                           beta = beta[i], V = V)
+
+  res_moment[i,] = c(inter$estimate, inter$ci_asym)
+
+  inter = survey_mle(R = R1w + R3w, n = n, pi0 = pi0,
+                     alpha = alpha, alpha0 = alpha0,
+                     beta = beta[i], V = V)
+
+  res_smle[i,] = c(inter$estimate, inter$ci_asym)
+}
+
+cols = c("#F8766DFF", "#00BFC4FF")
+cols2 = c("#F8766D1F", "#00BFC41F")
+
+plot(NA, xlim = 100*range(beta), ylim = c(1, 4.25), axes = FALSE, ann = FALSE)
+grid()
+box()
+axis(1)
+axis(2)
+mtext("$\\beta$ (\\%)", side = 1, line = 3, cex = 1.15)
+mtext("Prevalence (\\%)", side = 2, line = 3, cex = 1.15)
+abline(h = 100*pi0, lwd = 2, lty = 2)
+
+text(2.5, 1.18, "$\\pi_0$", cex = 1.15)
+
+legend("topleft", c("MME", "95\\% CI",
+                    "Survey MLE", "95\\% CI"),
+       bty = "n", col = c(cols[1], cols2[1],cols[2], cols2[2]),
+       lwd = c(3, NA, 3, NA), pch = c(NA, 15, NA, 15),
+       pt.cex = 2.5)
+lines(100*beta, 100*res_moment[,1], lwd = 3, col = cols[1])
+polygon(100*c(beta, rev(beta)),
+        100*c(res_moment[,2], rev(res_moment[,3])),
+        col = cols2[1], border = NA)
+
+lines(100*beta, 100*res_smle[,1], lwd = 3, col = cols[2])
+polygon(100*c(beta, rev(beta)),
+        100*c(res_smle[,2], rev(res_smle[,3])),
+        col = cols2[2], border = NA)
+
+dev.off()
+@
+
+
+<<graph2bw>>=
+library(tikzDevice)
+library(cape)
+tikz("case_study_bw.tex", width = 6, height = 5.4)
+
+# Load Austrian data (November 2020)
+data("covid19_austria")
+
+# Weighted sampling
+R1w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 1])
+R2w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 1])
+R3w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 0])
+R4w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 0])
+V = mean(covid19_austria$weights^2)
+
+# Assumptions
+pi0 = 93914/7166167
+alpha = 1/100
+alpha0 = 0
+m = 300
+beta = seq(from = 0, to = 30, length.out = m)/100
+res_moment = res_smle = matrix(NA, m, 3)
+delta = 0.03
+
+for (i in 1:m){
+  # Moment estimator
+  inter = moment_estimator(R3 = R3w, n = n, pi0 = pi0,
+                           alpha = alpha, alpha0 = alpha0,
+                           beta = beta[i], V = V)
+
+  res_moment[i,] = c(inter$estimate, inter$ci_asym)
+
+  inter = survey_mle(R = R1w + R3w, n = n, pi0 = pi0,
+                     alpha = alpha, alpha0 = alpha0,
+                     beta = beta[i], V = V)
+
+  res_smle[i,] = c(inter$estimate, inter$ci_asym)
+}
+
+cols = c("grey40", "grey80")
+cols2 = c("#666666F2", "#CCCCCCF2")
+
+plot(NA, xlim = 100*range(beta), ylim = c(1, 4.25), axes = FALSE, ann = FALSE)
+grid()
+box()
+axis(1)
+axis(2)
+mtext("$\\beta$ (\\%)", side = 1, line = 3, cex = 1.15)
+mtext("Prevalence (\\%)", side = 2, line = 3, cex = 1.15)
+abline(h = 100*pi0, lwd = 2, lty = 2)
+
+text(2.5, 1.18, "$\\pi_0$", cex = 1.15)
+
+lines(c(0, 2), c(3.9, 3.9), col = cols[1], lwd = 4.5, lty = 3)
+polygon(c(0.25, 1.75, 1.75, 0.25), c(3.78, 3.78, 3.62, 3.62)+delta,
+        col = cols2[1], border = NA, density = 18, angle = -45)
+lines(c(0.25, 1.75), c(3.78, 3.78)+delta, lwd = 1, col = cols2[1], lty = 1)
+lines(c(0.25, 1.75), c(3.62, 3.62)+delta, lwd = 1, col = cols2[1], lty = 1)
+lines(c(0, 2), c(3.5, 3.5)+2*delta, col = cols[2], lwd = 4.5, lty = 1)
+polygon(c(0.25, 1.75, 1.75, 0.25), c(3.78, 3.78, 3.62, 3.62) - 0.4+3*delta,
+        col = cols2[2], border = NA, density = 30, angle = 45)
+lines(c(0.25, 1.75), c(3.78, 3.78)- 0.4+3*delta, lwd = 1, col = cols2[2], lty = 1)
+lines(c(0.25, 1.75), c(3.62, 3.62)- 0.4+3*delta, lwd = 1, col = cols2[2], lty = 1)
+
+lines(100*beta, 100*res_moment[,1], lwd = 4.5, col = cols[1], lty = 3)
+polygon(100*c(beta, rev(beta)),
+        100*c(res_moment[,2], rev(res_moment[,3])),
+        col = cols2[1], border = NA, density = 10, angle = -45)
+lines(100*beta, 100*res_moment[,3], lwd = 1, col = cols2[1], lty = 1)
+lines(100*beta, 100*res_moment[,2], lwd = 1, col = cols2[1], lty = 1)
+
+lines(100*beta, 100*res_smle[,1], lwd = 4.5, col = cols[2])
+polygon(100*c(beta, rev(beta)),
+        100*c(res_smle[,2], rev(res_smle[,3])),
+        col = cols2[2], border = NA, density = 20, angle = 45)
+lines(100*beta, 100*res_smle[,3], lwd = 1, col = cols[2], lty = 1)
+lines(100*beta, 100*res_smle[,2], lwd = 1, col = cols[2], lty = 1)
+
+dev.off()
+@
+
+\begin{figure}
+\input{case_study_ci.tex}
+\end{figure}
+
+\begin{figure}
+\input{case_study_col.tex}
+\end{figure}
+
+\begin{figure}
+\input{case_study_bw.tex}
+\end{figure}
+
+
+\end{document}

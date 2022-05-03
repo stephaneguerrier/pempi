@@ -4,7 +4,7 @@
 \alias{neg_log_wlik}
 \title{Negative Weighted Log-Likelihood function}
 \usage{
-neg_log_wlik(theta, Rvect, n, pi0, alpha, beta, alpha0)
+neg_log_wlik(theta, Rvect, n, pi0, alpha, beta, alpha0, ...)
 }
 \arguments{
 \item{theta}{A \code{numeric} value for the paramerer of interest.}

@@ -861,7 +861,7 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
 #' @param ...       Additional arguments.
 #' @return Negative log-likelihood.
 #' @author Stephane Guerrier
-neg_log_wlik = function(theta, Rvect, n, pi0, alpha, beta, alpha0){
+neg_log_wlik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, ...){
   probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + Rvect[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + Rvect[4]/n*log_modified(probs[4]))
 }
