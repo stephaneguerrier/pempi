@@ -12,6 +12,9 @@ reference:
     - marginal_mle
     - moment_estimator
     - survey_mle
+  - title: Data
+    contents:
+    - covid19_austria
   - title: Print
     contents:
     - print.cpreval

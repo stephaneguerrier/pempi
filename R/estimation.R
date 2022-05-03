@@ -846,41 +846,22 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   out
 }
 
-#' @export
+#' @title Negative Weighted Log-Likelihood function
+#' @description Log-Likelihood function based on R1, R2, R3 and R4 with sampling weights multiplied by -1.
+#' @param theta     A \code{numeric} value for the paramerer of interest.
+#' @param Rvect     A \code{vector} of observations, i.e. (R1, R2, R3, R4).
+#' @param n         A \code{numeric} that provides the sample size.
+#' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
+#' but systematic sampling (e.g. based on medical selection).
+#' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R.
+#' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R.
+#' @param alpha0    A \code{numeric} that corresponds to the probability that a random participant
+#' has been incorrectly declared positive through the nontransparent procedure. In most applications,
+#' this probability is likely very close to zero.
+#' @param ...       Additional arguments.
+#' @return Negative log-likelihood.
+#' @author Stephane Guerrier
 neg_log_wlik = function(theta, Rvect, n, pi0, alpha, beta, alpha0){
   probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + Rvect[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + Rvect[4]/n*log_modified(probs[4]))
 }
-
-#' @export
-asym_var_cmle_weigth = function(theta, alpha, beta, alpha0, pi0, V){
-  probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
-
-  # Deltas
-  Delta = 1 - alpha - beta
-
-  # Compute Fisher Info
-  a1 = ((1 - alpha0)^2*Delta^2*probs[4])/((1 - alpha0)*(1 - theta*Delta - alpha) - beta*(pi0 - alpha0))^2
-  a2 = (alpha0^2*Delta^2*probs[1])/(alpha*alpha0 + (1-beta)*(pi0 - alpha0) + theta*alpha0*Delta)^2
-  a3 = (alpha0^2*Delta^2*probs[2])/(alpha0*(1 - theta*Delta - alpha) + beta*(pi0 - alpha0))^2
-  a4 = ((1 - alpha0)^2*Delta^2*probs[3])/((1-beta)*(pi0 - alpha0) - theta*(1-alpha0)*Delta - alpha*(1-alpha0))^2
-
-  fisher_info = 0
-
-  if (!is.na(a1))
-    fisher_info = fisher_info + a1
-
-  if (!is.na(a2))
-    fisher_info = fisher_info + a2
-
-  if (!is.na(a3))
-    fisher_info = fisher_info + a3
-
-  if (!is.na(a4))
-    fisher_info = fisher_info + a4
-
-  # Asymptotic variance
-  V/fisher_info
-}
-
-

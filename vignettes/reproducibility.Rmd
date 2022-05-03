@@ -121,10 +121,10 @@ In the case of a stratified sampling, the Survey MLE (with and without measureme
 
 ```{r}
 # MME without measurement error
-(mme_no_meas_error = moment_estimator(R3 = R3w, n = n, pi0 = pi0, V = mean(covid19_austria$weights^2)))
+(wmme_no_meas_error = moment_estimator(R3 = R3w, n = n, pi0 = pi0, V = mean(covid19_austria$weights^2)))
 
 # MME with measurement error (as defined above)
-(mme_with_meas_error = moment_estimator(R3 = R3w, n = n,
+(wmme_with_meas_error = moment_estimator(R3 = R3w, n = n,
           pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, V = mean(covid19_austria$weights^2)))
 ```
 
@@ -134,65 +134,39 @@ In the case of a stratified sampling, the Survey MLE (with and without measureme
 Only implemented for random sampling
 
 ```{r}
-marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0)
-marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+(mmle_no_meas_error = marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0))
+(mmle_with_meas_error = marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0))
 ```
 
 # CMLE
 
 ```{r}
-conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, pi0 = pi0)
-conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
+(cmle_no_meas_error = conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, pi0 = pi0))
+(cmle_with_meas_error = conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0))
 ```
 
 ```{r}
-conditional_mle(R1 = R1w, R2 = R2w, R3 = R3w, R4 = R4w, pi0 = pi0, V = mean(covid19_austria$weights^2))
-conditional_mle(R1 = R1w, R2 = R2w, R3 = R3w, R4 = R4w, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, V = mean(covid19_austria$weights^2))
+(wcmle_no_meas_error = conditional_mle(R1 = R1w, R2 = R2w, R3 = R3w, R4 = R4w, pi0 = pi0, V = mean(covid19_austria$weights^2)))
+(wcmle_with_meas_error = conditional_mle(R1 = R1w, R2 = R2w, R3 = R3w, R4 = R4w, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0, V = mean(covid19_austria$weights^2)))
 ```
 
-```{r, eval = FALSE}
-# Survey (weighted) MLE with measurement error
-(wsmle_no_meas_error = survey_mle(R = R1w + R3w, n = n))
+
+```{r}
+cols = hcl(h = seq(15, 375, length = 5), l = 65, c = 100)[1:4]
+plot(NA, xlim = c(0, 10), ylim = c(0, 7))
+
+# 1) Weighted sampling, without ME 
+points(1, 100*wcmle_no_meas_error$estimate, col = cols[1], pch = 16)
+lines(c(1, 1), 100*wcmle_no_meas_error$ci_asym, col = cols[1])
 
 
+#2) Unweighted sampling, without ME, asymp CI, 3) Unweighted
+#sampling, without ME, CP CI, 4) Weighted sampling, with ME, 5) Unweighted sampling,
+#with ME, asymp CI, 6) Unweighted sampling, with ME, CP CI
 
-
-# Fit survey MLE (no meas. error)
-survey_mle(R = R1 + R3, n = n, pi0 = pi0) 
-
-# Fit survey MLE (with meas. error)
-survey_mle(R = R1 + R3, n = n, pi0 = pi0, alpha = alpha, beta = beta) 
-
-# Conditional MLE (no meas. error)
-#conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, n = n, pi0 = pi0)
-
-# Conditional MLE (with meas. error)
-#conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, n = n, pi0 = pi0,
-#                alpha0 = alpha0, alpha = alpha, beta = beta) 
-
-# Moment estimator (no meas. error)
-#moment_estimator(R3 = R3, n = n, pi0 = pi0)
-
-# Moment estimator (with meas. error)
-#moment_estimator(R3 = R3, n = n, pi0 = pi0,
-#                 alpha0 = alpha0, alpha = alpha, beta = beta) 
-
-# Fit survey MLE (no meas. error) with increased sample size k = 1.5
-#k = 1.5
-#survey_mle(R = ceiling(k*(R1 + R3)), n = ceiling(k*n), pi0 = pi0) 
-
-# Fit survey MLE (with meas. error) with increased sample size k = 1.5
-#survey_mle(R = ceiling(k*(R1 + R3)), n = ceiling(k*n), pi0 = pi0, 
-#                       alpha = alpha, beta = beta)
-           
-# Fit survey MLE (no meas. error) with increased sample size k = 2
-#k = 2
-#survey_mle(R = ceiling(k*(R1 + R3)), n = ceiling(k*n), pi0 = pi0) 
-
-# Fit survey MLE (with meas. error) with increased sample size k = 2
-#survey_mle(R = ceiling(k*(R1 + R3)), n = ceiling(k*n), pi0 = pi0, 
-#                       alpha = alpha, beta = beta)           
 ```
+
+
 
 Moreover, Figure 1 can be obtained by running the file `cape/figures/case_study.Rnw`. A base R version can be obtained as follows:
 
