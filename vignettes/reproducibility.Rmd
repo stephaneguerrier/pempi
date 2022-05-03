@@ -14,7 +14,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# 1. Case study: Application to Austrian COVID-19 survey
+# Case study: Application to Austrian COVID-19 survey
 
 We use the methodology developed in this paper for the case of the COVID-19 prevalence estimation using the results of a survey done in November 2020 by @StatAU20. We also compare the different approaches, in order to illustrate, in practice, the impact of choosing one method rather than another one. In November 2020, a survey sample of $n=2287$ was collected to test for COVID-19 using PCR-tests. Seventy-two participants were tested positive, and among these ones, thirty-five ($R_1=35$) had declared to have been tested positive with the official procedure, during the same month. In November, there were $93914$  declared cases among the official (approximately) $7166167$ inhabitants in Austria (above 16 years old), so that $\pi_0 \approx 1.3105\%$. The sensitivity ($1-\alpha$) and the specificity ($1-\beta$) are not known with precision, so that we present estimates of the prevalence without misclassification error as well as for values for the FP and FN rates, that are plausible given the data and according to the sensitivity and specificity reported in \cite{KoWeGr:20} or \cite{surkova2020false}.
 
@@ -84,9 +84,9 @@ alpha = 1/100
 beta = 10/100
 ```
 
-# 1.1 Survey MLE
+# Survey MLE
 
-# 1.1.1 Survey MLE with random sampling
+## Survey MLE with random sampling
 
 The Survey MLE (with and without measurement error) can be compute as follows: 
 
@@ -99,7 +99,7 @@ The Survey MLE (with and without measurement error) can be compute as follows:
                               alpha = alpha, beta = beta))
 ```
 
-# 1.1.2 Survey MLE with stratified sampling
+## Survey MLE with stratified sampling
 
 In the case of a stratified sampling, the Survey MLE (with and without measurement error) can be compute as follows: 
 
@@ -114,9 +114,9 @@ In the case of a stratified sampling, the Survey MLE (with and without measureme
                              V = mean(covid19_austria$weights^2)))
 ```
 
-# 1.2 Moment-based estimator 
+# Moment-based estimator 
 
-# 1.2.1 Moment-based estimator with random sampling
+## Moment-based estimator with random sampling
 
 In the case of a random sampling, the moment-based estimator or MME (with and without measurement error) can be compute as follows: 
 
@@ -131,7 +131,7 @@ In the case of a random sampling, the moment-based estimator or MME (with and wi
                               beta = beta, alpha0 = alpha0))
 ```
 
-# 1.2.2 Moment-based estimator with stratified sampling
+## Moment-based estimator with stratified sampling
 
 In the case of a stratified sampling, the MME (with and without measurement error) can be compute as follows:
 
@@ -148,9 +148,9 @@ In the case of a stratified sampling, the MME (with and without measurement erro
                              V = mean(covid19_austria$weights^2)))
 ```
 
-# 1.3 Conditional MLE
+# Conditional MLE
 
-# 1.3.1 Conditional MLE with random sampling
+## Conditional MLE with random sampling
 
 In the case of a random sampling, the conditional MLE or CMLE (with and without measurement error) can be compute as follows: 
 
@@ -166,7 +166,7 @@ In the case of a random sampling, the conditional MLE or CMLE (with and without 
                               alpha0 = alpha0))
 ```
 
-# 1.3.2 Conditional MLE with stratified sampling
+## Conditional MLE with stratified sampling
 
 In the case of a stratified sampling, the CMLE (with and without measurement error) can be compute as follows: 
 
@@ -184,9 +184,9 @@ In the case of a stratified sampling, the CMLE (with and without measurement err
                               V = mean(covid19_austria$weights^2)))
 ```
 
-# 1.3 Marginal MLE
+# Marginal MLE
 
-# 1.3.1 Marginal MLE with random sampling
+## Marginal MLE with random sampling
 
 In the case of a random sampling, the marginal MLE or MMLE (with and without measurement error) can be compute as follows: 
 
@@ -198,11 +198,11 @@ In the case of a random sampling, the marginal MLE or MMLE (with and without mea
 (mmle_with_meas_error_random  = marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0))
 ```
 
-# 1.3.2 Marginal MLE with stratified sampling
+## Marginal MLE with stratified sampling
 
 The MMLE is currently not implemented in the case of a stratified sampling.
 
-# 1.4 Replicating Table 2
+# Replicating Table 2
 
 Table 2 can be replicated as follows:
 
@@ -243,7 +243,7 @@ table2[6, ] = 100*c(mme_no_meas_error_random$beta0,
 knitr::kable(round(table2, 3))
 ```
 
-# 1.4 Replicating Figure 1
+# Replicating Figure 1
 
 Figure 1 can be obtained by running the file `cape/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
 
@@ -318,7 +318,7 @@ points(4 + delta, 100*smle_with_meas_error_random$estimate, col = cols[2], pch =
 lines(c(4, 4) + delta, 100*smle_with_meas_error_random$ci_asym, col = cols[2], lwd = lwd_ci)
 ```
 
-# 1.5 Replicating Figure 2
+# Replicating Figure 2
 
 Figure 2 can be obtained by running the file `cape/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
 
@@ -379,7 +379,7 @@ polygon(100*c(beta, rev(beta)),
         col = cols2[2], border = NA)
 ```
 
-# 2 Simulation Study
+# Simulation Study
 
 The results summarized in Appendix C and presented in Appendix D of @guerrier2020prevalence can be replicated as follows:
 

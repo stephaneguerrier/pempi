@@ -20,10 +20,7 @@ In epidemiological studies, an important quantity that needs to be estimated wit
 
 In @guerrier2020prevalence, we propose to adequately use this information, together with data from a survey sample, in order to improve the accuracy of the prevalence estimation. In other terms, for a given (legal) statistical precision that might be required by authorities that finance a survey, the sample size can be a lot smaller if one adequately uses the information provided by the data collected in the sub-population. The possible misclassification  errors of the (medical) testing devices used to collect the data, are also taken into account. The misclassification  errors are actually induced by the sensitivity, i.e. the complement to the false positive rate, and by the specificity, i.e. the complement to the false negative rate, of the medical testing devices. The approach is a frequentist one, i.e. using cutoff values for the sensitivity and specificity, hence without the need to specify a (prior) distribution for these quantities. 
 
-
-# Model
-
-## Mathematical setup
+# Mathematical setup
 
 As in @guerrier2020prevalence, we define the following unobserved random variable:
 
@@ -71,7 +68,9 @@ and
     \nonumber
 \end{alignat}
 
-In words, $R_{11}$ is the number of participants in the survey sample that are tested positive  and have also been declared positive through the official procedure; $R_{10}$ is the number of participants in the survey sample that are tested negative but have been declared positive through the official procedure; $R_{01}$ is the number of participants in the survey sample that are tested positive but have been declared negative through the official procedure; $R_{00}$ is the number of participants in the survey sample that are tested negative and have been declared negative through the official procedure. We also make use of $R_{\ast 1} = \sum_{i=1}^nY_i = R_{11} + R_{01}$, the number of participants that are tested positive in the survey sample. The $R_{jk}$ are central quantities for computing the proposed estimators. In the case of stratified sampling, these quantities can be modified accordingly (see below).
+In words, $R_{11}$ is the number of participants in the survey sample that are tested positive  and have also been declared positive through the official procedure; $R_{10}$ is the number of participants in the survey sample that are tested negative but have been declared positive through the official procedure; $R_{01}$ is the number of participants in the survey sample that are tested positive but have been declared negative through the official procedure; $R_{00}$ is the number of participants in the survey sample that are tested negative and have been declared negative through the official procedure. We also make use of $R_{\ast 1} = \sum_{i=1}^nY_i = R_{11} + R_{01}$, the number of participants that are tested positive in the survey sample. The $R_{jk}$ are central quantities for computing the proposed estimators. In the case of stratified sampling, these quantities can be modified accordingly (see below in the section on stratified sampling).
+
+# Random sampling
 
 For simplicity of exposition, we first consider the unweighted (or random) sampling case, the weighted one is treated below.
 
@@ -134,7 +133,7 @@ R4 = sum(covid19_austria$Y == 0 & covid19_austria$Z == 0)
 conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, pi0 = pi0)
 ```
 
-Considering the following measurement error $\alpha = 0.01$, $\alpha_0 = 0$ and $\beta = 0.1$, we obtain:
+Note that the notation and conventions used in the text and in are slightly amended for convenience in this package. In particular, we use `R1` for $R_{11}$, `R2` for $R_{10}$, `R3` for $R_{01}$ and `R4` for $R_{00}$. Considering the following measurement error $\alpha = 0.01$, $\alpha_0 = 0$ and $\beta = 0.1$, we obtain:
 
 ```{r}
 # Assumed measurement errors
@@ -147,7 +146,7 @@ conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, pi0 = pi0,
                 alpha = alpha, alpha0 = alpha0, beta = beta)
 ```
 
-Alternatively, we can consider an estimator from the class of GMM estimators \citep{Hans:82} based on the random variable $\mathbf{R} \vcentcolon=[R_{11}/n, R_{10}/n, R_{01}/n, R_{00}/n]$ with expectation $\mathbb{E}[\mathbf{R}]:=\bm{\tau}(\pi)=[\tau_{11}(\pi), \tau_{10}(\pi), \tau_{01}(\pi), \tau_{00}(\pi)]$. A particular case is given by an MME based on $R_{01}$ (with expectation $\tau_{01}(\pi)$), which, again assuming an interior solution exists, is given by 
+Alternatively, we can consider an estimator from the class of GMM estimators based on the random variable $\mathbf{R} =[R_{11}/n, R_{10}/n, R_{01}/n, R_{00}/n]$ with expectation $\mathbb{E}[\mathbf{R}] = {\tau}(\pi)=[\tau_{11}(\pi), \tau_{10}(\pi), \tau_{01}(\pi), \tau_{00}(\pi)]$. A particular case is given by an MME based on $R_{01}$ (with expectation $\tau_{01}(\pi)$), which, again assuming an interior solution exists, is given by 
 
 \begin{equation}
     \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left(\frac{R_{01}}{n} + \pi_0 - \beta\pi_0 - \alpha_0 \Delta - \alpha\right).
@@ -161,7 +160,118 @@ When $\alpha_0=\alpha=\beta=0$, this reduces to
     \label{eqn:MME}
 \end{equation}
 
-Since we have that $\mathbb{E}[\widetilde{\pi} ] = \pi$, the MME is unbiased.
+Since we have that $\mathbb{E}[\widetilde{\pi} ] = \pi$, the MME is unbiased. This estimator can be computed as follows:
+
+```{r}
+# Without measurement error
+moment_estimator(R3 = R3, n = n, pi0 = pi0)
+
+# With measurement error
+moment_estimator(R3 = R3, n = n, pi0 = pi0, alpha = alpha,
+                 alpha0 = alpha0, beta = beta)
+```
+
+In the `cape` package the marginal MLE is also implemented and can be used as follows:
+
+```{r}
+# Without measurement error
+marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0)
+
+# With measurement error
+marginal_mle(R1 = R1, R3 = R3, n = n, pi0 = pi0, 
+             alpha = alpha, beta = beta, alpha0 = alpha0)
+```
+
+These results can be compared to the standard survey MLE which can be computed as follows:
+
+```{r}
+# Without measurement error
+survey_mle(R = R1 + R3, n = n)
+
+# With measurement error
+survey_mle(R = R1 + R3, n = n, alpha = alpha, beta = beta)
+```
+
+# Stratified sampling
+
+In many applications sampling is not uniformly random, but stratified. This is also the case for the COVID-19 data from the Austrian survey sample that we apply our method to. For such cases, one can use different approaches. In this section, we present a method that considers a prevalence estimator formed as a weighted sum of prevalence estimators $\widetilde{\pi}^k$ associated to each stratum $k$, i.e., a generalization of the MME, as well as a Weighted M-Estimator (WME). In both cases, we have to rely on asymptotic theory for computing CIs.
+
+It actually turns out that the resulting estimators are based on similar quantities provided previously, but weighted ones. Let $\gamma_i$ denote the sampling weight associated to subject $i=1,\ldots,n$, which is proportional to  the reciprocal of the sampling probability for subject $i$,  and adjusted such that $\sum_{i=1}^n \gamma_i = n$. Let also 
+
+\begin{eqnarray}
+\overline{R}_{11}&=&\sum_{i=1}^n\gamma_iY_i Z_i=\sum_{i=1}^n\gamma_iR_{i11}, \nonumber \\
+\overline{R}_{10}&=&\sum_{i=1}^n\gamma_i(1-Y_i)Z_i=\sum_{i=1}^n\gamma_iR_{i10}, \nonumber \\
+\overline{R}_{01}&=& \sum_{i=1}^n\gamma_iY_i(1-Z_i)= \sum_{i=1}^n\gamma_iR_{i01}, \nonumber\\ 
+\overline{R}_{00}&=& \sum_{i=1}^n\gamma_i(1-Y_i)(1-Z_i)=\sum_{i=1}^n\gamma_iR_{i00}, \nonumber \\
+\overline{R}_{*1}&=&\sum_{i=1}^n\gamma_iY_i=\overline{R}_{11}+\overline{R}_{01}.     \nonumber
+\end{eqnarray}
+
+
+With the MME approach, we consider the possibility that different groups of people (such as in different towns or provinces), or even each participant $i$, are associated to different prevalence $\pi_i$. We are, however, only interested in the overall prevalence $\pi=(1/n)\sum_{i=1}^n \gamma_i \pi_i$, given the additional information provided by the official procedure. Moreover, the (known but biased) prevalence from the official procedure could also be different for each (groups of) subject(s) $i$, with $\pi_{i0}, i=1,\ldots,n$.  Note, however, that $\pi_0 =(1/n) \sum_{i=1}^n \gamma_i \pi_{i0}$ and that $\pi_0$ is known. A general approach then consists in obtaining estimates for each $\pi_i$ using some method and then take their weighted average as an estimator for $\pi$. Using the MME approach based on the $R_{i01}$ and assuming, as done before, that the parameters $\alpha,\beta$ are specific to the medical test used and, thus, independent of subject $i$, we obtain a weighted MME for $\pi$ as
+
+\begin{equation}
+    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left( \frac{\overline{R}_{01}}{n} + \pi_0 (1 - \beta) - \alpha_0 \Delta - \alpha\right).
+    \label{eqn:CWMLE-alpha0}
+\end{equation}
+
+We also have that $\mathbb{E}\left[\widetilde{\pi}\right]= \pi$. When $\alpha_0=\alpha=\beta=0$, we get
+
+\begin{equation*}
+   \widetilde{\pi} = \pi_0 + \frac{\overline{R}_{01}}{n}.
+\end{equation*}
+
+In other words, with stratified samples, the MME is obtained by replacing in \eqref{eqn:MME-ME} and \eqref{eqn:MME}, $R_{01}$ by $\overline{R}_{01}$.
+
+An alternative approach is to consider a WME $\widehat{\pi}$ as proposed for example by @Wool01. Generally, it has no closed-form solution but can be computed numerically. However, in the case when $\alpha_0 = 0$, we obtain a closed-form solution given by
+
+\begin{equation*}
+    \widehat{\pi} = \frac{\pi_0 \overline{R}_{00} + \overline{R}_{01}}{\Delta \left(\overline{R}_{01}+\overline{R}_{00}\right)} - \frac{\pi_0 \beta}{\Delta} - \frac{\alpha}{\Delta}.
+\end{equation*}
+
+When $\alpha_0=\alpha=\beta=0$, this further reduces to 
+
+\begin{equation*}
+   \widehat{\pi} = \pi_0 \frac{n - \overline{R}_{\ast 1}}{n - \overline{R}_{11}} + \frac{R_{01}}{ \left(n - R_{11}\right)}.
+\end{equation*}
+
+In other words, in the case of stratified sampling, one replaces the $R_{jk}$ by their weighted counterparts $\overline{R}_{jk}$.
+
+Considering the data used in @guerrier2020prevalence, these estimators can be computed as follows:
+
+```{r}
+# Load cape
+library(cape)
+
+# Austrian data (November 2020)
+pi0 = 93914/7166167
+
+# Weighted sampling
+R1w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 1])
+R2w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 1])
+R3w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 0])
+R4w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 0])
+
+# Average of squared weights 
+V = mean(covid19_austria$weights^2)
+
+# Compute CMLE
+conditional_mle(R1 = R1w, R2 = R2w, R3 = R3w, R4 = R4w, 
+                pi0 = pi0, V = V)
+
+# Compute MME
+moment_estimator(R3 = R3w, pi0 = pi0, n = n, V = V)
+
+# Survey MLE
+survey_mle(R = R1w + R3w, pi0 = pi0, n = n, V = V)
+```
+
+These estimators are also defined in the stratified case with measurement error. For example, for the MME:
+
+```{r}
+# Compute MME
+moment_estimator(R3 = R3w, pi0 = pi0, n = n, V = V, alpha = alpha,
+                 alpha0 = alpha0, beta = beta)
+```
 
 # References
 
