@@ -23,7 +23,7 @@ library(cape)
 
 # `cape` Overview 
 
-The ContionAl Prevalence Estimation (cape) package, allows to estimate and build confidence intervals for proportions, from random samples and census data with participation bias. Measurement errors in the form of false positive and false negative are also included the the inferential procedure. The cape package also contains code for simulation studies and sensitivity analysis reported in the companion paper Guerrier et al. (2022)
+The ContionAl Prevalence Estimation (cape) package, allows to estimate and build confidence intervals for proportions, from random or stratified samples and census data with participation bias. Measurement errors in the form of false positive and false negative are also included in the inferential procedure. The cape package also contains code for simulation studies and sensitivity analysis reported in the companion paper Guerrier et al. (2022), as well as the Austrian dataset on COVID-19 prevalence in November 2020.
 
 # Remark on notation
 

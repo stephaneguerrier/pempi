@@ -25,190 +25,144 @@ In @guerrier2020prevalence, we propose to adequately use this information, toget
 
 ## Mathematical setup
 
-Consider taking a (random) survey sample of $n$ participants in some population in order to estimate the prevalence $\pi$ of, for example, a given infectious disease. The framework also supposes that prior to the collection of the survey sample, measurement have been taken on a sub-population, not necessarily randomly chosen. Conditionally on this information, one can get  the prevalence computed as the number of positive cases (in the sub-population) relative to the (whole) population size, i.e. a prevalence parameter $\pi_0$ which is such that $\pi_0 \leq \pi$. While $\pi_0$ is known, it cannot be directly used as a proxy for $\pi$, but the information provided by $\pi_0$, can be used to improve the accuracy of the estimation of $\pi$.
+As in @guerrier2020prevalence, we define the following unobserved random variable:
 
-More precisely, for each participant in the survey sample, the following information should be available:
-
-\begin{equation}
-    \begin{aligned}
-         X_i& :=
+\begin{equation*}
+         X_i=
          \left\{
 	\begin{array}{ll}
-		1  & \quad \mbox{if participant $i$ is positive,} \\
+		1  & \quad \mbox{if participant (in the survey sample) $i$ is positive,} \\
 		0  & \quad \mbox{otherwise;}
 	\end{array}
-\right.\\
-         V_i& := \left\{
-	\begin{array}{ll}
-		1  & \quad \mbox{if participant $i$ is positive and belongs to the sub-population,} \\
-		0  & \quad \mbox{otherwise.}
-	\end{array}
 \right.
-    \end{aligned}
-    \label{eqn:bernoulli-rv}
-\end{equation}
+\end{equation*}
 
-Note that $\Pr(X_i=1\vert V_i=1) = 1$ and $\Pr(X_i=0\vert V_i=1) = 0$. The objective is to provide an estimator for the unknown prevalence
+The objective is to provide an estimator for the unknown population proportion, i.e. the prevalence, given by
 
-\begin{equation}
-        \pi := \Pr\left(X_i=1\right). 
-        \label{eqn:true-pi}
-\end{equation}
+\begin{equation*}
+        \pi = \mathbb{P}\left(X_i=1\right). 
+\end{equation*}
 
-However, if we allow for possible misclassification error, the variables in \eqref{eqn:bernoulli-rv} are latent, and what is observed are the following variables
+Next, we define the following quantities.
 
-\begin{equation}
-    \begin{aligned}
-         Y_i& :=
+\begin{eqnarray}
+         Y_i&=&
          \left\{
 	\begin{array}{ll}
 		1  & \quad \mbox{if participant $i$ is tested positive in the survey sample,} \\
 		0  & \quad \mbox{otherwise;}
 	\end{array}
-\right.\\
-         W_i& := \left\{
+\right.\nonumber \\
+         Z_i&=& \left\{
 	\begin{array}{ll}
-		1  & \quad \mbox{if participant $i$ is tested positive and belongs to the sub-population,} \\
+		1  & \quad \mbox{if participant $i$ was declared positive with the official procedure,} \\
 		0  & \quad \mbox{otherwise.}
 	\end{array}
-\right. 
-    \end{aligned}
-    \label{eqn:bernoulli-rv-obs}
-\end{equation}
-
-While $Y_i$ is the minimal information collected in the survey sample, $W_i$ is an additional information that could be obtained by asking the participants to provide it. It can be obtained while collecting the information on $Y_i$, or a posteriori using a followup procedure. In that case, it is not necessary to proceed to the followup for all sampled participants, but only for those with $Y_i=1$.
-
-We also suppose that the (medical) testing devices have known sensitivity and specificity, or equivalently, False Positive (FP) rates  $\alpha = 1-\mbox{specificity}$  and False Negative (FN) rates $\beta = 1-\mbox{sensitivity}$, that might be different for the two populations. Therefore, we define the following quantities:
-
-\begin{equation}
-    \begin{aligned}
-          \pi_0 & := \Pr(W_i=1) && \\
-    \alpha_0& := \Pr(W_i=1\vert V_i=0) & \quad \quad \alpha& := \Pr(Y_i=1\vert X_i=0) \\
-    \beta_0& := \Pr(W_i=0\vert V_i=1) & \quad \quad \beta& := \Pr(Y_i=0\vert X_i=1).
-    \end{aligned}
-    \label{eqn:missclasserrors}
-\end{equation}
-
-For proper modelling, we assume that $\alpha+\beta<1$ and $\alpha_0+\beta_0<1$ [see @guerrier2020prevalence]. From the above definitions, we can deduce
-
-\begin{equation*}
-    \pi^*_0=\Pr(V_i=1)=\frac{1}{\Delta_0}(\pi_0-\alpha_0) 
-\end{equation*}
-
-with $\Delta_0=1-(\alpha_0+\beta_0)$. In the figure below, we present the probability tree associated to the variables involved in this study:
-
-
-
-From these variables we deduce the following random variables that are necessary for estimation and inference:
-
-\begin{eqnarray}
-R_1:=\sum_{i=1}^nY_iW_i \;\;\; \mbox{and} \;\;\;
-R_3:= \sum_{i=1}^nY_i(1-W_i) 
-\label{eqn:R-R4} 
+\right. \label{eqn:Y-Z}
 \end{eqnarray}
 
-with:
+and
 
-- $R_1$: the number of participants in the survey sample that were tested positive with both (medical) testing devices (and are, thus, members of the sub-population);
-- $R_3$ is the number of participants in the survey sample that are tested positive only with the second  testing device.
+\begin{alignat}{4}
+    &R_{11}&&=\sum_{i=1}^n Y_i Z_i, \quad\quad\quad 
+    &&R_{10}&&=\sum_{i=1}^n(1-Y_i)Z_i, \label{eqn:R-R4} \\
+    &R_{01}&&= \sum_{i=1}^nY_i(1-Z_i), \quad\quad \quad 
+    &&R_{00}&&= \sum_{i=1}^n(1-Y_i)(1-Z_i)=n-R_{11}-R_{10}+R_{01}.
+    \nonumber
+\end{alignat}
 
-If easily available, on can add the following information, that might increase estimation and inference accuracy for survey sample sizes smaller than $n=1,500$:
+In words, $R_{11}$ is the number of participants in the survey sample that are tested positive  and have also been declared positive through the official procedure; $R_{10}$ is the number of participants in the survey sample that are tested negative but have been declared positive through the official procedure; $R_{01}$ is the number of participants in the survey sample that are tested positive but have been declared negative through the official procedure; $R_{00}$ is the number of participants in the survey sample that are tested negative and have been declared negative through the official procedure. We also make use of $R_{\ast 1} = \sum_{i=1}^nY_i = R_{11} + R_{01}$, the number of participants that are tested positive in the survey sample. The $R_{jk}$ are central quantities for computing the proposed estimators. In the case of stratified sampling, these quantities can be modified accordingly (see below).
 
-\begin{equation*}
-    R_2:=\sum_{i=1}^n(1-Y_i)W_i
-\end{equation*}
+For simplicity of exposition, we first consider the unweighted (or random) sampling case, the weighted one is treated below.
 
-so that $R_0:= \sum_{i=1}^nW_i=R_1+R_2$, with
+We also allow for the possibility that the outcome of (medical) tests can be subject to misclassification error. Hence, we define $\alpha = \mathbb{P}(Y_i=1\vert X_i=0)$ and $\beta = \mathbb{P}(Y_i=0\vert X_i=1)$. The probabilities $\alpha$ and $\beta$, are the (assumed known) FP rate ($\alpha = 1-\mbox{specificity}$) and FN rate ($\beta = 1-\mbox{sensitivity}$) of the particular medical test employed in the survey. Moreover, we will make use of the (known) prevalence $\pi_0 =\mathbb{P}(Z_i=1)$ from the official procedure. As explained in Appendix \ref{app:succprob}, $\pi_0$ is the joint probability of being selected in the official procedure and declared positive, so that we have $\pi_0\leq \pi$. 
 
-- $R_0$: the number of participants in the survey sample that were tested positive in the sub-population;
-- $R_2$: the number of participants in the survey sample that are tested positive only with the first  testing device (and are, thus,  members of the sub-population).
-   
-The respective distributions of $R_1,R_2,R_3$ are binomial distributions with success probabilities given below in the next section.
+Since the objective is to take advantage of the information provided by the official procedure in estimating the prevalence $\pi$, we also need to take into account the possible biases in the official data. Therefore, we define $\alpha_0 = \mathbb{P}(Z_i=1\vert X_i=0)$, the FP rate of the official procedure and $\beta_0 = \mathbb{P}(Z_i=0\vert X_i=1)$ the FN rate of the official procedure. It turns out (see @guerrier2020prevalence for details) that $\alpha_0$ is a negligible quantity and hence can be set to $0$, and $\beta_0$ can be deduced from the other available or estimable quantities as we have
 
+\[
+\beta_0 = 1- \frac{\pi_0-\alpha_0(1-\pi)}{\pi}.
+\]
 
-## Simulating data
-
-Data can be simulated using the function `sim_Rs()` as follows:
-
-```{r}
-# Load cape package
-library(cape)
-
-# Measurement error
-alpha = alpha0 = 0.01
-beta = beta0 = 0.02
-
-# Simulation "seed"
-seed = 18
-
-# True prevalence
-theta = 4/100
-
-# Prevalence in sub-population
-pi0 = 2/100
-
-# Sample size
-n = 1500
-
-# Simulation data
-R = sim_Rs(theta = theta, pi0 = pi0, n = n, alpha0 = alpha0,
-           alpha = alpha, beta0 = beta0, beta = beta, seed = seed)
-
-# Print results
-R
-```
-
-# Estimators
-
-The success probabilities associated to $R_j,j=1,2,3$ are functions of the (true) prevalence $\pi$, and are given  by 
-
+The success probabilities (see @guerrier2020prevalence for their derivation), denoted by $\tau_{jk}(\pi)$ associated to each $R_{jk}$, $j,k \in \{0,1\}$ are given by 
+%
 \begin{eqnarray}
     \begin{aligned}
-    \tau_1(\pi) &:=  \Pr(W_i=1, Y_i=1) =\pi\Delta\alpha_0+\pi_0^*\Delta_0(1-\beta)+\alpha\alpha_0   \\
-    \tau_2(\pi) &:=  \Pr(W_i=1,Y_i=0) = -\pi\Delta\alpha_0+\pi_0^*\Delta_0\beta+(1-\alpha)\alpha_0  \\
-    \tau_3(\pi) &:=  \Pr(W_i=0,Y_i=1) = \pi\Delta(1-\alpha_0)-\pi_0^*\Delta_0(1-\beta)+\alpha(1-\alpha_0)  \\
-    \tau_4(\pi) &:=  \Pr(W_i=0,Y_i=0) = -\pi\Delta(1-\alpha_0)-\pi_0^*\Delta_0\beta+(1-\alpha)(1-\alpha_0),
+    \tau_{11}(\pi) &=  \mathbb{P}(Z_i=1, Y_i=1) =\pi\Delta\alpha_0+(\pi_0-\alpha_0)(1-\beta)+\alpha\alpha_0,   \\
+    \tau_{10}(\pi) &=  \mathbb{P}(Z_i=1,Y_i=0) = -\pi\Delta\alpha_0+(\pi_0-\alpha_0)\beta+(1-\alpha)\alpha_0,  \\
+    \tau_{01}(\pi) &=  \mathbb{P}(Z_i=0,Y_i=1) =  \pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)(1-\beta)+\alpha(1-\alpha_0), \\
+    \tau_{00}(\pi) &=  \mathbb{P}(Z_i=0,Y_i=0) = -\pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)\beta+(1-\alpha)(1-\alpha_0),
     \end{aligned}
     \label{eqn:tau-pi}
-\end{eqnarray}
+\end{eqnarray} 
+%
+where $\Delta =1-(\alpha+\beta)$. Without misclassification error, we would have $\tau_{11}(\pi)=\pi_0$, $\tau_{10}(\pi)=0$, $\tau_{01}(\pi)=\pi-\pi_0$, $\tau_{00}(\pi)=1-\pi$. 
 
-where $\Delta :=1-(\alpha+\beta)$. A likelihood function can be built based on the multinomial distribution (with categories $R_1,R_2,R_3,R_4$, with $R_4=1-R_1-R_2-R_3$) to obtain the conditional Maximum Likelihood Estimator (MLE) for $\pi$ [see @guerrier2020prevalence]. The MLE has a closed form expressions if $\alpha_0=0$. If the information provided by $R_2$ is not available, the likelihood function is marginalized out on $R_2$ and one can still obtain an MLE for $\pi$. Alternatively, the package also contains a Method of Moments Estimator (MME) based on $R_3$ (with expectation $\tau_3(\pi)$), which is closed form for any $\alpha_0,\alpha,\beta_0,\beta$.
+Based on these definitions, we present a Conditional Maximum Likelihood Estimators (CMLE) and a Method of Moment Estimator (MME) estimator. The formal derivations and properties are provided in @guerrier2020prevalence. There, we also consider a Marginal MLE (MMLE) when some data is missing, and some Generalized Method of Moment (GMM) estimators. The likelihood function for $\pi$ can be obtained from the multinomial distribution with categories provided by $R_{11},R_{10},R_{01},R_{00}$ and their associated success probabilities $\tau_{11}(\pi),\tau_{10}(\pi),\tau_{01}(\pi),\tau_{00}(\pi)$. The CMLE, conditional on the information provided by the official procedure, $\widehat{\pi}$, generally, has no closed-form solution but can be computed numerically. However, in the case when $\alpha_0 = 0$, we obtain a closed-form solution given by
 
-The confidence intervals for the conditional MLE and the marginal MLE can be computed using asymptotic theory. They provide good coverage, with small interval length for survey sample sizes from $n=1,000$ [see @guerrier2020prevalence]. For the MME, since its finite sample distribution is known through $R_3\sim\mathcal{B}(n,\tau_3(\pi))$, exact confidence bounds can be computed using, for example, the (fiducial) Clopper–Pearson (CP) approach method, see @ClPe34, @fisher35 and @brown2001. In the package are implemented, the CP method based on $R_3$, and the asymptotic theory method for the conditional and marginal MLE (i.e. $R_2$ known or not). An extensive simulation study is provided in @guerrier2020prevalence that compares coverage probabilities with the different approaches.
+\begin{equation}
+    \widehat{\pi} = \frac{\pi_0 R_{00} + R_{01}}{\Delta \left(R_{01}+R_{00}\right)} - \frac{\pi_0 \beta}{\Delta} - \frac{\alpha}{\Delta}.
+    \label{eq:cmle-closedform}
+\end{equation}
 
-To obtain these estimators, one can use the functions `conditional_mle()`, `marginal_mle()` and `moment_estimator()`. Indeed, the conditional MLE can be estimated as follows on the previously simulated data:
+When $\alpha_0=\alpha=\beta=0$, this further reduces to 
 
-```{r}
-fit_cmle = conditional_mle(R1 = R$R1, R2 = R$R2, R3 = R$R3, R4 = R$R4, n = R$n, pi0 = R$pi0,
-                           alpha0 = R$alpha0, alpha = R$alpha, 
-                           beta0 = R$beta0, beta = R$beta)
-fit_cmle
-```
+\begin{equation}
+   \widehat{\pi} = \pi_0 \frac{n - R_{\ast 1}}{n - R_{11}} + \frac{R_{01}}{ \left(n - R_{11}\right)}.
+   \label{eqn:MLE}
+\end{equation}
 
-Note that the conditional MLE is based on $R_1$, $R_2$, $R_3$ and $R_4$ while the marginal MLE is based on only $R_1$ and $R_3$. This estimator can be obtained as follows:
-
-```{r}
-fit_mmle = marginal_mle(R1 = R$R1, R3 = R$R3, n = R$n, pi0 = R$pi0,
-                        alpha0 = R$alpha0, alpha = R$alpha, 
-                        beta0 = R$beta0, beta = R$beta)
-fit_mmle
-```
-
-Moreover, the moment estimator, which is simply based on $R_3$, can be computed as follows:
+Considering the data used in @guerrier2020prevalence, this estimator can be computed as follows:
 
 ```{r}
-fit_mme = moment_estimator(R3 = R$R3, n = R$n, pi0 = R$pi0,
-                           alpha0 = R$alpha0, alpha = R$alpha, 
-                           beta0 = R$beta0, beta = R$beta)
-fit_mme
+# Load cape
+library(cape)
+
+# Austrian data (November 2020)
+pi0 = 93914/7166167
+
+# Load data
+data("covid19_austria")
+
+# Random sampling
+n = nrow(covid19_austria)
+R1 = sum(covid19_austria$Y == 1 & covid19_austria$Z == 1)
+R2 = sum(covid19_austria$Y == 0 & covid19_austria$Z == 1)
+R3 = sum(covid19_austria$Y == 1 & covid19_austria$Z == 0)
+R4 = sum(covid19_austria$Y == 0 & covid19_austria$Z == 0)
+
+# Compute CMLE
+conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, pi0 = pi0)
 ```
 
-It can be observed that the function `moment_estimator()` provides both asymtoptic and CP confidence intervals. Finally for comparison purposes, `cape` package also contains the MLE based on the sample survey, i.e. the sample average estimator, which can be obtained as follows:
+Considering the following measurement error $\alpha = 0.01$, $\alpha_0 = 0$ and $\beta = 0.1$, we obtain:
 
 ```{r}
-fit_smle = survey_mle(R = R$R, n = R$n, alpha = R$alpha, beta = R$beta)
-fit_smle
+# Assumed measurement errors
+alpha0 = 0
+alpha  = 1/100
+beta   = 10/100
+
+# Compute CMLE with measurement error
+conditional_mle(R1 = R1, R2 = R2, R3 = R3, R4 = R4, pi0 = pi0,
+                alpha = alpha, alpha0 = alpha0, beta = beta)
 ```
+
+Alternatively, we can consider an estimator from the class of GMM estimators \citep{Hans:82} based on the random variable $\mathbf{R} \vcentcolon=[R_{11}/n, R_{10}/n, R_{01}/n, R_{00}/n]$ with expectation $\mathbb{E}[\mathbf{R}]:=\bm{\tau}(\pi)=[\tau_{11}(\pi), \tau_{10}(\pi), \tau_{01}(\pi), \tau_{00}(\pi)]$. A particular case is given by an MME based on $R_{01}$ (with expectation $\tau_{01}(\pi)$), which, again assuming an interior solution exists, is given by 
+
+\begin{equation}
+    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left(\frac{R_{01}}{n} + \pi_0 - \beta\pi_0 - \alpha_0 \Delta - \alpha\right).
+    \label{eqn:MME-ME}
+\end{equation}
+
+When $\alpha_0=\alpha=\beta=0$, this reduces to 
+
+\begin{equation}
+   \widetilde{\pi} = \pi_0 + \frac{R_{01}}{n}.
+    \label{eqn:MME}
+\end{equation}
+
+Since we have that $\mathbb{E}[\widetilde{\pi} ] = \pi$, the MME is unbiased.
 
 # References
+
 

@@ -5,7 +5,7 @@
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2022--05--01-green.svg)](https://github.com/stephaneguerrier/cape)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2022--05--03-green.svg)](https://github.com/stephaneguerrier/cape)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/stephaneguerrier/cape/workflows/R-CMD-check/badge.svg)](https://github.com/stephaneguerrier/cape/actions)
 <!-- badges: end -->
@@ -13,12 +13,13 @@ version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-
 # `cape` Overview
 
 The ContionAl Prevalence Estimation (cape) package, allows to estimate
-and build confidence intervals for proportions, from random samples and
-census data with participation bias. Measurement errors in the form of
-false positive and false negative are also included the the inferential
-procedure. The cape package also contains code for simulation studies
-and sensitivity analysis reported in the companion paper Guerrier et
-al. (2022)
+and build confidence intervals for proportions, from random or
+stratified samples and census data with participation bias. Measurement
+errors in the form of false positive and false negative are also
+included in the inferential procedure. The cape package also contains
+code for simulation studies and sensitivity analysis reported in the
+companion paper Guerrier et al. (2022), as well as the Austrian dataset
+on COVID-19 prevalence in November 2020.
 
 # Remark on notation
 
