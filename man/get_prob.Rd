@@ -38,3 +38,4 @@ sum(prob2)
 \author{
 Stephane Guerrier
 }
+\keyword{internal}

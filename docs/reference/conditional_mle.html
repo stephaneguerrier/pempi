@@ -62,55 +62,80 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">conditional_mle</span><span class="op">(</span>
-  R1 <span class="op">=</span> <span class="cn">NULL</span>,
-  R2 <span class="op">=</span> <span class="cn">NULL</span>,
-  R3 <span class="op">=</span> <span class="cn">NULL</span>,
-  R4 <span class="op">=</span> <span class="cn">NULL</span>,
-  n <span class="op">=</span> <span class="va">R1</span> <span class="op">+</span> <span class="va">R2</span> <span class="op">+</span> <span class="va">R3</span> <span class="op">+</span> <span class="va">R4</span>,
-  <span class="va">pi0</span>,
-  gamma <span class="op">=</span> <span class="fl">0.05</span>,
-  alpha0 <span class="op">=</span> <span class="fl">0</span>,
-  alpha <span class="op">=</span> <span class="fl">0</span>,
-  beta <span class="op">=</span> <span class="fl">0</span>,
-  V <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">conditional_mle</span><span class="op">(</span></span>
+<span>  R1 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  R2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  R3 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  R4 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n <span class="op">=</span> <span class="va">R1</span> <span class="op">+</span> <span class="va">R2</span> <span class="op">+</span> <span class="va">R3</span> <span class="op">+</span> <span class="va">R4</span>,</span>
+<span>  <span class="va">pi0</span>,</span>
+<span>  gamma <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  alpha0 <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  beta <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  V <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>R1</dt>
 <dd><p>A <code>numeric</code> that provides the number of participants in the survey sample that were tested positive with both (medical) testing devices (and are, thus, members of the sub-population).</p></dd>
+
+
 <dt>R2</dt>
 <dd><p>A <code>numeric</code> that provides the number of participants in the survey sample that are tested positive only with the first testing device (and are, thus,  members of the sub-population).</p></dd>
+
+
 <dt>R3</dt>
 <dd><p>A <code>numeric</code> that provides the number of participants in the survey sample that are tested positive only with the second testing device.</p></dd>
+
+
 <dt>R4</dt>
 <dd><p>A <code>numeric</code> that provides the number of participants that are tested negative with the second testing device (and are either members of the sub-population and have tested negative with the first testing device or are not members of the sub-population).</p></dd>
+
+
 <dt>n</dt>
 <dd><p>A <code>numeric</code> that provides the sample size. Default value R1 + R2 + R3 + R4. If this value is provided it is used to verify that R1 + R2 + R3 + R4 = n.</p></dd>
+
+
 <dt>pi0</dt>
 <dd><p>A <code>numeric</code> that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 but systematic sampling (e.g. based on medical selection).</p></dd>
+
+
 <dt>gamma</dt>
 <dd><p>A <code>numeric</code> that used to compute a (1 - gamma) confidence region for the proportion. Default value is <code>0.05</code>.</p></dd>
+
+
 <dt>alpha0</dt>
 <dd><p>A <code>numeric</code> that corresponds to the probability that a random participant
 has been incorrectly declared positive through the nontransparent procedure. In most applications,
 this probability is likely very close to zero. Default value is <code>0</code>.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R. Default value is <code>0</code>.</p></dd>
+
+
 <dt>beta</dt>
 <dd><p>A <code>numeric</code> that provides the False Positive (FP) rate for the sample R. Default value is <code>0</code>.</p></dd>
+
+
 <dt>V</dt>
 <dd><p>A <code>numeric</code> that corresponds to the average of squared sampling weights. Default value is <code>NULL</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>cpreval</code> object with the structure:</p><ul><li><p>estimate:    Estimated proportion.</p></li>
+    
+
+<p>A <code>cpreval</code> object with the structure:</p><ul><li><p>estimate:    Estimated proportion.</p></li>
 <li><p>sd:          Estimated standard error of the estimator.</p></li>
 <li><p>ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.</p></li>
 <li><p>gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.</p></li>
@@ -131,9 +156,9 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Samples without measurement error</span></span>
-<span class="r-in"><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">conditional_mle</span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">pi0</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Samples without measurement error</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">conditional_mle</span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">pi0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method: Conditional MLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated proportion: 3.2061%</span>
@@ -149,11 +174,11 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> official procedure: beta0 = 68.81%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 61.58% - 76.04%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># With measurement error</span></span>
-<span class="r-in"><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">30</span><span class="op">/</span><span class="fl">1000</span>, pi0 <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, n <span class="op">=</span> <span class="fl">1500</span>, alpha0 <span class="op">=</span> <span class="fl">0.001</span>,</span>
-<span class="r-in">alpha <span class="op">=</span> <span class="fl">0.01</span>, beta0 <span class="op">=</span> <span class="fl">0.05</span>, beta <span class="op">=</span> <span class="fl">0.05</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">conditional_mle</span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">pi0</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># With measurement error</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">30</span><span class="op">/</span><span class="fl">1000</span>, pi0 <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, n <span class="op">=</span> <span class="fl">1500</span>, alpha0 <span class="op">=</span> <span class="fl">0.001</span>,</span></span>
+<span class="r-in"><span>alpha <span class="op">=</span> <span class="fl">0.01</span>, beta0 <span class="op">=</span> <span class="fl">0.05</span>, beta <span class="op">=</span> <span class="fl">0.05</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">conditional_mle</span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">pi0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method: Conditional MLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated proportion: 3.6736%</span>
@@ -169,8 +194,8 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> official procedure: beta0 = 72.78%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 66.73% - 78.83%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
-<span class="r-in"><span class="fu">conditional_mle</span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">pi0</span>,</span>
-<span class="r-in">alpha0 <span class="op">=</span> <span class="fl">0.001</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">conditional_mle</span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">pi0</span>,</span></span>
+<span class="r-in"><span>alpha0 <span class="op">=</span> <span class="fl">0.001</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method: Conditional MLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated proportion: 2.6929%</span>
@@ -200,7 +225,7 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

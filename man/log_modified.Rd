@@ -18,3 +18,4 @@ Simple function that return log(x) if x > 0 and 0 otherwise.
 \author{
 Stephane Guerrier
 }
+\keyword{internal}

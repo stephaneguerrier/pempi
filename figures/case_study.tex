@@ -176,9 +176,9 @@ null device
 > legend("topleft", c("MME", "95\\% CI",
 +                     "Survey MLE", "95\\% CI"),
 +        bty = "n", col = c(cols[1], cols2[1],cols[2], cols2[2]),
-+        lwd = c(3, NA, 3, NA), pch = c(NA, 15, NA, 15),
++        lwd = c(3, NA, 3, NA), pch = c(NA, 15, NA, 15), lty = c(2, NA, 1, NA),
 +        pt.cex = 2.5)
-> lines(100*beta, 100*res_moment[,1], lwd = 3, col = cols[1])
+> lines(100*beta, 100*res_moment[,1], lwd = 3, col = cols[1], lty = 2)
 > polygon(100*c(beta, rev(beta)),
 +         100*c(res_moment[,2], rev(res_moment[,3])),
 +         col = cols2[1], border = NA)

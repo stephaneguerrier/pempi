@@ -62,34 +62,51 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sim_Rs</span><span class="op">(</span><span class="va">theta</span>, <span class="va">pi0</span>, <span class="va">n</span>, alpha0 <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0</span>, beta <span class="op">=</span> <span class="fl">0</span>, seed <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sim_Rs</span><span class="op">(</span><span class="va">theta</span>, <span class="va">pi0</span>, <span class="va">n</span>, alpha0 <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0</span>, beta <span class="op">=</span> <span class="fl">0</span>, seed <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>theta</dt>
 <dd><p>A <code>numeric</code> that provides the true prevalence of a given disease.</p></dd>
+
+
 <dt>pi0</dt>
 <dd><p>A <code>numeric</code> that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 but systematic sampling (e.g. based on medical selection).</p></dd>
+
+
 <dt>n</dt>
 <dd><p>A <code>numeric</code> that corresponds to the sample size.</p></dd>
+
+
 <dt>alpha0</dt>
 <dd><p>A <code>numeric</code> that corresponds to the probability that a random participant
 has been incorrectly declared positive through the nontransparent procedure. In most applications,
 this probability is likely very close to zero. Default value is <code>0</code>.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R. Default value is <code>0</code>.</p></dd>
+
+
 <dt>beta</dt>
 <dd><p>A <code>numeric</code> that provides the False Positive (FP) rate for the sample R. Default value is <code>0</code>.</p></dd>
+
+
 <dt>seed</dt>
 <dd><p>A <code>numeric</code> that provides the simulation seed. Default value is <code>NULL</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>cpreval_sim</code> object (<code>list</code>) with the structure:</p><ul><li><p>R:      the number of participants in the survey sample that were tested positive.</p></li>
+    
+
+<p>A <code>cpreval_sim</code> object (<code>list</code>) with the structure:</p><ul><li><p>R:      the number of participants in the survey sample that were tested positive.</p></li>
 <li><p>R0:     the number of participants in the survey sample that were tested positive with the first testing device (and are, thus,  members of the sub-population).</p></li>
 <li><p>R1:     the number of participants in the survey sample that were tested positive with both (medical) testing devices (and are, thus, members of the sub-population).</p></li>
 <li><p>R2:     the number of participants in the survey sample that are tested positive only with the first testing device (and are, thus,  members of the sub-population).</p></li>
@@ -108,18 +125,18 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Samples without measurement error</span></span>
-<span class="r-in"><span class="fu">sim_Rs</span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Samples without measurement error</span></span></span>
+<span class="r-in"><span><span class="fu">sim_Rs</span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data: R = 52, R0 = 19, n = 1500</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       R1 = 19, R2 = 0, R3 = 33, R4 = 1448</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Assumed measurement error: alpha = 0%, alpha0 = 0%, beta  = 0% </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> False negative rate of the official procedure: beta0 = 66.67%</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># With measurement error</span></span>
-<span class="r-in"><span class="fu">sim_Rs</span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, alpha0 <span class="op">=</span> <span class="fl">0</span>,</span>
-<span class="r-in">alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># With measurement error</span></span></span>
+<span class="r-in"><span><span class="fu">sim_Rs</span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, alpha0 <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data: R = 56, R0 = 19, n = 1500</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       R1 = 18, R2 = 1, R3 = 38, R4 = 1443</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -140,7 +157,7 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

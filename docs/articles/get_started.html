@@ -86,388 +86,561 @@
 
     
     
-<div class="section level1">
-<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h1>
-<p>In epidemiological studies, an important quantity that needs to be estimated with great accuracy is the prevalence rate of a disease in order to learn more about central parameters such as case fatality rate and/or to plan and refine decisions about measures with regards to an epidemic or a pandemic. Traditionally, to measure the prevalence, a survey sample (of randomly chosen subjects from the population) is collected and the prevalence is estimated by the sample proportion. This process involves some financial and logistic efforts, which increase with the number of sampled participants, while at the same time, increasing the accuracy of the estimator. Having a sufficiently large sample is especially important when the (true) prevalence is very small, for example at the beginning of a new pandemic such as the one of the COVID-19. In this case, since the beginning of the outbreak, many measurements have been taken on the number of infected people, but only on the sub-population selected under some medical (and logistic) criteria. It is obvious that using these measurements as if they would be like a complete census, would lead to an underestimation of the prevalence.</p>
-<p>In <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span>, we propose to adequately use this information, together with data from a survey sample, in order to improve the accuracy of the prevalence estimation. In other terms, for a given (legal) statistical precision that might be required by authorities that finance a survey, the sample size can be a lot smaller if one adequately uses the information provided by the data collected in the sub-population. The possible misclassification errors of the (medical) testing devices used to collect the data, are also taken into account. The misclassification errors are actually induced by the sensitivity, i.e. the complement to the false positive rate, and by the specificity, i.e. the complement to the false negative rate, of the medical testing devices. The approach is a frequentist one, i.e. using cutoff values for the sensitivity and specificity, hence without the need to specify a (prior) distribution for these quantities.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>In epidemiological studies, an important quantity that needs to be
+estimated with great accuracy is the prevalence rate of a disease in
+order to learn more about central parameters such as case fatality rate
+and/or to plan and refine decisions about measures with regards to an
+epidemic or a pandemic. Traditionally, to measure the prevalence, a
+survey sample (of randomly chosen subjects from the population) is
+collected and the prevalence is estimated by the sample proportion. This
+process involves some financial and logistic efforts, which increase
+with the number of sampled participants, while at the same time,
+increasing the accuracy of the estimator. Having a sufficiently large
+sample is especially important when the (true) prevalence is very small,
+for example at the beginning of a new pandemic such as the one of the
+COVID-19. In this case, since the beginning of the outbreak, many
+measurements have been taken on the number of infected people, but only
+on the sub-population selected under some medical (and logistic)
+criteria. It is obvious that using these measurements as if they would
+be like a complete census, would lead to an underestimation of the
+prevalence.</p>
+<p>In <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
+(2022)</span>, we propose to adequately use this information, together
+with data from a survey sample, in order to improve the accuracy of the
+prevalence estimation. In other terms, for a given (legal) statistical
+precision that might be required by authorities that finance a survey,
+the sample size can be a lot smaller if one adequately uses the
+information provided by the data collected in the sub-population. The
+possible misclassification errors of the (medical) testing devices used
+to collect the data, are also taken into account. The misclassification
+errors are actually induced by the sensitivity, i.e. the complement to
+the false positive rate, and by the specificity, i.e. the complement to
+the false negative rate, of the medical testing devices. The approach is
+a frequentist one, i.e. using cutoff values for the sensitivity and
+specificity, hence without the need to specify a (prior) distribution
+for these quantities.</p>
 </div>
-<div class="section level1">
-<h1 id="mathematical-setup">Mathematical setup<a class="anchor" aria-label="anchor" href="#mathematical-setup"></a>
-</h1>
-<p>As in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span>, we define the following unobserved random variable:</p>
+<div class="section level2">
+<h2 id="mathematical-setup">Mathematical setup<a class="anchor" aria-label="anchor" href="#mathematical-setup"></a>
+</h2>
+<p>As in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
+(2022)</span>, we define the following unobserved random variable:</p>
 <p><span class="math display">\[\begin{equation*}
          X_i=
          \left\{
     \begin{array}{ll}
-        1  &amp; \quad \mbox{if participant (in the survey sample) $i$ is positive,} \\
+        1  &amp; \quad \mbox{if participant (in the survey sample) $i$
+is positive,} \\
         0  &amp; \quad \mbox{otherwise;}
     \end{array}
 \right.
 \end{equation*}\]</span></p>
-<p>The objective is to provide an estimator for the unknown population proportion, i.e. the prevalence, given by</p>
+<p>The objective is to provide an estimator for the unknown population
+proportion, i.e. the prevalence, given by</p>
 <p><span class="math display">\[\begin{equation*}
-        \pi = \mathbb{P}\left(X_i=1\right). 
+        \pi = \mathbb{P}\left(X_i=1\right).
 \end{equation*}\]</span></p>
 <p>Next, we define the following quantities.</p>
 <p><span class="math display">\[\begin{eqnarray}
          Y_i&amp;=&amp;
          \left\{
     \begin{array}{ll}
-        1  &amp; \quad \mbox{if participant $i$ is tested positive in the survey sample,} \\
+        1  &amp; \quad \mbox{if participant $i$ is tested positive in
+the survey sample,} \\
         0  &amp; \quad \mbox{otherwise;}
     \end{array}
 \right.\nonumber \\
          Z_i&amp;=&amp; \left\{
     \begin{array}{ll}
-        1  &amp; \quad \mbox{if participant $i$ was declared positive with the official procedure,} \\
+        1  &amp; \quad \mbox{if participant $i$ was declared positive
+with the official procedure,} \\
         0  &amp; \quad \mbox{otherwise.}
     \end{array}
 \right. \label{eqn:Y-Z}
 \end{eqnarray}\]</span></p>
 <p>and</p>
 <p><span class="math display">\[\begin{alignat}{4}
-    &amp;R_{11}&amp;&amp;=\sum_{i=1}^n Y_i Z_i, \quad\quad\quad 
-    &amp;&amp;R_{10}&amp;&amp;=\sum_{i=1}^n(1-Y_i)Z_i, \label{eqn:R-R4} \\
-    &amp;R_{01}&amp;&amp;= \sum_{i=1}^nY_i(1-Z_i), \quad\quad \quad 
-    &amp;&amp;R_{00}&amp;&amp;= \sum_{i=1}^n(1-Y_i)(1-Z_i)=n-R_{11}-R_{10}+R_{01}.
+    &amp;R_{11}&amp;&amp;=\sum_{i=1}^n Y_i Z_i, \quad\quad\quad
+    &amp;&amp;R_{10}&amp;&amp;=\sum_{i=1}^n(1-Y_i)Z_i, \label{eqn:R-R4}
+\\
+    &amp;R_{01}&amp;&amp;= \sum_{i=1}^nY_i(1-Z_i), \quad\quad \quad
+    &amp;&amp;R_{00}&amp;&amp;=
+\sum_{i=1}^n(1-Y_i)(1-Z_i)=n-R_{11}-R_{10}+R_{01}.
     \nonumber
 \end{alignat}\]</span></p>
-<p>In words, <span class="math inline">\(R_{11}\)</span> is the number of participants in the survey sample that are tested positive and have also been declared positive through the official procedure; <span class="math inline">\(R_{10}\)</span> is the number of participants in the survey sample that are tested negative but have been declared positive through the official procedure; <span class="math inline">\(R_{01}\)</span> is the number of participants in the survey sample that are tested positive but have been declared negative through the official procedure; <span class="math inline">\(R_{00}\)</span> is the number of participants in the survey sample that are tested negative and have been declared negative through the official procedure. We also make use of <span class="math inline">\(R_{\ast 1} = \sum_{i=1}^nY_i = R_{11} + R_{01}\)</span>, the number of participants that are tested positive in the survey sample. The <span class="math inline">\(R_{jk}\)</span> are central quantities for computing the proposed estimators. In the case of stratified sampling, these quantities can be modified accordingly (see below in the section on stratified sampling).</p>
+<p>In words, <span class="math inline">\(R_{11}\)</span> is the number
+of participants in the survey sample that are tested positive and have
+also been declared positive through the official procedure; <span class="math inline">\(R_{10}\)</span> is the number of participants in
+the survey sample that are tested negative but have been declared
+positive through the official procedure; <span class="math inline">\(R_{01}\)</span> is the number of participants in
+the survey sample that are tested positive but have been declared
+negative through the official procedure; <span class="math inline">\(R_{00}\)</span> is the number of participants in
+the survey sample that are tested negative and have been declared
+negative through the official procedure. We also make use of <span class="math inline">\(R_{\ast 1} = \sum_{i=1}^nY_i = R_{11} +
+R_{01}\)</span>, the number of participants that are tested positive in
+the survey sample. The <span class="math inline">\(R_{jk}\)</span> are
+central quantities for computing the proposed estimators. In the case of
+stratified sampling, these quantities can be modified accordingly (see
+below in the section on stratified sampling).</p>
 </div>
-<div class="section level1">
-<h1 id="random-sampling">Random sampling<a class="anchor" aria-label="anchor" href="#random-sampling"></a>
-</h1>
-<p>For simplicity of exposition, we first consider the unweighted (or random) sampling case, the weighted one is treated below.</p>
-<p>We also allow for the possibility that the outcome of (medical) tests can be subject to misclassification error. Hence, we define <span class="math inline">\(\alpha = \mathbb{P}(Y_i=1\vert X_i=0)\)</span> and <span class="math inline">\(\beta = \mathbb{P}(Y_i=0\vert X_i=1)\)</span>. The probabilities <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, are the (assumed known) FP rate (<span class="math inline">\(\alpha = 1-\mbox{specificity}\)</span>) and FN rate (<span class="math inline">\(\beta = 1-\mbox{sensitivity}\)</span>) of the particular medical test employed in the survey. Moreover, we will make use of the (known) prevalence <span class="math inline">\(\pi_0 =\mathbb{P}(Z_i=1)\)</span> from the official procedure. As explained in Appendix , <span class="math inline">\(\pi_0\)</span> is the joint probability of being selected in the official procedure and declared positive, so that we have <span class="math inline">\(\pi_0\leq \pi\)</span>.</p>
-<p>Since the objective is to take advantage of the information provided by the official procedure in estimating the prevalence <span class="math inline">\(\pi\)</span>, we also need to take into account the possible biases in the official data. Therefore, we define <span class="math inline">\(\alpha_0 = \mathbb{P}(Z_i=1\vert X_i=0)\)</span>, the FP rate of the official procedure and <span class="math inline">\(\beta_0 = \mathbb{P}(Z_i=0\vert X_i=1)\)</span> the FN rate of the official procedure. It turns out (see <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span> for details) that <span class="math inline">\(\alpha_0\)</span> is a negligible quantity and hence can be set to <span class="math inline">\(0\)</span>, and <span class="math inline">\(\beta_0\)</span> can be deduced from the other available or estimable quantities as we have</p>
+<div class="section level2">
+<h2 id="random-sampling">Random sampling<a class="anchor" aria-label="anchor" href="#random-sampling"></a>
+</h2>
+<p>For simplicity of exposition, we first consider the unweighted (or
+random) sampling case, the weighted one is treated below.</p>
+<p>We also allow for the possibility that the outcome of (medical) tests
+can be subject to misclassification error. Hence, we define <span class="math inline">\(\alpha = \mathbb{P}(Y_i=1\vert X_i=0)\)</span> and
+<span class="math inline">\(\beta = \mathbb{P}(Y_i=0\vert
+X_i=1)\)</span>. The probabilities <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, are the (assumed known) FP rate
+(<span class="math inline">\(\alpha = 1-\mbox{specificity}\)</span>) and
+FN rate (<span class="math inline">\(\beta =
+1-\mbox{sensitivity}\)</span>) of the particular medical test employed
+in the survey. Moreover, we will make use of the (known) prevalence
+<span class="math inline">\(\pi_0 =\mathbb{P}(Z_i=1)\)</span> from the
+official procedure. As explained in Appendix <span class="math inline">\(\ref{app:succprob}\)</span>, <span class="math inline">\(\pi_0\)</span> is the joint probability of being
+selected in the official procedure and declared positive, so that we
+have <span class="math inline">\(\pi_0\leq \pi\)</span>.</p>
+<p>Since the objective is to take advantage of the information provided
+by the official procedure in estimating the prevalence <span class="math inline">\(\pi\)</span>, we also need to take into account
+the possible biases in the official data. Therefore, we define <span class="math inline">\(\alpha_0 = \mathbb{P}(Z_i=1\vert X_i=0)\)</span>,
+the FP rate of the official procedure and <span class="math inline">\(\beta_0 = \mathbb{P}(Z_i=0\vert X_i=1)\)</span>
+the FN rate of the official procedure. It turns out (see <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span> for
+details) that <span class="math inline">\(\alpha_0\)</span> is a
+negligible quantity and hence can be set to <span class="math inline">\(0\)</span>, and <span class="math inline">\(\beta_0\)</span> can be deduced from the other
+available or estimable quantities as we have</p>
 <p><span class="math display">\[
 \beta_0 = 1- \frac{\pi_0-\alpha_0(1-\pi)}{\pi}.
 \]</span></p>
-<p>The success probabilities (see <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span> for their derivation), denoted by <span class="math inline">\(\tau_{jk}(\pi)\)</span> associated to each <span class="math inline">\(R_{jk}\)</span>, <span class="math inline">\(j,k \in \{0,1\}\)</span> are given by % <span class="math display">\[\begin{eqnarray}
+<p>The success probabilities (see <span class="citation">Guerrier,
+Kuzmics, and Victoria-Feser (2022)</span> for their derivation), denoted
+by <span class="math inline">\(\tau_{jk}(\pi)\)</span> associated to
+each <span class="math inline">\(R_{jk}\)</span>, <span class="math inline">\(j,k \in \{0,1\}\)</span> are given by % <span class="math display">\[\begin{eqnarray}
     \begin{aligned}
-    \tau_{11}(\pi) &amp;=  \mathbb{P}(Z_i=1, Y_i=1) =\pi\Delta\alpha_0+(\pi_0-\alpha_0)(1-\beta)+\alpha\alpha_0,   \\
-    \tau_{10}(\pi) &amp;=  \mathbb{P}(Z_i=1,Y_i=0) = -\pi\Delta\alpha_0+(\pi_0-\alpha_0)\beta+(1-\alpha)\alpha_0,  \\
-    \tau_{01}(\pi) &amp;=  \mathbb{P}(Z_i=0,Y_i=1) =  \pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)(1-\beta)+\alpha(1-\alpha_0), \\
-    \tau_{00}(\pi) &amp;=  \mathbb{P}(Z_i=0,Y_i=0) = -\pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)\beta+(1-\alpha)(1-\alpha_0),
+    \tau_{11}(\pi) &amp;=  \mathbb{P}(Z_i=1, Y_i=1)
+=\pi\Delta\alpha_0+(\pi_0-\alpha_0)(1-\beta)+\alpha\alpha_0,   \\
+    \tau_{10}(\pi) &amp;=  \mathbb{P}(Z_i=1,Y_i=0) =
+-\pi\Delta\alpha_0+(\pi_0-\alpha_0)\beta+(1-\alpha)\alpha_0,  \\
+    \tau_{01}(\pi) &amp;=  \mathbb{P}(Z_i=0,Y_i=1)
+=  \pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)(1-\beta)+\alpha(1-\alpha_0),
+\\
+    \tau_{00}(\pi) &amp;=  \mathbb{P}(Z_i=0,Y_i=0) =
+-\pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)\beta+(1-\alpha)(1-\alpha_0),
     \end{aligned}
     \label{eqn:tau-pi}
-\end{eqnarray}\]</span> % where <span class="math inline">\(\Delta =1-(\alpha+\beta)\)</span>. Without misclassification error, we would have <span class="math inline">\(\tau_{11}(\pi)=\pi_0\)</span>, <span class="math inline">\(\tau_{10}(\pi)=0\)</span>, <span class="math inline">\(\tau_{01}(\pi)=\pi-\pi_0\)</span>, <span class="math inline">\(\tau_{00}(\pi)=1-\pi\)</span>.</p>
-<p>Based on these definitions, we present a Conditional Maximum Likelihood Estimators (CMLE) and a Method of Moment Estimator (MME) estimator. The formal derivations and properties are provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span>. There, we also consider a Marginal MLE (MMLE) when some data is missing, and some Generalized Method of Moment (GMM) estimators. The likelihood function for <span class="math inline">\(\pi\)</span> can be obtained from the multinomial distribution with categories provided by <span class="math inline">\(R_{11},R_{10},R_{01},R_{00}\)</span> and their associated success probabilities <span class="math inline">\(\tau_{11}(\pi),\tau_{10}(\pi),\tau_{01}(\pi),\tau_{00}(\pi)\)</span>. The CMLE, conditional on the information provided by the official procedure, <span class="math inline">\(\widehat{\pi}\)</span>, generally, has no closed-form solution but can be computed numerically. However, in the case when <span class="math inline">\(\alpha_0 = 0\)</span>, we obtain a closed-form solution given by</p>
+\end{eqnarray}\]</span> % where <span class="math inline">\(\Delta
+=1-(\alpha+\beta)\)</span>. Without misclassification error, we would
+have <span class="math inline">\(\tau_{11}(\pi)=\pi_0\)</span>, <span class="math inline">\(\tau_{10}(\pi)=0\)</span>, <span class="math inline">\(\tau_{01}(\pi)=\pi-\pi_0\)</span>, <span class="math inline">\(\tau_{00}(\pi)=1-\pi\)</span>.</p>
+<p>Based on these definitions, we present a Conditional Maximum
+Likelihood Estimators (CMLE) and a Method of Moment Estimator (MME)
+estimator. The formal derivations and properties are provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span>.
+There, we also consider a Marginal MLE (MMLE) when some data is missing,
+and some Generalized Method of Moment (GMM) estimators. The likelihood
+function for <span class="math inline">\(\pi\)</span> can be obtained
+from the multinomial distribution with categories provided by <span class="math inline">\(R_{11},R_{10},R_{01},R_{00}\)</span> and their
+associated success probabilities <span class="math inline">\(\tau_{11}(\pi),\tau_{10}(\pi),\tau_{01}(\pi),\tau_{00}(\pi)\)</span>.
+The CMLE, conditional on the information provided by the official
+procedure, <span class="math inline">\(\widehat{\pi}\)</span>,
+generally, has no closed-form solution but can be computed numerically.
+However, in the case when <span class="math inline">\(\alpha_0 =
+0\)</span>, we obtain a closed-form solution given by</p>
 <p><span class="math display">\[\begin{equation}
-    \widehat{\pi} = \frac{\pi_0 R_{00} + R_{01}}{\Delta \left(R_{01}+R_{00}\right)} - \frac{\pi_0 \beta}{\Delta} - \frac{\alpha}{\Delta}.
+    \widehat{\pi} = \frac{\pi_0 R_{00} + R_{01}}{\Delta
+\left(R_{01}+R_{00}\right)} - \frac{\pi_0 \beta}{\Delta} -
+\frac{\alpha}{\Delta}.
     \label{eq:cmle-closedform}
 \end{equation}\]</span></p>
-<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>, this further reduces to</p>
+<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>,
+this further reduces to</p>
 <p><span class="math display">\[\begin{equation}
-   \widehat{\pi} = \pi_0 \frac{n - R_{\ast 1}}{n - R_{11}} + \frac{R_{01}}{ \left(n - R_{11}\right)}.
+   \widehat{\pi} = \pi_0 \frac{n - R_{\ast 1}}{n - R_{11}} +
+\frac{R_{01}}{ \left(n - R_{11}\right)}.
    \label{eqn:MLE}
 \end{equation}\]</span></p>
-<p>Considering the data used in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span>, this estimator can be computed as follows:</p>
+<p>Considering the data used in <span class="citation">Guerrier,
+Kuzmics, and Victoria-Feser (2022)</span>, this estimator can be
+computed as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load cape</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stephaneguerrier/cape" class="external-link">cape</a></span><span class="op">)</span>
-
-<span class="co"># Austrian data (November 2020)</span>
-<span class="va">pi0</span> <span class="op">=</span> <span class="fl">93914</span><span class="op">/</span><span class="fl">7166167</span>
-
-<span class="co"># Load data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"covid19_austria"</span><span class="op">)</span>
-
-<span class="co"># Random sampling</span>
-<span class="va">n</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">)</span>
-<span class="va">R1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">R2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">R3</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>
-<span class="va">R4</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>
-
-<span class="co"># Compute CMLE</span>
-<span class="fu"><a href="../reference/conditional_mle.html">conditional_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">pi0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Conditional MLE</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.9317%</span>
-<span class="co">## Standard error      : 0.2639%</span>
-<span class="co">## </span>
-<span class="co">## Confidence interval at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 2.4145% - 3.4489%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 55.30%</span>
-<span class="co">## CI at the 95% level: 47.41% - 63.18%</span>
-<span class="co">## Sampling: Random</span></code></pre>
-<p>Note that the notation and conventions used in the text and in are slightly amended for convenience in this package. In particular, we use <code>R1</code> for <span class="math inline">\(R_{11}\)</span>, <code>R2</code> for <span class="math inline">\(R_{10}\)</span>, <code>R3</code> for <span class="math inline">\(R_{01}\)</span> and <code>R4</code> for <span class="math inline">\(R_{00}\)</span>. Considering the following measurement error <span class="math inline">\(\alpha = 0.01\)</span>, <span class="math inline">\(\alpha_0 = 0\)</span> and <span class="math inline">\(\beta = 0.1\)</span>, we obtain:</p>
+<code class="sourceCode R"><span><span class="co"># Load cape</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stephaneguerrier/cape" class="external-link">cape</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Austrian data (November 2020)</span></span>
+<span><span class="va">pi0</span> <span class="op">=</span> <span class="fl">93914</span><span class="op">/</span><span class="fl">7166167</span></span>
+<span></span>
+<span><span class="co"># Load data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"covid19_austria"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Random sampling</span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">)</span></span>
+<span><span class="va">R1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">R2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">R3</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">R4</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute CMLE</span></span>
+<span><span class="fu"><a href="../reference/conditional_mle.html">conditional_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">pi0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Conditional MLE</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.9317%</span></span>
+<span><span class="co">## Standard error      : 0.2639%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence interval at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 2.4145% - 3.4489%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 55.30%</span></span>
+<span><span class="co">## CI at the 95% level: 47.41% - 63.18%</span></span>
+<span><span class="co">## Sampling: Random</span></span></code></pre>
+<p>Note that the notation and conventions used in the text and in are
+slightly amended for convenience in this package. In particular, we use
+<code>R1</code> for <span class="math inline">\(R_{11}\)</span>,
+<code>R2</code> for <span class="math inline">\(R_{10}\)</span>,
+<code>R3</code> for <span class="math inline">\(R_{01}\)</span> and
+<code>R4</code> for <span class="math inline">\(R_{00}\)</span>.
+Considering the following measurement error <span class="math inline">\(\alpha = 0.01\)</span>, <span class="math inline">\(\alpha_0 = 0\)</span> and <span class="math inline">\(\beta = 0.1\)</span>, we obtain:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Assumed measurement errors</span>
-<span class="va">alpha0</span> <span class="op">=</span> <span class="fl">0</span>
-<span class="va">alpha</span>  <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>
-<span class="va">beta</span>   <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">100</span>
-
-<span class="co"># Compute CMLE with measurement error</span>
-<span class="fu"><a href="../reference/conditional_mle.html">conditional_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>,
-                alpha <span class="op">=</span> <span class="va">alpha</span>, alpha0 <span class="op">=</span> <span class="va">alpha0</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Conditional MLE</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.0200%</span>
-<span class="co">## Standard error      : 0.2962%</span>
-<span class="co">## </span>
-<span class="co">## Confidence interval at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 1.4394% - 2.6006%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 1%, beta = 10%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 35.12%</span>
-<span class="co">## CI at the 95% level: 16.48% - 53.77%</span>
-<span class="co">## Sampling: Random</span></code></pre>
-<p>Alternatively, we can consider an estimator from the class of GMM estimators based on the random variable <span class="math inline">\(\mathbf{R} =[R_{11}/n, R_{10}/n, R_{01}/n, R_{00}/n]\)</span> with expectation <span class="math inline">\(\mathbb{E}[\mathbf{R}] = {\tau}(\pi)=[\tau_{11}(\pi), \tau_{10}(\pi), \tau_{01}(\pi), \tau_{00}(\pi)]\)</span>. A particular case is given by an MME based on <span class="math inline">\(R_{01}\)</span> (with expectation <span class="math inline">\(\tau_{01}(\pi)\)</span>), which, again assuming an interior solution exists, is given by</p>
+<code class="sourceCode R"><span><span class="co"># Assumed measurement errors</span></span>
+<span><span class="va">alpha0</span> <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="va">alpha</span>  <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span></span>
+<span><span class="va">beta</span>   <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">100</span></span>
+<span></span>
+<span><span class="co"># Compute CMLE with measurement error</span></span>
+<span><span class="fu"><a href="../reference/conditional_mle.html">conditional_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R2 <span class="op">=</span> <span class="va">R2</span>, R3 <span class="op">=</span> <span class="va">R3</span>, R4 <span class="op">=</span> <span class="va">R4</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>,</span>
+<span>                alpha <span class="op">=</span> <span class="va">alpha</span>, alpha0 <span class="op">=</span> <span class="va">alpha0</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Conditional MLE</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.0200%</span></span>
+<span><span class="co">## Standard error      : 0.2962%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence interval at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 1.4394% - 2.6006%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 1%, beta = 10%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 35.12%</span></span>
+<span><span class="co">## CI at the 95% level: 16.48% - 53.77%</span></span>
+<span><span class="co">## Sampling: Random</span></span></code></pre>
+<p>Alternatively, we can consider an estimator from the class of GMM
+estimators based on the random variable <span class="math inline">\(\mathbf{R} =[R_{11}/n, R_{10}/n, R_{01}/n,
+R_{00}/n]\)</span> with expectation <span class="math inline">\(\mathbb{E}[\mathbf{R}] =
+{\tau}(\pi)=[\tau_{11}(\pi), \tau_{10}(\pi), \tau_{01}(\pi),
+\tau_{00}(\pi)]\)</span>. A particular case is given by an MME based on
+<span class="math inline">\(R_{01}\)</span> (with expectation <span class="math inline">\(\tau_{01}(\pi)\)</span>), which, again assuming an
+interior solution exists, is given by</p>
 <p><span class="math display">\[\begin{equation}
-    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left(\frac{R_{01}}{n} + \pi_0 - \beta\pi_0 - \alpha_0 \Delta - \alpha\right).
+    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)}
+\left(\frac{R_{01}}{n} + \pi_0 - \beta\pi_0 - \alpha_0 \Delta -
+\alpha\right).
     \label{eqn:MME-ME}
 \end{equation}\]</span></p>
-<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>, this reduces to</p>
+<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>,
+this reduces to</p>
 <p><span class="math display">\[\begin{equation}
    \widetilde{\pi} = \pi_0 + \frac{R_{01}}{n}.
     \label{eqn:MME}
 \end{equation}\]</span></p>
-<p>Since we have that <span class="math inline">\(\mathbb{E}[\widetilde{\pi} ] = \pi\)</span>, the MME is unbiased. This estimator can be computed as follows:</p>
+<p>Since we have that <span class="math inline">\(\mathbb{E}[\widetilde{\pi} ] = \pi\)</span>, the
+MME is unbiased. This estimator can be computed as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Without measurement error</span>
-<span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Moment Estimator</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.9262%</span>
-<span class="co">## Standard error      : 0.2635%</span>
-<span class="co">## </span>
-<span class="co">## Confidence intervals at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 2.4099% - 3.4426%</span>
-<span class="co">## Clopper-Pearson    : 2.4506% - 3.5308%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 55.21%</span>
-<span class="co">## CI at the 95% level: 47.31% - 63.12%</span>
-<span class="co">## Sampling: Random</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Without measurement error</span></span>
+<span><span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Moment Estimator</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.9262%</span></span>
+<span><span class="co">## Standard error      : 0.2635%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence intervals at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 2.4099% - 3.4426%</span></span>
+<span><span class="co">## Clopper-Pearson    : 2.4506% - 3.5308%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 55.21%</span></span>
+<span><span class="co">## CI at the 95% level: 47.31% - 63.12%</span></span>
+<span><span class="co">## Sampling: Random</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># With measurement error</span>
-<span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, alpha <span class="op">=</span> <span class="va">alpha</span>,
-                 alpha0 <span class="op">=</span> <span class="va">alpha0</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Moment Estimator</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.0171%</span>
-<span class="co">## Standard error      : 0.2960%</span>
-<span class="co">## </span>
-<span class="co">## Confidence intervals at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 1.4369% - 2.5973%</span>
-<span class="co">## Clopper-Pearson    : 1.4827% - 2.6963%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 1%, beta = 10%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 35.03%</span>
-<span class="co">## CI at the 95% level: 16.34% - 53.72%</span>
-<span class="co">## Sampling: Random</span></code></pre>
-<p>In the <code>cape</code> package the marginal MLE is also implemented and can be used as follows:</p>
+<code class="sourceCode R"><span><span class="co"># With measurement error</span></span>
+<span><span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, alpha <span class="op">=</span> <span class="va">alpha</span>,</span>
+<span>                 alpha0 <span class="op">=</span> <span class="va">alpha0</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Moment Estimator</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.0171%</span></span>
+<span><span class="co">## Standard error      : 0.2960%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence intervals at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 1.4369% - 2.5973%</span></span>
+<span><span class="co">## Clopper-Pearson    : 1.4827% - 2.6963%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 1%, beta = 10%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 35.03%</span></span>
+<span><span class="co">## CI at the 95% level: 16.34% - 53.72%</span></span>
+<span><span class="co">## Sampling: Random</span></span></code></pre>
+<p>In the <code>cape</code> package the marginal MLE is also implemented
+and can be used as follows:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Without measurement error</span>
-<span class="fu"><a href="../reference/marginal_mle.html">marginal_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Marginal MLE</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.9317%</span>
-<span class="co">## Standard error      : 0.2639%</span>
-<span class="co">## </span>
-<span class="co">## Confidence interval at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 2.4145% - 3.4489%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 55.30%</span>
-<span class="co">## CI at the 95% level: 47.41% - 63.18%</span>
-<span class="co">## Sampling: Random</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Without measurement error</span></span>
+<span><span class="fu"><a href="../reference/marginal_mle.html">marginal_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Marginal MLE</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.9317%</span></span>
+<span><span class="co">## Standard error      : 0.2639%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence interval at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 2.4145% - 3.4489%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 55.30%</span></span>
+<span><span class="co">## CI at the 95% level: 47.41% - 63.18%</span></span>
+<span><span class="co">## Sampling: Random</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># With measurement error</span>
-<span class="fu"><a href="../reference/marginal_mle.html">marginal_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, 
-             alpha <span class="op">=</span> <span class="va">alpha</span>, beta <span class="op">=</span> <span class="va">beta</span>, alpha0 <span class="op">=</span> <span class="va">alpha0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Marginal MLE</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.0200%</span>
-<span class="co">## Standard error      : 0.2962%</span>
-<span class="co">## </span>
-<span class="co">## Confidence interval at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 1.4394% - 2.6006%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 1%, beta = 10%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 35.12%</span>
-<span class="co">## CI at the 95% level: 16.48% - 53.77%</span>
-<span class="co">## Sampling: Random</span></code></pre>
-<p>These results can be compared to the standard survey MLE which can be computed as follows:</p>
+<code class="sourceCode R"><span><span class="co"># With measurement error</span></span>
+<span><span class="fu"><a href="../reference/marginal_mle.html">marginal_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, </span>
+<span>             alpha <span class="op">=</span> <span class="va">alpha</span>, beta <span class="op">=</span> <span class="va">beta</span>, alpha0 <span class="op">=</span> <span class="va">alpha0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Marginal MLE</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.0200%</span></span>
+<span><span class="co">## Standard error      : 0.2962%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence interval at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 1.4394% - 2.6006%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 1%, beta = 10%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 35.12%</span></span>
+<span><span class="co">## CI at the 95% level: 16.48% - 53.77%</span></span>
+<span><span class="co">## Sampling: Random</span></span></code></pre>
+<p>These results can be compared to the standard survey MLE which can be
+computed as follows:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Without measurement error</span>
-<span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R1</span> <span class="op">+</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Survey MLE</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 3.1441%</span>
-<span class="co">## Standard error      : 0.3647%</span>
-<span class="co">## </span>
-<span class="co">## Confidence intervals at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 2.4294% - 3.8588%</span>
-<span class="co">## Clopper-Pearson    : 2.4680% - 3.9433%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha = 0%, beta = 0% </span>
-<span class="co">## Sampling: Random</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Without measurement error</span></span>
+<span><span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R1</span> <span class="op">+</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Survey MLE</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 3.1441%</span></span>
+<span><span class="co">## Standard error      : 0.3647%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence intervals at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 2.4294% - 3.8588%</span></span>
+<span><span class="co">## Clopper-Pearson    : 2.4680% - 3.9433%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha = 0%, beta = 0% </span></span>
+<span><span class="co">## Sampling: Random</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># With measurement error</span>
-<span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R1</span> <span class="op">+</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, alpha <span class="op">=</span> <span class="va">alpha</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Survey MLE</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.4091%</span>
-<span class="co">## Standard error      : 0.4097%</span>
-<span class="co">## </span>
-<span class="co">## Confidence intervals at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 1.6060% - 3.2122%</span>
-<span class="co">## Clopper-Pearson    : 1.6495% - 3.3070%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha = 1%, beta = 10% </span>
-<span class="co">## Sampling: Random</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># With measurement error</span></span>
+<span><span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R1</span> <span class="op">+</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, alpha <span class="op">=</span> <span class="va">alpha</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Survey MLE</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.4091%</span></span>
+<span><span class="co">## Standard error      : 0.4097%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence intervals at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 1.6060% - 3.2122%</span></span>
+<span><span class="co">## Clopper-Pearson    : 1.6495% - 3.3070%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha = 1%, beta = 10% </span></span>
+<span><span class="co">## Sampling: Random</span></span></code></pre>
 </div>
-<div class="section level1">
-<h1 id="stratified-sampling">Stratified sampling<a class="anchor" aria-label="anchor" href="#stratified-sampling"></a>
-</h1>
-<p>In many applications sampling is not uniformly random, but stratified. This is also the case for the COVID-19 data from the Austrian survey sample that we apply our method to. For such cases, one can use different approaches. In this section, we present a method that considers a prevalence estimator formed as a weighted sum of prevalence estimators <span class="math inline">\(\widetilde{\pi}^k\)</span> associated to each stratum <span class="math inline">\(k\)</span>, i.e., a generalization of the MME, as well as a Weighted M-Estimator (WME). In both cases, we have to rely on asymptotic theory for computing CIs.</p>
-<p>It actually turns out that the resulting estimators are based on similar quantities provided previously, but weighted ones. Let <span class="math inline">\(\gamma_i\)</span> denote the sampling weight associated to subject <span class="math inline">\(i=1,\ldots,n\)</span>, which is proportional to the reciprocal of the sampling probability for subject <span class="math inline">\(i\)</span>, and adjusted such that <span class="math inline">\(\sum_{i=1}^n \gamma_i = n\)</span>. Let also</p>
+<div class="section level2">
+<h2 id="stratified-sampling">Stratified sampling<a class="anchor" aria-label="anchor" href="#stratified-sampling"></a>
+</h2>
+<p>In many applications sampling is not uniformly random, but
+stratified. This is also the case for the COVID-19 data from the
+Austrian survey sample that we apply our method to. For such cases, one
+can use different approaches. In this section, we present a method that
+considers a prevalence estimator formed as a weighted sum of prevalence
+estimators <span class="math inline">\(\widetilde{\pi}^k\)</span>
+associated to each stratum <span class="math inline">\(k\)</span>, i.e.,
+a generalization of the MME, as well as a Weighted M-Estimator (WME). In
+both cases, we have to rely on asymptotic theory for computing CIs.</p>
+<p>It actually turns out that the resulting estimators are based on
+similar quantities provided previously, but weighted ones. Let <span class="math inline">\(\gamma_i\)</span> denote the sampling weight
+associated to subject <span class="math inline">\(i=1,\ldots,n\)</span>,
+which is proportional to the reciprocal of the sampling probability for
+subject <span class="math inline">\(i\)</span>, and adjusted such that
+<span class="math inline">\(\sum_{i=1}^n \gamma_i = n\)</span>. Let
+also</p>
 <p><span class="math display">\[\begin{eqnarray}
-\overline{R}_{11}&amp;=&amp;\sum_{i=1}^n\gamma_iY_i Z_i=\sum_{i=1}^n\gamma_iR_{i11}, \nonumber \\
-\overline{R}_{10}&amp;=&amp;\sum_{i=1}^n\gamma_i(1-Y_i)Z_i=\sum_{i=1}^n\gamma_iR_{i10}, \nonumber \\
-\overline{R}_{01}&amp;=&amp; \sum_{i=1}^n\gamma_iY_i(1-Z_i)= \sum_{i=1}^n\gamma_iR_{i01}, \nonumber\\ 
-\overline{R}_{00}&amp;=&amp; \sum_{i=1}^n\gamma_i(1-Y_i)(1-Z_i)=\sum_{i=1}^n\gamma_iR_{i00}, \nonumber \\
+\overline{R}_{11}&amp;=&amp;\sum_{i=1}^n\gamma_iY_i
+Z_i=\sum_{i=1}^n\gamma_iR_{i11}, \nonumber \\
+\overline{R}_{10}&amp;=&amp;\sum_{i=1}^n\gamma_i(1-Y_i)Z_i=\sum_{i=1}^n\gamma_iR_{i10},
+\nonumber \\
+\overline{R}_{01}&amp;=&amp; \sum_{i=1}^n\gamma_iY_i(1-Z_i)=
+\sum_{i=1}^n\gamma_iR_{i01}, \nonumber\\
+\overline{R}_{00}&amp;=&amp;
+\sum_{i=1}^n\gamma_i(1-Y_i)(1-Z_i)=\sum_{i=1}^n\gamma_iR_{i00},
+\nonumber \\
 \overline{R}_{*1}&amp;=&amp;\sum_{i=1}^n\gamma_iY_i=\overline{R}_{11}+\overline{R}_{01}.     \nonumber
 \end{eqnarray}\]</span></p>
-<p>With the MME approach, we consider the possibility that different groups of people (such as in different towns or provinces), or even each participant <span class="math inline">\(i\)</span>, are associated to different prevalence <span class="math inline">\(\pi_i\)</span>. We are, however, only interested in the overall prevalence <span class="math inline">\(\pi=(1/n)\sum_{i=1}^n \gamma_i \pi_i\)</span>, given the additional information provided by the official procedure. Moreover, the (known but biased) prevalence from the official procedure could also be different for each (groups of) subject(s) <span class="math inline">\(i\)</span>, with <span class="math inline">\(\pi_{i0}, i=1,\ldots,n\)</span>. Note, however, that <span class="math inline">\(\pi_0 =(1/n) \sum_{i=1}^n \gamma_i \pi_{i0}\)</span> and that <span class="math inline">\(\pi_0\)</span> is known. A general approach then consists in obtaining estimates for each <span class="math inline">\(\pi_i\)</span> using some method and then take their weighted average as an estimator for <span class="math inline">\(\pi\)</span>. Using the MME approach based on the <span class="math inline">\(R_{i01}\)</span> and assuming, as done before, that the parameters <span class="math inline">\(\alpha,\beta\)</span> are specific to the medical test used and, thus, independent of subject <span class="math inline">\(i\)</span>, we obtain a weighted MME for <span class="math inline">\(\pi\)</span> as</p>
+<p>With the MME approach, we consider the possibility that different
+groups of people (such as in different towns or provinces), or even each
+participant <span class="math inline">\(i\)</span>, are associated to
+different prevalence <span class="math inline">\(\pi_i\)</span>. We are,
+however, only interested in the overall prevalence <span class="math inline">\(\pi=(1/n)\sum_{i=1}^n \gamma_i \pi_i\)</span>,
+given the additional information provided by the official procedure.
+Moreover, the (known but biased) prevalence from the official procedure
+could also be different for each (groups of) subject(s) <span class="math inline">\(i\)</span>, with <span class="math inline">\(\pi_{i0}, i=1,\ldots,n\)</span>. Note, however,
+that <span class="math inline">\(\pi_0 =(1/n) \sum_{i=1}^n \gamma_i
+\pi_{i0}\)</span> and that <span class="math inline">\(\pi_0\)</span> is
+known. A general approach then consists in obtaining estimates for each
+<span class="math inline">\(\pi_i\)</span> using some method and then
+take their weighted average as an estimator for <span class="math inline">\(\pi\)</span>. Using the MME approach based on the
+<span class="math inline">\(R_{i01}\)</span> and assuming, as done
+before, that the parameters <span class="math inline">\(\alpha,\beta\)</span> are specific to the medical
+test used and, thus, independent of subject <span class="math inline">\(i\)</span>, we obtain a weighted MME for <span class="math inline">\(\pi\)</span> as</p>
 <p><span class="math display">\[\begin{equation}
-    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left( \frac{\overline{R}_{01}}{n} + \pi_0 (1 - \beta) - \alpha_0 \Delta - \alpha\right).
+    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left(
+\frac{\overline{R}_{01}}{n} + \pi_0 (1 - \beta) - \alpha_0 \Delta -
+\alpha\right).
     \label{eqn:CWMLE-alpha0}
 \end{equation}\]</span></p>
-<p>We also have that <span class="math inline">\(\mathbb{E}\left[\widetilde{\pi}\right]= \pi\)</span>. When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>, we get</p>
+<p>We also have that <span class="math inline">\(\mathbb{E}\left[\widetilde{\pi}\right]=
+\pi\)</span>. When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>, we get</p>
 <p><span class="math display">\[\begin{equation*}
    \widetilde{\pi} = \pi_0 + \frac{\overline{R}_{01}}{n}.
 \end{equation*}\]</span></p>
-<p>In other words, with stratified samples, the MME is obtained by replacing in  and , <span class="math inline">\(R_{01}\)</span> by <span class="math inline">\(\overline{R}_{01}\)</span>.</p>
-<p>An alternative approach is to consider a WME <span class="math inline">\(\widehat{\pi}\)</span> as proposed for example by <span class="citation">Wooldridge (2001)</span>. Generally, it has no closed-form solution but can be computed numerically. However, in the case when <span class="math inline">\(\alpha_0 = 0\)</span>, we obtain a closed-form solution given by</p>
+<p>In other words, with stratified samples, the MME is obtained by
+replacing in <span class="math inline">\(\eqref{eqn:MME-ME}\)</span> and
+<span class="math inline">\(\eqref{eqn:MME}\)</span>, <span class="math inline">\(R_{01}\)</span> by <span class="math inline">\(\overline{R}_{01}\)</span>.</p>
+<p>An alternative approach is to consider a WME <span class="math inline">\(\widehat{\pi}\)</span> as proposed for example by
+<span class="citation">Wooldridge (2001)</span>. Generally, it has no
+closed-form solution but can be computed numerically. However, in the
+case when <span class="math inline">\(\alpha_0 = 0\)</span>, we obtain a
+closed-form solution given by</p>
 <p><span class="math display">\[\begin{equation*}
-    \widehat{\pi} = \frac{\pi_0 \overline{R}_{00} + \overline{R}_{01}}{\Delta \left(\overline{R}_{01}+\overline{R}_{00}\right)} - \frac{\pi_0 \beta}{\Delta} - \frac{\alpha}{\Delta}.
+    \widehat{\pi} = \frac{\pi_0 \overline{R}_{00} +
+\overline{R}_{01}}{\Delta
+\left(\overline{R}_{01}+\overline{R}_{00}\right)} - \frac{\pi_0
+\beta}{\Delta} - \frac{\alpha}{\Delta}.
 \end{equation*}\]</span></p>
-<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>, this further reduces to</p>
+<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>,
+this further reduces to</p>
 <p><span class="math display">\[\begin{equation*}
-   \widehat{\pi} = \pi_0 \frac{n - \overline{R}_{\ast 1}}{n - \overline{R}_{11}} + \frac{R_{01}}{ \left(n - R_{11}\right)}.
+   \widehat{\pi} = \pi_0 \frac{n - \overline{R}_{\ast 1}}{n -
+\overline{R}_{11}} + \frac{R_{01}}{ \left(n - R_{11}\right)}.
 \end{equation*}\]</span></p>
-<p>In other words, in the case of stratified sampling, one replaces the <span class="math inline">\(R_{jk}\)</span> by their weighted counterparts <span class="math inline">\(\overline{R}_{jk}\)</span>.</p>
-<p>Considering the data used in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span>, these estimators can be computed as follows:</p>
+<p>In other words, in the case of stratified sampling, one replaces the
+<span class="math inline">\(R_{jk}\)</span> by their weighted
+counterparts <span class="math inline">\(\overline{R}_{jk}\)</span>.</p>
+<p>Considering the data used in <span class="citation">Guerrier,
+Kuzmics, and Victoria-Feser (2022)</span>, these estimators can be
+computed as follows:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load cape</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stephaneguerrier/cape" class="external-link">cape</a></span><span class="op">)</span>
-
-<span class="co"># Austrian data (November 2020)</span>
-<span class="va">pi0</span> <span class="op">=</span> <span class="fl">93914</span><span class="op">/</span><span class="fl">7166167</span>
-
-<span class="co"># Weighted sampling</span>
-<span class="va">R1w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-<span class="va">R2w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-<span class="va">R3w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span>
-<span class="va">R4w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span>
-
-<span class="co"># Average of squared weights </span>
-<span class="va">V</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
-
-<span class="co"># Compute CMLE</span>
-<span class="fu"><a href="../reference/conditional_mle.html">conditional_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1w</span>, R2 <span class="op">=</span> <span class="va">R2w</span>, R3 <span class="op">=</span> <span class="va">R3w</span>, R4 <span class="op">=</span> <span class="va">R4w</span>, 
-                pi0 <span class="op">=</span> <span class="va">pi0</span>, V <span class="op">=</span> <span class="va">V</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Conditional MLE</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.9841%</span>
-<span class="co">## Standard error      : 0.3294%</span>
-<span class="co">## </span>
-<span class="co">## Confidence interval at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 2.3385% - 3.6297%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 56.08%</span>
-<span class="co">## CI at the 95% level: 46.58% - 65.59%</span>
-<span class="co">## Sampling: Stratified with V = 1.51</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Load cape</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stephaneguerrier/cape" class="external-link">cape</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Austrian data (November 2020)</span></span>
+<span><span class="va">pi0</span> <span class="op">=</span> <span class="fl">93914</span><span class="op">/</span><span class="fl">7166167</span></span>
+<span></span>
+<span><span class="co"># Weighted sampling</span></span>
+<span><span class="va">R1w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">R2w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">R3w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">R4w</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">[</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">Y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">covid19_austria</span><span class="op">$</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Average of squared weights </span></span>
+<span><span class="va">V</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">covid19_austria</span><span class="op">$</span><span class="va">weights</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute CMLE</span></span>
+<span><span class="fu"><a href="../reference/conditional_mle.html">conditional_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1w</span>, R2 <span class="op">=</span> <span class="va">R2w</span>, R3 <span class="op">=</span> <span class="va">R3w</span>, R4 <span class="op">=</span> <span class="va">R4w</span>, </span>
+<span>                pi0 <span class="op">=</span> <span class="va">pi0</span>, V <span class="op">=</span> <span class="va">V</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Conditional MLE</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.9841%</span></span>
+<span><span class="co">## Standard error      : 0.3294%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence interval at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 2.3385% - 3.6297%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 56.08%</span></span>
+<span><span class="co">## CI at the 95% level: 46.58% - 65.59%</span></span>
+<span><span class="co">## Sampling: Stratified with V = 1.51</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Compute MME</span>
-<span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3w</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, n <span class="op">=</span> <span class="va">n</span>, V <span class="op">=</span> <span class="va">V</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Moment Estimator</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.9818%</span>
-<span class="co">## Standard error      : 0.3292%</span>
-<span class="co">## </span>
-<span class="co">## Confidence interval at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 2.3365% - 3.6270%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 56.05%</span>
-<span class="co">## CI at the 95% level: 46.54% - 65.56%</span>
-<span class="co">## Sampling: Stratified with V = 1.51</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Compute MME</span></span>
+<span><span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3w</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, n <span class="op">=</span> <span class="va">n</span>, V <span class="op">=</span> <span class="va">V</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Moment Estimator</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.9818%</span></span>
+<span><span class="co">## Standard error      : 0.3292%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence interval at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 2.3365% - 3.6270%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 0%, beta = 0%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 56.05%</span></span>
+<span><span class="co">## CI at the 95% level: 46.54% - 65.56%</span></span>
+<span><span class="co">## Sampling: Stratified with V = 1.51</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Survey MLE</span>
-<span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R1w</span> <span class="op">+</span> <span class="va">R3w</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, n <span class="op">=</span> <span class="va">n</span>, V <span class="op">=</span> <span class="va">V</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Survey MLE</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 3.1280%</span>
-<span class="co">## Standard error      : 0.4471%</span>
-<span class="co">## </span>
-<span class="co">## Confidence interval at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 2.2517% - 4.0042%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha = 0%, beta = 0% </span>
-<span class="co">## Sampling: Stratified with V = 1.51</span></code></pre>
-<p>These estimators are also defined in the stratified case with measurement error. For example, for the MME:</p>
+<code class="sourceCode R"><span><span class="co"># Survey MLE</span></span>
+<span><span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R1w</span> <span class="op">+</span> <span class="va">R3w</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, n <span class="op">=</span> <span class="va">n</span>, V <span class="op">=</span> <span class="va">V</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Survey MLE</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 3.1280%</span></span>
+<span><span class="co">## Standard error      : 0.4471%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence interval at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 2.2517% - 4.0042%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha = 0%, beta = 0% </span></span>
+<span><span class="co">## Sampling: Stratified with V = 1.51</span></span></code></pre>
+<p>These estimators are also defined in the stratified case with
+measurement error. For example, for the MME:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Compute MME</span>
-<span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3w</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, n <span class="op">=</span> <span class="va">n</span>, V <span class="op">=</span> <span class="va">V</span>, alpha <span class="op">=</span> <span class="va">alpha</span>,
-                 alpha0 <span class="op">=</span> <span class="va">alpha0</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Method: Moment Estimator</span>
-<span class="co">## </span>
-<span class="co">## Estimated proportion: 2.0794%</span>
-<span class="co">## Standard error      : 0.3699%</span>
-<span class="co">## </span>
-<span class="co">## Confidence interval at the 95% level:</span>
-<span class="co">## Asymptotic Approach: 1.3544% - 2.8045%</span>
-<span class="co">## </span>
-<span class="co">## Assumed measurement error: alpha  = 1%, beta = 10%,</span>
-<span class="co">##                            alpha0 = 0% </span>
-<span class="co">## </span>
-<span class="co">## Estimated false negative rate of the</span>
-<span class="co">## official procedure: beta0 = 36.98%</span>
-<span class="co">## CI at the 95% level: 15.00% - 58.95%</span>
-<span class="co">## Sampling: Stratified with V = 1.51</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Compute MME</span></span>
+<span><span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3w</span>, pi0 <span class="op">=</span> <span class="va">pi0</span>, n <span class="op">=</span> <span class="va">n</span>, V <span class="op">=</span> <span class="va">V</span>, alpha <span class="op">=</span> <span class="va">alpha</span>,</span>
+<span>                 alpha0 <span class="op">=</span> <span class="va">alpha0</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Method: Moment Estimator</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated proportion: 2.0794%</span></span>
+<span><span class="co">## Standard error      : 0.3699%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Confidence interval at the 95% level:</span></span>
+<span><span class="co">## Asymptotic Approach: 1.3544% - 2.8045%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Assumed measurement error: alpha  = 1%, beta = 10%,</span></span>
+<span><span class="co">##                            alpha0 = 0% </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated false negative rate of the</span></span>
+<span><span class="co">## official procedure: beta0 = 36.98%</span></span>
+<span><span class="co">## CI at the 95% level: 15.00% - 58.95%</span></span>
+<span><span class="co">## Sampling: Stratified with V = 1.51</span></span></code></pre>
 </div>
-<div class="section level1 unnumbered">
-<h1 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-guerrier2020prevalence" class="csl-entry">
-Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser. 2022. <span>“Prevalence Estimation from Random Samples and Census Data with Participation Bias.”</span> <a href="http://arxiv.org/abs/2012.10745" class="external-link">http://arxiv.org/abs/2012.10745</a>.
+Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.
+2022. <span>“Prevalence Estimation from Random Samples and Census Data
+with Participation Bias.”</span> <a href="https://arxiv.org/abs/2012.10745" class="external-link">https://arxiv.org/abs/2012.10745</a>.
 </div>
 <div id="ref-Wool01" class="csl-entry">
-Wooldridge, J. M. 2001. <span>“Asymptotic Properties of Weighted <span>M</span>-Estimators for Standard Stratified Samples.”</span> <em>Econometric Theory</em> 17: 451–70.
+Wooldridge, J. M. 2001. <span>“Asymptotic Properties of Weighted
+<span>M</span>-Estimators for Standard Stratified Samples.”</span>
+<em>Econometric Theory</em> 17: 451–70.
 </div>
 </div>
 </div>
@@ -490,7 +663,7 @@ Wooldridge, J. M. 2001. <span>“Asymptotic Properties of Weighted <span>M</span
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

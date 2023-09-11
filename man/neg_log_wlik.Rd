@@ -35,3 +35,4 @@ Log-Likelihood function based on R1, R2, R3 and R4 with sampling weights multipl
 \author{
 Stephane Guerrier
 }
+\keyword{internal}

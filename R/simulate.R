@@ -11,6 +11,7 @@
 #' @return A \code{vector} containing tau1, tau2, tau3 and tau4.
 #' @export
 #' @author Stephane Guerrier
+#' @keywords internal
 #' @examples
 #' prob1 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0, beta = 0, alpha0 = 0)
 #' prob1

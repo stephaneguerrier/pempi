@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  3 MAY 2022 12:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  22 MAR 2023 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -380,6 +380,9 @@ Package: Sweave
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
+(/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2020/01/13 v3.5 verbatim text (tvz,hv)
 \FV@CodeLineNo=\count197
@@ -394,13 +397,7 @@ Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
-)
-(/usr/local/texlive/2020/texmf-dist/tex/latex/ae/ae.sty
-Package: ae 2001/02/12 1.3 Almost European Computer Modern
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
-)))
+))
 (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count266
@@ -423,12 +420,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Trying to load font information for T1+aer on input line 11
-.
- (/usr/local/texlive/2020/texmf-dist/tex/latex/ae/t1aer.fd
-File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-)
-ABD: EveryShipout initializing macros
+ ABD: EveryShipout initializing macros
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count267
@@ -465,10 +457,6 @@ Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
 )
-
-(/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2020/03/06 v1.0d TeX engine tests
-)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
@@ -487,11 +475,11 @@ e
 Preview: Fontsize 10pt
 Preview: PDFoutput 1
 (./case_study-concordance.tex)
-LaTeX Font Info:    Trying to load font information for T1+aett on input line 1
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
 5.
 
-(/usr/local/texlive/2020/texmf-dist/tex/latex/ae/t1aett.fd
-File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 (./case_study_ci.tex
 LaTeX Font Info:    Trying to load font information for U+msa on input line 118
@@ -538,21 +526,22 @@ Non-PDF special ignored!
 <special> psfile=/dev/null
 ]) (./case_study.aux) ) 
 Here is how much of TeX's memory you used:
- 13319 strings out of 480608
- 263686 string characters out of 5903630
- 561825 words of memory out of 5000000
- 28932 multiletter control sequences out of 15000+600000
- 537592 words of font info for 38 fonts, out of 8000000 for 9000
+ 13264 strings out of 480608
+ 262839 string characters out of 5903630
+ 561639 words of memory out of 5000000
+ 28888 multiletter control sequences out of 15000+600000
+ 535428 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,9n,60p,437b,763s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2020/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr7.pfb>
-Output written on case_study.pdf (3 pages, 69114 bytes).
+{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-s
+uper/cm-super-t1.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-supe
+r/sfrm1000.pfb>
+Output written on case_study.pdf (3 pages, 70368 bytes).
 PDF statistics:
- 30 PDF objects out of 1000 (max. 8388607)
- 20 compressed objects within 1 object stream
+ 31 PDF objects out of 1000 (max. 8388607)
+ 21 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  17 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -64,32 +64,49 @@ asymptotic approach.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">survey_mle</span><span class="op">(</span><span class="va">R</span>, <span class="va">n</span>, pi0 <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0</span>, beta <span class="op">=</span> <span class="fl">0</span>, gamma <span class="op">=</span> <span class="fl">0.05</span>, V <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">survey_mle</span><span class="op">(</span><span class="va">R</span>, <span class="va">n</span>, pi0 <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0</span>, beta <span class="op">=</span> <span class="fl">0</span>, gamma <span class="op">=</span> <span class="fl">0.05</span>, V <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>R</dt>
 <dd><p>A <code>numeric</code> that provides the people of positive people in the sample.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>A <code>numeric</code> that provides the sample size.</p></dd>
+
+
 <dt>pi0</dt>
 <dd><p>A <code>numeric</code> that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 but systematic sampling (e.g. based on medical selection). Default value is <code>0</code> and in this case this information is not used in the estimation procedure.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>A <code>numeric</code> that provides the False Negative (FN) rate for the sample R. Default value is <code>0</code>.</p></dd>
+
+
 <dt>beta</dt>
 <dd><p>A <code>numeric</code> that provides the False Positive (FP) rate for the sample R. Default value is <code>0</code>.</p></dd>
+
+
 <dt>gamma</dt>
 <dd><p>A <code>numeric</code> that used to compute a (1 - gamma) confidence region for the proportion. Default value is <code>0.05</code>.</p></dd>
+
+
 <dt>V</dt>
 <dd><p>A <code>numeric</code> that corresponds to the average of squared sampling weights. Default value is <code>NULL</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>cpreval</code> object with the structure:</p><ul><li><p>estimate:    Estimated proportion.</p></li>
+    
+
+<p>A <code>cpreval</code> object with the structure:</p><ul><li><p>estimate:    Estimated proportion.</p></li>
 <li><p>sd:          Estimated standard error of the estimator.</p></li>
 <li><p>ci_asym:     Asymptotic confidence interval at the 1 - gamma confidence level.</p></li>
 <li><p>gamma:       Confidence level (i.e. 1 - gamma) for confidence intervals.</p></li>
@@ -108,9 +125,9 @@ but systematic sampling (e.g. based on medical selection). Default value is <cod
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Samples without measurement error</span></span>
-<span class="r-in"><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">30</span><span class="op">/</span><span class="fl">1000</span>, pi0 <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, n <span class="op">=</span> <span class="fl">1500</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">survey_mle</span><span class="op">(</span>R <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R</span>, n <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Samples without measurement error</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">30</span><span class="op">/</span><span class="fl">1000</span>, pi0 <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, n <span class="op">=</span> <span class="fl">1500</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">survey_mle</span><span class="op">(</span>R <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R</span>, n <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method: Survey MLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated proportion: 3.4667%</span>
@@ -122,10 +139,10 @@ but systematic sampling (e.g. based on medical selection). Default value is <cod
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Assumed measurement error: alpha = 0%, beta = 0% </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># With measurement error</span></span>
-<span class="r-in"><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">30</span><span class="op">/</span><span class="fl">1000</span>, pi0 <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, n <span class="op">=</span> <span class="fl">1500</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">survey_mle</span><span class="op">(</span>R <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R</span>, n <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># With measurement error</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">=</span> <span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">30</span><span class="op">/</span><span class="fl">1000</span>, pi0 <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, n <span class="op">=</span> <span class="fl">1500</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">survey_mle</span><span class="op">(</span>R <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R</span>, n <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method: Survey MLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated proportion: 3.7333%</span>
@@ -137,7 +154,7 @@ but systematic sampling (e.g. based on medical selection). Default value is <cod
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Assumed measurement error: alpha = 0%, beta = 0% </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
-<span class="r-in"><span class="fu">survey_mle</span><span class="op">(</span>R <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R</span>, n <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">n</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">survey_mle</span><span class="op">(</span>R <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R</span>, n <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">n</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method: Survey MLE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated proportion: 2.9078%</span>
@@ -163,7 +180,7 @@ but systematic sampling (e.g. based on medical selection). Default value is <cod
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

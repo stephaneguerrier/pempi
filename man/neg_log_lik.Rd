@@ -35,3 +35,4 @@ Log-Likelihood function based on R1, R2, R3 and R4 multiplied by -1.
 \author{
 Stephane Guerrier
 }
+\keyword{internal}

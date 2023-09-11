@@ -404,6 +404,7 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
 #' @param x     A \code{numeric} value assumed such that x >= 0.
 #' @return Modified log function
 #' @author Stephane Guerrier
+#' @keywords internal
 log_modified = function(x){
   if (x == 0){
     return(0)
@@ -427,6 +428,7 @@ log_modified = function(x){
 #' @param ...       Additional arguments.
 #' @return Negative log-likelihood.
 #' @author Stephane Guerrier
+#' @keywords internal
 neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, ...){
   probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + Rvect[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + Rvect[4]/n*log_modified(probs[4]))
@@ -448,6 +450,7 @@ neg_log_lik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, ...){
 #' @param ...       Additional arguments.
 #' @return Negative marginalized log-likelihood.
 #' @author Stephane Guerrier
+#' @keywords internal
 neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha0, alpha, beta, ...){
   probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + probs[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + (n - Rvect[1] - Rvect[3] - probs[2])/n*log_modified(probs[4]))
@@ -861,6 +864,7 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
 #' @param ...       Additional arguments.
 #' @return Negative log-likelihood.
 #' @author Stephane Guerrier
+#' @keywords internal
 neg_log_wlik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, ...){
   probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + Rvect[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + Rvect[4]/n*log_modified(probs[4]))

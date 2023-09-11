@@ -62,20 +62,25 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for cpreval_sim</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for cpreval_sim</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>cpreval_sim</code> object</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Further arguments passed to or from other methods</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Prints object</p>
+    
+
+<p>Prints object</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -84,18 +89,18 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Samples without measurement error</span></span>
-<span class="r-in"><span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Samples without measurement error</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data: R = 52, R0 = 19, n = 1500</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       R1 = 19, R2 = 0, R3 = 33, R4 = 1448</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Assumed measurement error: alpha = 0%, alpha0 = 0%, beta  = 0% </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> False negative rate of the official procedure: beta0 = 66.67%</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># With measurement error</span></span>
-<span class="r-in"><span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, alpha0 <span class="op">=</span> <span class="fl">0</span>,</span>
-<span class="r-in">alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># With measurement error</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sim_Rs.html">sim_Rs</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">3</span><span class="op">/</span><span class="fl">100</span>, pi0 <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, n <span class="op">=</span> <span class="fl">1500</span>, alpha0 <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span>, seed <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Data: R = 56, R0 = 19, n = 1500</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       R1 = 18, R2 = 1, R3 = 38, R4 = 1443</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -116,7 +121,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -5,7 +5,7 @@
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2022--05--03-green.svg)](https://github.com/stephaneguerrier/cape)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2023--09--11-green.svg)](https://github.com/stephaneguerrier/cape)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/stephaneguerrier/cape/workflows/R-CMD-check/badge.svg)](https://github.com/stephaneguerrier/cape/actions)
 <!-- badges: end -->
