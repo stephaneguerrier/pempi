@@ -11,7 +11,7 @@
 #' @return A \code{vector} containing tau1, tau2, tau3 and tau4.
 #' @export
 #' @author Stephane Guerrier
-#' @keywords internal
+#' @importFrom DT datatable
 #' @examples
 #' prob1 = get_prob(theta = 0.02, pi0 = 0.01, alpha = 0, beta = 0, alpha0 = 0)
 #' prob1
@@ -175,5 +175,3 @@ print.cpreval_sim = function(x, ...){
   cat(round(100*x$beta0,2))
   cat("%\n")
 }
-
-
