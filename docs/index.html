@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contional prevalence estimation for emerging or rare infectious diseases • cape</title>
+<title>Contional prevalence estimation for emerging or rare infectious diseases • pempi</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -32,7 +32,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">cape</a>
+        <a class="navbar-link" href="index.html">pempi</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1</span>
       </span>
     </div>
@@ -57,7 +57,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/stephaneguerrier/cape" class="external-link">
+  <a href="https://github.com/stephaneguerrier/pempi" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -77,10 +77,10 @@
 
 
 <div class="section level1">
-<div class="page-header"><h1 id="cape-overview">
-<code>cape</code> Overview<a class="anchor" aria-label="anchor" href="#cape-overview"></a>
+<div class="page-header"><h1 id="pempi-overview">
+<code>pempi</code> Overview<a class="anchor" aria-label="anchor" href="#pempi-overview"></a>
 </h1></div>
-<p>The ContionAl Prevalence Estimation (cape) package, allows to estimate and build confidence intervals for proportions, from random or stratified samples and census data with participation bias. Measurement errors in the form of false positive and false negative are also included in the inferential procedure. The cape package also contains code for simulation studies and sensitivity analysis reported in the companion paper Guerrier et al. (2022), as well as the Austrian dataset on COVID-19 prevalence in November 2020.</p>
+<p>The ContionAl Prevalence Estimation (pempi) package, allows to estimate and build confidence intervals for proportions, from random or stratified samples and census data with participation bias. Measurement errors in the form of false positive and false negative are also included in the inferential procedure. The pempi package also contains code for simulation studies and sensitivity analysis reported in the companion paper Guerrier et al. (2022), as well as the Austrian dataset on COVID-19 prevalence in November 2020.</p>
 </div>
 <div class="section level1">
 <h1 id="remark-on-notation">Remark on notation<a class="anchor" aria-label="anchor" href="#remark-on-notation"></a>
@@ -90,24 +90,24 @@
 <div class="section level1">
 <h1 id="package-installation">Package installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
 </h1>
-<p>The <code>cape</code> package can be installed from GitHub as follows:</p>
+<p>The <code>pempi</code> package can be installed from GitHub as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install devtools</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Install the package from GitHub</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"stephaneguerrier/cape"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"stephaneguerrier/pempi"</span><span class="op">)</span></span></code></pre></div>
 <p>Note that Windows users are assumed that have Rtools installed (if this is not the case, please visit this <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">link</a>).</p>
 </div>
 <div class="section level1">
 <h1 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a>
 </h1>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="sc">@</span>Manual{guerrier2022cape,</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    title <span class="ot">=</span> {{cape}<span class="sc">:</span> Conditional Prevalence Estimation using Random and Non<span class="sc">-</span>Random Sample Information},</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    title <span class="ot">=</span> {{pempi}<span class="sc">:</span> Conditional Prevalence Estimation using Random and Non<span class="sc">-</span>Random Sample Information},</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    author <span class="ot">=</span> {Guerrier, S and Kuzmics, C and Victoria<span class="sc">-</span>Feser, M.<span class="sc">-</span>P.},</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2022</span>},</span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    note <span class="ot">=</span> {R package},</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>stephaneguerrier<span class="sc">/</span>cape}</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>stephaneguerrier<span class="sc">/</span>pempi}</span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div class="section level1">
@@ -127,9 +127,9 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://cloud.r-project.org/package=cape" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/stephaneguerrier/cape/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/stephaneguerrier/cape/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://cloud.r-project.org/package=pempi" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/stephaneguerrier/pempi/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/stephaneguerrier/pempi/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -144,7 +144,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing cape</a></li>
+<li><a href="authors.html#citation">Citing pempi</a></li>
 </ul>
 </div>
 
@@ -162,9 +162,9 @@
 <ul class="list-unstyled">
 <li><a href="https://opensource.org/licenses/AGPL-3.0" class="external-link"><img src="https://img.shields.io/badge/licence-AGPL--3.0-blue.svg" alt="Licence"></a></li>
 <li><a href="https://cran.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg" alt="minimal R version"></a></li>
-<li><a href="https://github.com/stephaneguerrier/cape" class="external-link"><img src="https://img.shields.io/badge/last%20change-2023--09--11-green.svg" alt="Last-changedate"></a></li>
+<li><a href="https://github.com/stephaneguerrier/pempi" class="external-link"><img src="https://img.shields.io/badge/last%20change-2023--09--11-green.svg" alt="Last-changedate"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-blue.svg" alt="lifecycle"></a></li>
-<li><a href="https://github.com/stephaneguerrier/cape/actions" class="external-link"><img src="https://github.com/stephaneguerrier/cape/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/stephaneguerrier/pempi/actions" class="external-link"><img src="https://github.com/stephaneguerrier/pempi/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 

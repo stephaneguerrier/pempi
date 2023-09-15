@@ -1,8 +1,8 @@
-Package: cape
+Package: pempi
 Type: Package
-Title: Contional prevalence estimation for emerging or rare infectious diseases
+Title: Proportion estimation with marginal proxy information
 Version: 0.1
-Date: 2020-05-25
+Date: 2023-09-15
 LazyData: true
 Authors@R: c(
     person("Stéphane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
@@ -20,5 +20,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: https://github.com/stephaneguerrier/cape
-BugReports: https://github.com/stephaneguerrier/cape/issues
+URL: https://github.com/stephaneguerrier/pempi
+BugReports: https://github.com/stephaneguerrier/pempi/issues

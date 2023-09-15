@@ -5,21 +5,21 @@
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2023--09--11-green.svg)](https://github.com/stephaneguerrier/cape)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2023--09--15-green.svg)](https://github.com/stephaneguerrier/pempi)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![R-CMD-check](https://github.com/stephaneguerrier/cape/workflows/R-CMD-check/badge.svg)](https://github.com/stephaneguerrier/cape/actions)
+[![R-CMD-check](https://github.com/stephaneguerrier/pempi/workflows/R-CMD-check/badge.svg)](https://github.com/stephaneguerrier/pempi/actions)
 <!-- badges: end -->
 
-# `cape` Overview
+# `pempi` Overview
 
-The ContionAl Prevalence Estimation (cape) package, allows to estimate
-and build confidence intervals for proportions, from random or
-stratified samples and census data with participation bias. Measurement
-errors in the form of false positive and false negative are also
-included in the inferential procedure. The cape package also contains
-code for simulation studies and sensitivity analysis reported in the
-companion paper Guerrier et al. (2022), as well as the Austrian dataset
-on COVID-19 prevalence in November 2020.
+The Proportion estimation with marginal proxy information (`pempi`)
+package, allows to estimate and build confidence intervals for
+proportions, from random or stratified samples and census data with
+participation bias. Measurement errors in the form of false positive and
+false negative are also included in the inferential procedure. The pempi
+package also contains code for simulation studies and sensitivity
+analysis reported in the companion paper Guerrier et al. (2022), as well
+as the Austrian dataset on COVID-19 prevalence in November 2020.
 
 # Remark on notation
 
@@ -29,14 +29,14 @@ instead R11, R2 instead of R10, R3 instead of R01 and R4 instead of R00.
 
 # Package installation
 
-The `cape` package can be installed from GitHub as follows:
+The `pempi` package can be installed from GitHub as follows:
 
 ``` r
 # Install devtools
 install.packages("devtools")
 
 # Install the package from GitHub
-devtools::install_github("stephaneguerrier/cape")
+devtools::install_github("stephaneguerrier/pempi")
 ```
 
 Note that Windows users are assumed that have Rtools installed (if this
@@ -46,11 +46,11 @@ is not the case, please visit this
 # How to cite
 
     @Manual{guerrier2022cape,
-        title = {{cape}: Conditional Prevalence Estimation using Random and Non-Random Sample Information},
+        title = {{pempi}: Proportion estimation with marginal proxy information},
         author = {Guerrier, S and Kuzmics, C and Victoria-Feser, M.-P.},
         year = {2022},
         note = {R package},
-        url = {https://github.com/stephaneguerrier/cape}
+        url = {https://github.com/stephaneguerrier/pempi}
     }
 
 # License

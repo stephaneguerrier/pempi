@@ -1,5 +1,5 @@
 rm(list = ls())
-library(cape)
+library(pempi)
 
 # Number of Monte-Carlo simulations
 B = 5*10^4

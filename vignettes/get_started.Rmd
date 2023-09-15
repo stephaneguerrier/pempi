@@ -1,17 +1,17 @@
 ---
-title: "`cape` Vignette"
+title: "`pempi` Vignette"
 bibliography: bibliography.bib
 output: 
   rmarkdown::html_vignette:
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Introduction to the cape `R` package}
+  %\VignetteIndexEntry{Introduction to the pempi `R` package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo=FALSE}
-library(cape)
+library(pempi)
 ```
 
 # Introduction 
@@ -113,8 +113,8 @@ When $\alpha_0=\alpha=\beta=0$, this further reduces to
 Considering the data used in @guerrier2020prevalence, this estimator can be computed as follows:
 
 ```{r}
-# Load cape
-library(cape)
+# Load pempi
+library(pempi)
 
 # Austrian data (November 2020)
 pi0 = 93914/7166167
@@ -171,7 +171,7 @@ moment_estimator(R3 = R3, n = n, pi0 = pi0, alpha = alpha,
                  alpha0 = alpha0, beta = beta)
 ```
 
-In the `cape` package the marginal MLE is also implemented and can be used as follows:
+In the `pempi` package the marginal MLE is also implemented and can be used as follows:
 
 ```{r}
 # Without measurement error
@@ -239,8 +239,8 @@ In other words, in the case of stratified sampling, one replaces the $R_{jk}$ by
 Considering the data used in @guerrier2020prevalence, these estimators can be computed as follows:
 
 ```{r}
-# Load cape
-library(cape)
+# Load pempi
+library(pempi)
 
 # Austrian data (November 2020)
 pi0 = 93914/7166167

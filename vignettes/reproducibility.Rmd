@@ -21,8 +21,8 @@ We use the methodology developed in this paper for the case of the COVID-19 prev
 The results presented in Table 1 of @guerrier2020prevalence can be reproduced as follows:
 
 ```{r}
-# Load cape
-library(cape)
+# Load pempi
+library(pempi)
 
 # Austrian data (November 2020)
 pi0 = 93914/7166167
@@ -245,7 +245,7 @@ knitr::kable(round(table2, 3))
 
 # Replicating Figure 1
 
-Figure 1 can be obtained by running the file `cape/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
+Figure 1 can be obtained by running the file `pempi/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
 
 ```{r, fig.align='center', fig.height=5, fig.width=6}
 pi0 = 93914/7166167
@@ -320,7 +320,7 @@ lines(c(4, 4) + delta, 100*smle_with_meas_error_random$ci_asym, col = cols[2], l
 
 # Replicating Figure 2
 
-Figure 2 can be obtained by running the file `cape/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
+Figure 2 can be obtained by running the file `pempi/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
 
 ```{r, fig.align='center', fig.height=5, fig.width=6}
 # Assumptions
@@ -383,8 +383,8 @@ polygon(100*c(beta, rev(beta)),
 
 The results summarized in Appendix C and presented in Appendix D of @guerrier2020prevalence can be replicated as follows:
 
-1. Run the file `cape/simulations/simulation_script.R` which should take a couple of hours on a standard laptop and generate the file `cape/simulations/simulations.RData`.
-2. Run the file `cape/simulations/figures.Rnw` (which reads `cape/simulations/simulations.RData`) to generates Figures 3, 4 and 5 (as well as color versions of these figures).
+1. Run the file `pempi/simulations/simulation_script.R` which should take a couple of hours on a standard laptop and generate the file `pempi/simulations/simulations.RData`.
+2. Run the file `pempi/simulations/figures.Rnw` (which reads `pempi/simulations/simulations.RData`) to generates Figures 3, 4 and 5 (as well as color versions of these figures).
 
 # References
 
