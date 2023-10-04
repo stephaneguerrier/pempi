@@ -7,7 +7,7 @@
 #' but systematic sampling (e.g. based on medical selection). Default value is \code{0} and in this case this information is not used in the estimation procedure.
 #' @param alpha    A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
 #' @param beta     A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
-#' @param gamma    A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param gamma    A \code{numeric} that is used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
 #' @param V        A \code{numeric} that corresponds to the average of squared sampling weights. Default value is \code{NULL}.
 #' @param ...      Additional arguments.
 #' @return A \code{cpreval} object with the structure:
@@ -221,7 +221,21 @@ print.cpreval = function(x, ...){
     cat(sprintf("%.2f", 100*x$ci_beta0[1]))
     cat("% - ")
     cat(sprintf("%.2f", 100*x$ci_beta0[2]))
+    cat("%\n\n")
+
+    cat("Estimated ascertainment rate: \n")
+    cat("pi0/pi = ")
+    cat(sprintf("%.2f", 100*(1 - x$beta0)))
     cat("%\n")
+    cat("CI at the ")
+    cat(100*(1 - x$gamma))
+    cat("% level: ")
+
+    delta = (x$ci_beta0[2] - x$ci_beta0[1])/2
+    cat(sprintf("%.2f", 100*((1 - x$beta0) - delta)))
+    cat("% - ")
+    cat(sprintf("%.2f", 100*((1 - x$beta0) + delta)))
+    cat("%\n\n")
   }
 
   cat("Sampling: ")
@@ -260,7 +274,7 @@ print.cpreval = function(x, ...){
 #' this probability is likely very close to zero. Default value is \code{0}.
 #' @param alpha     A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.
 #' @param beta      A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.
-#' @param gamma     A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param gamma     A \code{numeric} that is used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
 #' @param V         A \code{numeric} that corresponds to the average of squared sampling weights. Default value is \code{NULL}.
 #' @param ...       Additional arguments.
 #' @return A \code{cpreval} object with the structure:
@@ -278,6 +292,8 @@ print.cpreval = function(x, ...){
 #'  \item pi0:         Value of pi0 (input value).
 #'  \item sampling:    Type of sampling considered ("random" or "weighted").
 #'  \item V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).
+#'  \item n:           Sample size.
+#'  \item avar_beta0:  Estimated asymptotic variance of beta0
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -394,7 +410,8 @@ moment_estimator = function(R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
              gamma = gamma, method = "Moment Estimator",
              measurement = c(alpha0, alpha, beta), beta0 = beta0,
              ci_beta0 = ci_beta0, boundary = boundary,
-             pi0 = pi0, sampling = sampling, V = V, ...)
+             pi0 = pi0, sampling = sampling, V = V, n = n,
+             avar_beta0 = var_beta_asym,...)
   class(out) = "cpreval"
   out
 }
@@ -466,7 +483,7 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha0, alpha, beta, ...
 #' @param n          A \code{numeric} that provides the sample size. Default value R1 + R2 + R3 + R4. If this value is provided it is used to verify that R1 + R2 + R3 + R4 = n.
 #' @param pi0        A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 #' but systematic sampling (e.g. based on medical selection).
-#' @param gamma      A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param gamma      A \code{numeric} that is used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
 #' @param alpha0     A \code{numeric} that corresponds to the probability that a random participant
 #' has been incorrectly declared positive through the nontransparent procedure. In most applications,
 #' this probability is likely very close to zero. Default value is \code{0}.
@@ -488,6 +505,8 @@ neg_log_lik_integrated = function(theta, Rvect, n, pi0, alpha0, alpha, beta, ...
 #'  \item pi0:         Value of pi0 (input value).
 #'  \item sampling:    Type of sampling considered ("random" or "weighted").
 #'  \item V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).
+#'  \item n:           Sample size.
+#'  \item avar_beta0:  Estimated asymptotic variance of beta0
 #'  \item ...:         Additional parameters.
 #' }
 #' @export
@@ -690,7 +709,8 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
              method = "Conditional MLE",
              measurement = c(alpha0, alpha, beta),
              beta0 = beta0, ci_beta0 = ci_beta0,
-             boundary = boundary, pi0 = pi0, sampling = sampling, V = V,...)
+             boundary = boundary, pi0 = pi0, sampling = sampling, V = V, n = n,
+             avar_beta0 = var_beta_asym,...)
   class(out) = "cpreval"
   out
 }
@@ -702,7 +722,7 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 #' @param n         A \code{numeric} that provides the sample size.
 #' @param pi0       A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 #' but systematic sampling (e.g. based on medical selection).
-#' @param gamma     A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param gamma     A \code{numeric} that is used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
 #' @param alpha0       A \code{numeric} that corresponds to the probability that a random participant
 #' has been incorrectly declared positive through the nontransparent procedure. In most applications,
 #' this probability is likely very close to zero. Default value is \code{0}.
@@ -725,6 +745,8 @@ conditional_mle = function(R1 = NULL, R2 = NULL, R3 = NULL, R4 = NULL, n = R1 + 
 #'  \item pi0:         Value of pi0 (input value).
 #'  \item sampling:    Type of sampling considered ("random" or "weighted").
 #'  \item V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).
+#'  \item n:           Sample size.
+#'  \item avar_beta0:  Estimated asymptotic variance of beta0
 #'  \item ...:         Additional parameters
 #' }
 #' @export
@@ -844,7 +866,7 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
   out = list(estimate = estimate, sd = sd, ci_asym = ci_asym, gamma = gamma,
              method = "Marginal MLE", measurement = c(alpha0, alpha, beta),
              beta0 = beta0, ci_beta0 = ci_beta0, boundary = boundary, pi0 = pi0,
-             sampling = "random", V = V, ...)
+             sampling = "random", V = V, n = n, avar_beta0 = var_beta_asym, ...)
   class(out) = "cpreval"
   out
 }
@@ -868,4 +890,126 @@ marginal_mle = function(R1, R3, n, pi0, gamma = 0.05, alpha = 0, beta = 0, alpha
 neg_log_wlik = function(theta, Rvect, n, pi0, alpha, beta, alpha0, ...){
   probs = get_prob(theta = theta, pi0 = pi0, alpha = alpha, beta = beta, alpha0 = alpha0)
   (-1)*(Rvect[1]/n*log_modified(probs[1]) + Rvect[2]/n*log_modified(probs[2]) + Rvect[3]/n*log_modified(probs[3]) + Rvect[4]/n*log_modified(probs[4]))
+}
+
+
+#' @title Update prevalence using new case prevalence rates
+#' @description Updated prevalence and confidence intervals using new case prevalence rates
+#' @param pi0_new        A \code{numeric} or \code{vector} of new case prevalence rates
+#' @param x              A \code{cpreval} object.
+#' @param gamma          A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.
+#' @param print          A \code{boolean} indicating whether or not the output should be print.
+#' @param plot           A \code{boolean} indicating whether or not a plot should be made.
+#' @param col_line       Color of the estimated prevalence.
+#' @param col_ci         Color of the estimated prevalence confidence interval.
+#' @param ...            Additional arguments.
+#' @return A \code{matrix} object whose colunms corresponds to pi0, estimate, sd and CI.
+#' @export
+#' @importFrom graphics grid lines polygon
+#' @author Stephane Guerrier
+#' @examples
+#' # Austrian data (November 2020)
+#' pi0 = 93914/7166167
+#' data("covid19_austria")
+#'
+#' # Weighted sampling
+#' n = nrow(covid19_austria)
+#' R1w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 1])
+#' R2w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 1])
+#' R3w = sum(covid19_austria$weights[covid19_austria$Y == 1 & covid19_austria$Z == 0])
+#' R4w = sum(covid19_austria$weights[covid19_austria$Y == 0 & covid19_austria$Z == 0])
+#'
+#' # Assumed measurement errors
+#' alpha0 = 0
+#' alpha = 1/100
+#' beta = 10/100
+#'
+#' # MME
+#' mme = moment_estimator(R3 = R3w, n = n, pi0 = pi0, alpha = alpha, beta = beta,
+#'                        alpha0 = alpha0, V = mean(covid19_austria$weights^2))
+#'
+#' mme
+#'
+#' # Update prevalence using a new pi0, say = 1.5%, instead of 1.31%
+#' update_prevalence(1.5/100, mme)
+#'
+# Update prevalence using a sequence of pi0
+#' pi0_new = seq(from = 0.005, to = 0.03, length.out = 100)
+#' update_prevalence(pi0_new, mme)
+#'
+update_prevalence = function(pi0_new, x, gamma = 0.05, print = NULL, plot = NULL,
+                             col_line = "#2e5dc1", col_ci = "#2E5DC133", ...){
+  if (x$measurement[1] != 0){
+    stop("This function is only implemented for alpha0 = 0")
+  }
+  alpha0 = 0
+  m = length(pi0_new)
+
+  if (m > 1){
+    if (is.null(print)){
+      print = FALSE
+    }
+
+    if (is.null(plot)){
+      plot = TRUE
+    }
+  }else{
+    if (is.null(print)){
+      print = TRUE
+    }
+
+    if (is.null(plot)){
+      plot = FALSE
+    }
+  }
+
+  out = matrix(NA, m, 5)
+  colnames(out) = c("pi0", "Estimate", "Std. error", "CI - lower", "CI - upper")
+  rownames(out) = as.character(1:m)
+
+  for (i in 1:m){
+    var_beta_asym = (x$sd^2*x$n*(pi0_new[i] - alpha0)^2)/(x$estimate^4)
+    dg = (pi0_new[i]/(1 - x$beta0)^2)^2
+    sd = sqrt(var_beta_asym*dg/x$n)
+    estimate = pi0_new[i]/(1 - x$beta0)
+    ci = estimate + c(-1, 1)*qnorm(1 - gamma/2)*sd
+    out[i,] = c(pi0_new[i],estimate, sd, ci)
+  }
+
+  if (print == TRUE){
+    if (m == 1){
+      cat("Estimated proportion: ")
+      cat(sprintf("%.4f", 100*out[1,2]))
+      cat("%\n")
+      cat("Standard error      : ")
+      cat(sprintf("%.4f", 100*out[1,3]))
+      cat("%\n")
+      cat("Confidence interval")
+      cat(" at the ")
+      cat(100*(1 - gamma))
+      cat("% level: ")
+      cat(sprintf("%.4f", 100*out[1,4]))
+      cat("% - ")
+      cat(sprintf("%.4f", 100*out[1,5]))
+      cat("%\n")
+    }else{
+      print(out)
+    }
+  }
+
+  if (plot == TRUE){
+    if (m == 1){
+      warning("Plot is not possible with only one value for pi0.")
+    }else{
+      plot(NA, xlim = range(pi0_new), ylim = range(out[,4:5]),
+           xlab = expression(paste("Case prevalence rate ", pi[0])),
+           ylab = expression(paste("Prevalence ", pi)))
+           grid()
+           lines(pi0_new, out[,2], col = col_line, lwd = 2)
+           polygon(c(pi0_new, rev(pi0_new)), c(out[,4], rev(out[,5])), col = col_ci, border = NA)
+
+    }
+  }
+
+  invisible(out)
 }

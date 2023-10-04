@@ -5,7 +5,7 @@ output:
   rmarkdown::html_vignette:
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Introduction to the pempi `R` package}
+  %\VignetteIndexEntry{`pempi` Vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -37,7 +37,7 @@ As in @guerrier2020prevalence, we define the following unobserved random variabl
 The objective is to provide an estimator for the unknown population proportion, i.e. the prevalence, given by
 
 \begin{equation*}
-        \pi = \mathbb{P}\left(X_i=1\right). 
+        \pi = \Pr\left(X_i=1\right). 
 \end{equation*}
 
 Next, we define the following quantities.
@@ -74,9 +74,9 @@ In words, $R_{11}$ is the number of participants in the survey sample that are t
 
 For simplicity of exposition, we first consider the unweighted (or random) sampling case, the weighted one is treated below.
 
-We also allow for the possibility that the outcome of (medical) tests can be subject to misclassification error. Hence, we define $\alpha = \mathbb{P}(Y_i=1\vert X_i=0)$ and $\beta = \mathbb{P}(Y_i=0\vert X_i=1)$. The probabilities $\alpha$ and $\beta$, are the (assumed known) FP rate ($\alpha = 1-\mbox{specificity}$) and FN rate ($\beta = 1-\mbox{sensitivity}$) of the particular medical test employed in the survey. Moreover, we will make use of the (known) prevalence $\pi_0 =\mathbb{P}(Z_i=1)$ from the official procedure. As explained in Appendix \ref{app:succprob}, $\pi_0$ is the joint probability of being selected in the official procedure and declared positive, so that we have $\pi_0\leq \pi$. 
+We also allow for the possibility that the outcome of (medical) tests can be subject to misclassification error. Hence, we define $\alpha = \Pr(Y_i=1\vert X_i=0)$ and $\beta = \Pr(Y_i=0\vert X_i=1)$. The probabilities $\alpha$ and $\beta$, are the (assumed known) FP rate ($\alpha = 1-\mbox{specificity}$) and FN rate ($\beta = 1-\mbox{sensitivity}$) of the particular medical test employed in the survey. Moreover, we will make use of the (known) prevalence $\pi_0 =\Pr(Z_i=1)$ from the official procedure. As previously explained, $\pi_0$ is the joint probability of being selected in the official procedure and declared positive, so that we have $\pi_0\leq \pi$. 
 
-Since the objective is to take advantage of the information provided by the official procedure in estimating the prevalence $\pi$, we also need to take into account the possible biases in the official data. Therefore, we define $\alpha_0 = \mathbb{P}(Z_i=1\vert X_i=0)$, the FP rate of the official procedure and $\beta_0 = \mathbb{P}(Z_i=0\vert X_i=1)$ the FN rate of the official procedure. It turns out (see @guerrier2020prevalence for details) that $\alpha_0$ is a negligible quantity and hence can be set to $0$, and $\beta_0$ can be deduced from the other available or estimable quantities as we have
+Since the objective is to take advantage of the information provided by the official procedure in estimating the prevalence $\pi$, we also need to take into account the possible biases in the official data. Therefore, we define $\alpha_0 = \Pr(Z_i=1\vert X_i=0)$, the FP rate of the official procedure and $\beta_0 = \Pr(Z_i=0\vert X_i=1)$ the FN rate of the official procedure. It turns out (see @guerrier2020prevalence for details) that $\alpha_0$ is a negligible quantity and hence can be set to $0$, and $\beta_0$ can be deduced from the other available or estimable quantities as we have
 
 \[
 \beta_0 = 1- \frac{\pi_0-\alpha_0(1-\pi)}{\pi}.
@@ -86,10 +86,10 @@ The success probabilities (see @guerrier2020prevalence for their derivation), de
 %
 \begin{eqnarray}
     \begin{aligned}
-    \tau_{11}(\pi) &=  \mathbb{P}(Z_i=1, Y_i=1) =\pi\Delta\alpha_0+(\pi_0-\alpha_0)(1-\beta)+\alpha\alpha_0,   \\
-    \tau_{10}(\pi) &=  \mathbb{P}(Z_i=1,Y_i=0) = -\pi\Delta\alpha_0+(\pi_0-\alpha_0)\beta+(1-\alpha)\alpha_0,  \\
-    \tau_{01}(\pi) &=  \mathbb{P}(Z_i=0,Y_i=1) =  \pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)(1-\beta)+\alpha(1-\alpha_0), \\
-    \tau_{00}(\pi) &=  \mathbb{P}(Z_i=0,Y_i=0) = -\pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)\beta+(1-\alpha)(1-\alpha_0),
+    \tau_{11}(\pi) &=  \Pr(Z_i=1, Y_i=1) =\pi\Delta\alpha_0+(\pi_0-\alpha_0)(1-\beta)+\alpha\alpha_0,   \\
+    \tau_{10}(\pi) &=  \Pr(Z_i=1,Y_i=0) = -\pi\Delta\alpha_0+(\pi_0-\alpha_0)\beta+(1-\alpha)\alpha_0,  \\
+    \tau_{01}(\pi) &=  \Pr(Z_i=0,Y_i=1) =  \pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)(1-\beta)+\alpha(1-\alpha_0), \\
+    \tau_{00}(\pi) &=  \Pr(Z_i=0,Y_i=0) = -\pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)\beta+(1-\alpha)(1-\alpha_0),
     \end{aligned}
     \label{eqn:tau-pi}
 \end{eqnarray} 
@@ -219,8 +219,6 @@ We also have that $\mathbb{E}\left[\widetilde{\pi}\right]= \pi$. When $\alpha_0=
 \begin{equation*}
    \widetilde{\pi} = \pi_0 + \frac{\overline{R}_{01}}{n}.
 \end{equation*}
-
-In other words, with stratified samples, the MME is obtained by replacing in \eqref{eqn:MME-ME} and \eqref{eqn:MME}, $R_{01}$ by $\overline{R}_{01}$.
 
 An alternative approach is to consider a WME $\widehat{\pi}$ as proposed for example by @Wool01. Generally, it has no closed-form solution but can be computed numerically. However, in the case when $\alpha_0 = 0$, we obtain a closed-form solution given by
 

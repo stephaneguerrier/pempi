@@ -5,7 +5,7 @@ output:
   rmarkdown::html_vignette:
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Reproducibility}
+  %\VignetteIndexEntry{Results Reproducibility}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 We use the methodology developed in this paper for the case of the COVID-19 prevalence estimation using the results of a survey done in November 2020 by @StatAU20. We also compare the different approaches, in order to illustrate, in practice, the impact of choosing one method rather than another one. In November 2020, a survey sample of $n=2287$ was collected to test for COVID-19 using PCR-tests. Seventy-two participants were tested positive, and among these ones, thirty-five ($R_1=35$) had declared to have been tested positive with the official procedure, during the same month. In November, there were $93914$  declared cases among the official (approximately) $7166167$ inhabitants in Austria (above 16 years old), so that $\pi_0 \approx 1.3105\%$. The sensitivity ($1-\alpha$) and the specificity ($1-\beta$) are not known with precision, so that we present estimates of the prevalence without misclassification error as well as for values for the FP and FN rates, that are plausible given the data and according to the sensitivity and specificity reported in \cite{KoWeGr:20} or \cite{surkova2020false}.
 
-The results presented in Table 1 of @guerrier2020prevalence can be reproduced as follows:
+The results presented in Table 2 of @guerrier2020prevalence can be reproduced as follows:
 
 ```{r}
 # Load pempi
@@ -88,7 +88,7 @@ beta = 10/100
 
 ## Survey MLE with random sampling
 
-The Survey MLE (with and without measurement error) can be compute as follows: 
+The Survey MLE (with and without measurement error) can be compute as follows and correspond to the number report in Table 3 of @guerrier2020prevalence: 
 
 ```{r}
 # Survey MLE without measurement error
@@ -133,7 +133,7 @@ In the case of a random sampling, the moment-based estimator or MME (with and wi
 
 ## Moment-based estimator with stratified sampling
 
-In the case of a stratified sampling, the MME (with and without measurement error) can be compute as follows:
+In the case of a stratified sampling, the MME (with and without measurement error) can be compute as follows and correspond to the number report in Table 3 of @guerrier2020prevalence:
 
 ```{r}
 # MME without measurement error
@@ -202,9 +202,9 @@ In the case of a random sampling, the marginal MLE or MMLE (with and without mea
 
 The MMLE is currently not implemented in the case of a stratified sampling.
 
-# Replicating Table 2
+# Replicating Table 3
 
-Table 2 can be replicated as follows:
+Table 3 can be replicated as follows:
 
 ```{r}
 table2 = matrix(NA, 6, 6)
@@ -243,9 +243,9 @@ table2[6, ] = 100*c(mme_no_meas_error_random$beta0,
 knitr::kable(round(table2, 3))
 ```
 
-# Replicating Figure 1
+# Comparing prevalence
 
-Figure 1 can be obtained by running the file `pempi/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
+This figure can be obtained by running the file `pempi/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
 
 ```{r, fig.align='center', fig.height=5, fig.width=6}
 pi0 = 93914/7166167
@@ -318,9 +318,9 @@ points(4 + delta, 100*smle_with_meas_error_random$estimate, col = cols[2], pch =
 lines(c(4, 4) + delta, 100*smle_with_meas_error_random$ci_asym, col = cols[2], lwd = lwd_ci)
 ```
 
-# Replicating Figure 2
+# Replicating Figure 1
 
-Figure 2 can be obtained by running the file `pempi/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
+Figure 1 can be obtained by running the file `pempi/figures/case_study.Rnw`. A similar base R version can be obtained as follows:
 
 ```{r, fig.align='center', fig.height=5, fig.width=6}
 # Assumptions
@@ -381,10 +381,10 @@ polygon(100*c(beta, rev(beta)),
 
 # Simulation Study
 
-The results summarized in Appendix C and presented in Appendix D of @guerrier2020prevalence can be replicated as follows:
+The results summarized in Section 5 @guerrier2020prevalence can be replicated as follows:
 
 1. Run the file `pempi/simulations/simulation_script.R` which should take a couple of hours on a standard laptop and generate the file `pempi/simulations/simulations.RData`.
-2. Run the file `pempi/simulations/figures.Rnw` (which reads `pempi/simulations/simulations.RData`) to generates Figures 3, 4 and 5 (as well as color versions of these figures).
+2. Run the file `pempi/simulations/figures.Rnw` (which reads `pempi/simulations/simulations.RData`) to generates the figures (as well as color versions of these figures).
 
 # References
 

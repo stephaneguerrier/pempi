@@ -18,7 +18,7 @@ but systematic sampling (e.g. based on medical selection). Default value is \cod
 
 \item{beta}{A \code{numeric} that provides the False Positive (FP) rate for the sample R. Default value is \code{0}.}
 
-\item{gamma}{A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.}
+\item{gamma}{A \code{numeric} that is used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.}
 
 \item{V}{A \code{numeric} that corresponds to the average of squared sampling weights. Default value is \code{NULL}.}
 

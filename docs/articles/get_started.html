@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pempi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@ criteria. It is obvious that using these measurements as if they would
 be like a complete census, would lead to an underestimation of the
 prevalence.</p>
 <p>In <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
-(2022)</span>, we propose to adequately use this information, together
+(2023)</span>, we propose to adequately use this information, together
 with data from a survey sample, in order to improve the accuracy of the
 prevalence estimation. In other terms, for a given (legal) statistical
 precision that might be required by authorities that finance a survey,
@@ -127,7 +127,7 @@ for these quantities.</p>
 <h2 id="mathematical-setup">Mathematical setup<a class="anchor" aria-label="anchor" href="#mathematical-setup"></a>
 </h2>
 <p>As in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
-(2022)</span>, we define the following unobserved random variable:</p>
+(2023)</span>, we define the following unobserved random variable:</p>
 <p><span class="math display">\[\begin{equation*}
          X_i=
          \left\{
@@ -141,7 +141,7 @@ is positive,} \\
 <p>The objective is to provide an estimator for the unknown population
 proportion, i.e. the prevalence, given by</p>
 <p><span class="math display">\[\begin{equation*}
-        \pi = \mathbb{P}\left(X_i=1\right).
+        \pi = \Pr\left(X_i=1\right).
 \end{equation*}\]</span></p>
 <p>Next, we define the following quantities.</p>
 <p><span class="math display">\[\begin{eqnarray}
@@ -192,41 +192,41 @@ below in the section on stratified sampling).</p>
 <p>For simplicity of exposition, we first consider the unweighted (or
 random) sampling case, the weighted one is treated below.</p>
 <p>We also allow for the possibility that the outcome of (medical) tests
-can be subject to misclassification error. Hence, we define <span class="math inline">\(\alpha = \mathbb{P}(Y_i=1\vert X_i=0)\)</span> and
-<span class="math inline">\(\beta = \mathbb{P}(Y_i=0\vert
-X_i=1)\)</span>. The probabilities <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, are the (assumed known) FP rate
+can be subject to misclassification error. Hence, we define <span class="math inline">\(\alpha = \Pr(Y_i=1\vert X_i=0)\)</span> and <span class="math inline">\(\beta = \Pr(Y_i=0\vert X_i=1)\)</span>. The
+probabilities <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, are the (assumed known) FP rate
 (<span class="math inline">\(\alpha = 1-\mbox{specificity}\)</span>) and
 FN rate (<span class="math inline">\(\beta =
 1-\mbox{sensitivity}\)</span>) of the particular medical test employed
 in the survey. Moreover, we will make use of the (known) prevalence
-<span class="math inline">\(\pi_0 =\mathbb{P}(Z_i=1)\)</span> from the
-official procedure. As explained in Appendix <span class="math inline">\(\ref{app:succprob}\)</span>, <span class="math inline">\(\pi_0\)</span> is the joint probability of being
+<span class="math inline">\(\pi_0 =\Pr(Z_i=1)\)</span> from the official
+procedure. As previously explained, <span class="math inline">\(\pi_0\)</span> is the joint probability of being
 selected in the official procedure and declared positive, so that we
 have <span class="math inline">\(\pi_0\leq \pi\)</span>.</p>
 <p>Since the objective is to take advantage of the information provided
 by the official procedure in estimating the prevalence <span class="math inline">\(\pi\)</span>, we also need to take into account
-the possible biases in the official data. Therefore, we define <span class="math inline">\(\alpha_0 = \mathbb{P}(Z_i=1\vert X_i=0)\)</span>,
-the FP rate of the official procedure and <span class="math inline">\(\beta_0 = \mathbb{P}(Z_i=0\vert X_i=1)\)</span>
-the FN rate of the official procedure. It turns out (see <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span> for
-details) that <span class="math inline">\(\alpha_0\)</span> is a
-negligible quantity and hence can be set to <span class="math inline">\(0\)</span>, and <span class="math inline">\(\beta_0\)</span> can be deduced from the other
+the possible biases in the official data. Therefore, we define <span class="math inline">\(\alpha_0 = \Pr(Z_i=1\vert X_i=0)\)</span>, the FP
+rate of the official procedure and <span class="math inline">\(\beta_0 =
+\Pr(Z_i=0\vert X_i=1)\)</span> the FN rate of the official procedure. It
+turns out (see <span class="citation">Guerrier, Kuzmics, and
+Victoria-Feser (2023)</span> for details) that <span class="math inline">\(\alpha_0\)</span> is a negligible quantity and
+hence can be set to <span class="math inline">\(0\)</span>, and <span class="math inline">\(\beta_0\)</span> can be deduced from the other
 available or estimable quantities as we have</p>
 <p><span class="math display">\[
 \beta_0 = 1- \frac{\pi_0-\alpha_0(1-\pi)}{\pi}.
 \]</span></p>
 <p>The success probabilities (see <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2022)</span> for their derivation), denoted
+Kuzmics, and Victoria-Feser (2023)</span> for their derivation), denoted
 by <span class="math inline">\(\tau_{jk}(\pi)\)</span> associated to
 each <span class="math inline">\(R_{jk}\)</span>, <span class="math inline">\(j,k \in \{0,1\}\)</span> are given by % <span class="math display">\[\begin{eqnarray}
     \begin{aligned}
-    \tau_{11}(\pi) &amp;=  \mathbb{P}(Z_i=1, Y_i=1)
+    \tau_{11}(\pi) &amp;=  \Pr(Z_i=1, Y_i=1)
 =\pi\Delta\alpha_0+(\pi_0-\alpha_0)(1-\beta)+\alpha\alpha_0,   \\
-    \tau_{10}(\pi) &amp;=  \mathbb{P}(Z_i=1,Y_i=0) =
+    \tau_{10}(\pi) &amp;=  \Pr(Z_i=1,Y_i=0) =
 -\pi\Delta\alpha_0+(\pi_0-\alpha_0)\beta+(1-\alpha)\alpha_0,  \\
-    \tau_{01}(\pi) &amp;=  \mathbb{P}(Z_i=0,Y_i=1)
+    \tau_{01}(\pi) &amp;=  \Pr(Z_i=0,Y_i=1)
 =  \pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)(1-\beta)+\alpha(1-\alpha_0),
 \\
-    \tau_{00}(\pi) &amp;=  \mathbb{P}(Z_i=0,Y_i=0) =
+    \tau_{00}(\pi) &amp;=  \Pr(Z_i=0,Y_i=0) =
 -\pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)\beta+(1-\alpha)(1-\alpha_0),
     \end{aligned}
     \label{eqn:tau-pi}
@@ -235,7 +235,7 @@ each <span class="math inline">\(R_{jk}\)</span>, <span class="math inline">\(j,
 have <span class="math inline">\(\tau_{11}(\pi)=\pi_0\)</span>, <span class="math inline">\(\tau_{10}(\pi)=0\)</span>, <span class="math inline">\(\tau_{01}(\pi)=\pi-\pi_0\)</span>, <span class="math inline">\(\tau_{00}(\pi)=1-\pi\)</span>.</p>
 <p>Based on these definitions, we present a Conditional Maximum
 Likelihood Estimators (CMLE) and a Method of Moment Estimator (MME)
-estimator. The formal derivations and properties are provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2022)</span>.
+estimator. The formal derivations and properties are provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2023)</span>.
 There, we also consider a Marginal MLE (MMLE) when some data is missing,
 and some Generalized Method of Moment (GMM) estimators. The likelihood
 function for <span class="math inline">\(\pi\)</span> can be obtained
@@ -260,7 +260,7 @@ this further reduces to</p>
    \label{eqn:MLE}
 \end{equation}\]</span></p>
 <p>Considering the data used in <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2022)</span>, this estimator can be
+Kuzmics, and Victoria-Feser (2023)</span>, this estimator can be
 computed as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load pempi</span></span>
@@ -295,6 +295,11 @@ computed as follows:</p>
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 55.30%</span></span>
 <span><span class="co">## CI at the 95% level: 47.41% - 63.18%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 44.70%</span></span>
+<span><span class="co">## CI at the 95% level: 36.82% - 52.59%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Random</span></span></code></pre>
 <p>Note that the notation and conventions used in the text and in are
 slightly amended for convenience in this package. In particular, we use
@@ -326,6 +331,11 @@ Considering the following measurement error <span class="math inline">\(\alpha =
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 35.12%</span></span>
 <span><span class="co">## CI at the 95% level: 16.48% - 53.77%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 64.88%</span></span>
+<span><span class="co">## CI at the 95% level: 46.23% - 83.52%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Random</span></span></code></pre>
 <p>Alternatively, we can consider an estimator from the class of GMM
 estimators based on the random variable <span class="math inline">\(\mathbf{R} =[R_{11}/n, R_{10}/n, R_{01}/n,
@@ -366,6 +376,11 @@ MME is unbiased. This estimator can be computed as follows:</p>
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 55.21%</span></span>
 <span><span class="co">## CI at the 95% level: 47.31% - 63.12%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 44.79%</span></span>
+<span><span class="co">## CI at the 95% level: 36.88% - 52.69%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Random</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># With measurement error</span></span>
@@ -386,9 +401,14 @@ MME is unbiased. This estimator can be computed as follows:</p>
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 35.03%</span></span>
 <span><span class="co">## CI at the 95% level: 16.34% - 53.72%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 64.97%</span></span>
+<span><span class="co">## CI at the 95% level: 46.28% - 83.66%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Random</span></span></code></pre>
-<p>In the <code>pempi</code> package the marginal MLE is also implemented
-and can be used as follows:</p>
+<p>In the <code>pempi</code> package the marginal MLE is also
+implemented and can be used as follows:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Without measurement error</span></span>
 <span><span class="fu"><a href="../reference/marginal_mle.html">marginal_mle</a></span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">R1</span>, R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span><span class="op">)</span></span></code></pre></div>
@@ -406,6 +426,11 @@ and can be used as follows:</p>
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 55.30%</span></span>
 <span><span class="co">## CI at the 95% level: 47.41% - 63.18%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 44.70%</span></span>
+<span><span class="co">## CI at the 95% level: 36.82% - 52.59%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Random</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># With measurement error</span></span>
@@ -425,6 +450,11 @@ and can be used as follows:</p>
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 35.12%</span></span>
 <span><span class="co">## CI at the 95% level: 16.48% - 53.77%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 64.88%</span></span>
+<span><span class="co">## CI at the 95% level: 46.23% - 83.52%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Random</span></span></code></pre>
 <p>These results can be compared to the standard survey MLE which can be
 computed as follows:</p>
@@ -515,9 +545,6 @@ test used and, thus, independent of subject <span class="math inline">\(i\)</spa
 <p><span class="math display">\[\begin{equation*}
    \widetilde{\pi} = \pi_0 + \frac{\overline{R}_{01}}{n}.
 \end{equation*}\]</span></p>
-<p>In other words, with stratified samples, the MME is obtained by
-replacing in <span class="math inline">\(\eqref{eqn:MME-ME}\)</span> and
-<span class="math inline">\(\eqref{eqn:MME}\)</span>, <span class="math inline">\(R_{01}\)</span> by <span class="math inline">\(\overline{R}_{01}\)</span>.</p>
 <p>An alternative approach is to consider a WME <span class="math inline">\(\widehat{\pi}\)</span> as proposed for example by
 <span class="citation">Wooldridge (2001)</span>. Generally, it has no
 closed-form solution but can be computed numerically. However, in the
@@ -539,7 +566,7 @@ this further reduces to</p>
 <span class="math inline">\(R_{jk}\)</span> by their weighted
 counterparts <span class="math inline">\(\overline{R}_{jk}\)</span>.</p>
 <p>Considering the data used in <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2022)</span>, these estimators can be
+Kuzmics, and Victoria-Feser (2023)</span>, these estimators can be
 computed as follows:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load pempi</span></span>
@@ -574,6 +601,11 @@ computed as follows:</p>
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 56.08%</span></span>
 <span><span class="co">## CI at the 95% level: 46.58% - 65.59%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 43.92%</span></span>
+<span><span class="co">## CI at the 95% level: 34.41% - 53.42%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Stratified with V = 1.51</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute MME</span></span>
@@ -592,6 +624,11 @@ computed as follows:</p>
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 56.05%</span></span>
 <span><span class="co">## CI at the 95% level: 46.54% - 65.56%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 43.95%</span></span>
+<span><span class="co">## CI at the 95% level: 34.44% - 53.46%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Stratified with V = 1.51</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Survey MLE</span></span>
@@ -626,6 +663,11 @@ measurement error. For example, for the MME:</p>
 <span><span class="co">## Estimated false negative rate of the</span></span>
 <span><span class="co">## official procedure: beta0 = 36.98%</span></span>
 <span><span class="co">## CI at the 95% level: 15.00% - 58.95%</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Estimated ascertainment rate: </span></span>
+<span><span class="co">## pi0/pi = 63.02%</span></span>
+<span><span class="co">## CI at the 95% level: 41.05% - 85.00%</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Stratified with V = 1.51</span></span></code></pre>
 </div>
 <div class="section level2">
@@ -634,8 +676,8 @@ measurement error. For example, for the MME:</p>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-guerrier2020prevalence" class="csl-entry">
 Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.
-2022. <span>“Prevalence Estimation from Random Samples and Census Data
-with Participation Bias.”</span> <a href="https://arxiv.org/abs/2012.10745" class="external-link">https://arxiv.org/abs/2012.10745</a>.
+2023. <span>“Assessing COVID-19 Prevalence in Austria with Infection
+Surveys and Case Count Data as Auxiliary Information.”</span> <a href="https://arxiv.org/abs/2012.10745" class="external-link">https://arxiv.org/abs/2012.10745</a>.
 </div>
 <div id="ref-Wool01" class="csl-entry">
 Wooldridge, J. M. 2001. <span>“Asymptotic Properties of Weighted

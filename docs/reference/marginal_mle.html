@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pempi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -96,7 +96,7 @@ but systematic sampling (e.g. based on medical selection).</p></dd>
 
 
 <dt>gamma</dt>
-<dd><p>A <code>numeric</code> that used to compute a (1 - gamma) confidence region for the proportion. Default value is <code>0.05</code>.</p></dd>
+<dd><p>A <code>numeric</code> that is used to compute a (1 - gamma) confidence region for the proportion. Default value is <code>0.05</code>.</p></dd>
 
 
 <dt>alpha</dt>
@@ -138,6 +138,8 @@ for the moment this method is currently only implemented for random sampling.</p
 <li><p>pi0:         Value of pi0 (input value).</p></li>
 <li><p>sampling:    Type of sampling considered ("random" or "weighted").</p></li>
 <li><p>V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).</p></li>
+<li><p>n:           Sample size.</p></li>
+<li><p>avar_beta0:  Estimated asymptotic variance of beta0</p></li>
 <li><p>...:         Additional parameters</p></li>
 </ul></div>
     <div id="author">
@@ -164,6 +166,11 @@ for the moment this method is currently only implemented for random sampling.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated false negative rate of the</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> official procedure: beta0 = 68.81%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 61.58% - 76.04%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated ascertainment rate: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pi0/pi = 31.19%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 23.96% - 38.42%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With measurement error</span></span></span>
@@ -184,6 +191,11 @@ for the moment this method is currently only implemented for random sampling.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated false negative rate of the</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> official procedure: beta0 = 72.74%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 66.68% - 78.80%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated ascertainment rate: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pi0/pi = 27.26%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 21.20% - 33.32%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
 <span class="r-in"><span><span class="fu">marginal_mle</span><span class="op">(</span>R1 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R1</span>, R3 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R3</span>, n <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">pi0</span>,</span></span>
 <span class="r-in"><span>alpha0 <span class="op">=</span> <span class="fl">0.001</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, beta0 <span class="op">=</span> <span class="fl">0.05</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
@@ -201,6 +213,11 @@ for the moment this method is currently only implemented for random sampling.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated false negative rate of the</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> official procedure: beta0 = 66.46%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 55.66% - 77.25%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated ascertainment rate: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pi0/pi = 33.54%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 22.75% - 44.34%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
 </code></pre></div>
     </div>

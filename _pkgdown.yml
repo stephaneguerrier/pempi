@@ -6,12 +6,14 @@ reference:
   - title: Simulation
     contents:
     - sim_Rs
+    - get_prob
   - title: Estimation
     contents:
     - conditional_mle
     - marginal_mle
     - moment_estimator
     - survey_mle
+    - update_prevalence
   - title: Data
     contents:
     - covid19_austria

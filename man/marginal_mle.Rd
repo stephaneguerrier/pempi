@@ -27,7 +27,7 @@ marginal_mle(
 \item{pi0}{A \code{numeric} that provides the prevalence or proportion of people (in the whole population) who are positive, as measured through a non-random,
 but systematic sampling (e.g. based on medical selection).}
 
-\item{gamma}{A \code{numeric} that used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.}
+\item{gamma}{A \code{numeric} that is used to compute a (1 - gamma) confidence region for the proportion. Default value is \code{0.05}.}
 
 \item{alpha}{A \code{numeric} that provides the False Negative (FN) rate for the sample R. Default value is \code{0}.}
 
@@ -57,6 +57,8 @@ A \code{cpreval} object with the structure:
  \item pi0:         Value of pi0 (input value).
  \item sampling:    Type of sampling considered ("random" or "weighted").
  \item V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).
+ \item n:           Sample size.
+ \item avar_beta0:  Estimated asymptotic variance of beta0
  \item ...:         Additional parameters
 }
 }

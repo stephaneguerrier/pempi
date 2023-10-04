@@ -18,7 +18,7 @@ the Clopper-Pearson approach."><!-- mathjax --><script src="https://cdnjs.cloudf
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pempi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -93,7 +93,7 @@ but systematic sampling (e.g. based on medical selection).</p></dd>
 
 
 <dt>gamma</dt>
-<dd><p>A <code>numeric</code> that used to compute a (1 - gamma) confidence region for the proportion. Default value is <code>0.05</code>.</p></dd>
+<dd><p>A <code>numeric</code> that is used to compute a (1 - gamma) confidence region for the proportion. Default value is <code>0.05</code>.</p></dd>
 
 
 <dt>alpha</dt>
@@ -135,6 +135,8 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 <li><p>pi0:         Value of pi0 (input value).</p></li>
 <li><p>sampling:    Type of sampling considered ("random" or "weighted").</p></li>
 <li><p>V:           Average sum of squared sampling weights if weighted/stratified is used (otherwise NULL).</p></li>
+<li><p>n:           Sample size.</p></li>
+<li><p>avar_beta0:  Estimated asymptotic variance of beta0</p></li>
 <li><p>...:         Additional parameters.</p></li>
 </ul></div>
     <div id="author">
@@ -162,6 +164,11 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated false negative rate of the</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> official procedure: beta0 = 68.75%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 61.50% - 76.00%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated ascertainment rate: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pi0/pi = 31.25%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 24.00% - 38.50%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With measurement error</span></span></span>
@@ -183,6 +190,11 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated false negative rate of the</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> official procedure: beta0 = 72.73%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 66.66% - 78.79%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated ascertainment rate: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pi0/pi = 27.27%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 21.21% - 33.34%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
 <span class="r-in"><span><span class="fu">moment_estimator</span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">R3</span>, n <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">X</span><span class="op">$</span><span class="va">pi0</span>, alpha0 <span class="op">=</span> <span class="fl">0.001</span>,</span></span>
 <span class="r-in"><span>alpha <span class="op">=</span> <span class="fl">0.01</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
@@ -201,6 +213,11 @@ this probability is likely very close to zero. Default value is <code>0</code>.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated false negative rate of the</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> official procedure: beta0 = 66.40%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 55.57% - 77.23%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated ascertainment rate: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pi0/pi = 33.60%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CI at the 95% level: 22.77% - 44.43%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sampling: Random</span>
 </code></pre></div>
     </div>
