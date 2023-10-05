@@ -11,3 +11,5 @@
 ^length.tex
 ^simulations
 ^simulations_local
+^CRAN-SUBMISSION$
+^cran-comments\.md$

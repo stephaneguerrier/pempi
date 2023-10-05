@@ -10,7 +10,7 @@ Authors@R: c(
     person("Christoph", "Kuzmics", role = c("aut"))
     )
 Maintainer: Stéphane Guerrier <stef.guerrier@gmail.com>
-Description: A system contains easy-to-use tools for the contional estimation of the prevalence of an emerging or rare infectious diseases.
+Description: A system contains easy-to-use tools for the conditional estimation of the prevalence of an emerging or rare infectious diseases.
 Depends:
     R (>= 4.0.0)
 License: AGPL-3

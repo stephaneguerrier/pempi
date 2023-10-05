@@ -5,8 +5,7 @@
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2023--10--04-green.svg)](https://github.com/stephaneguerrier/pempi)
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2023--10--05-green.svg)](https://github.com/stephaneguerrier/pempi)
 [![R-CMD-check](https://github.com/stephaneguerrier/pempi/workflows/R-CMD-check/badge.svg)](https://github.com/stephaneguerrier/pempi/actions)
 <!-- badges: end -->
 
@@ -58,14 +57,13 @@ is not the case, please visit this
 
 The license this source code is released under is the GNU AFFERO GENERAL
 PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text.
-Otherwise, please consult [TLDR
-Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0))
-or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will
-provide a synopsis of the restrictions placed upon the code.
+Otherwise, please consult
+[GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will provide
+a synopsis of the restrictions placed upon the code.
 
 # References
 
 Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.
 2023. “Assessing COVID-19 Prevalence in Austria with Infection Surveys
 and Case Count Data as Auxiliary Information”,
-<http://arxiv.org/abs/2012.10745>.
+<https://arxiv.org/abs/2012.10745>.
