@@ -13,13 +13,13 @@ A \code{matrix} with 2290 rows and 3 variables:
 }
 }
 \source{
-Statistics Austria. 2020. "Prävalenz von SARS-CoV-2-Infektionen liegt bei 0.031." \url{https://www.statistik.at/web_de/presse/124846.html}
+Statistics Austria. 2020. "Prävalenz von SARS-CoV-2-Infektionen liegt bei 0.031."
 }
 \usage{
 covid19_austria
 }
 \description{
 Data collected in Austria in 2020 (see e.g. SORA, 2020; Kowarik et al., 2021, for more details),
-allowing to COVID-19 prevalence.
+allowing to estimate COVID-19 prevalence.
 }
 \keyword{datasets}

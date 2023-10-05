@@ -9,6 +9,8 @@
 ^\.github$
 ^figures
 ^length.tex
+^acc_form.html
+^acc_form.Rmd
 ^simulations
 ^simulations_local
 ^CRAN-SUBMISSION$
