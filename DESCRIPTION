@@ -1,6 +1,6 @@
 Package: pempi
 Type: Package
-Title: Proportion estimation with marginal proxy information
+Title: Proportion Estimation with Marginal Proxy Information
 Version: 1.0.0
 Date: 2023-09-15
 LazyData: true
@@ -10,7 +10,7 @@ Authors@R: c(
     person("Christoph", "Kuzmics", role = c("aut"))
     )
 Maintainer: Stéphane Guerrier <stef.guerrier@gmail.com>
-Description: A system contains easy-to-use tools for the conditional estimation of the prevalence of an emerging or rare infectious diseases.
+Description: A system contains easy-to-use tools for the conditional estimation of the prevalence of an emerging or rare infectious diseases using the methods proposed in Guerrier et al. (2023) <arXiv:2012.10745>.
 Depends:
     R (>= 4.0.0)
 License: AGPL-3
