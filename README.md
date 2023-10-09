@@ -7,7 +7,6 @@
 version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
 [![Last-changedate](https://img.shields.io/badge/last%20change-2023--10--09-green.svg)](https://github.com/stephaneguerrier/pempi)
 [![R-CMD-check](https://github.com/stephaneguerrier/pempi/workflows/R-CMD-check/badge.svg)](https://github.com/stephaneguerrier/pempi/actions)
-[![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=simts)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/pempi)](https://www.r-pkg.org/pkg/pempi)
 [![CRAN RStudio mirror
