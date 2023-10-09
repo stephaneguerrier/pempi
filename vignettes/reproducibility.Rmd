@@ -383,8 +383,8 @@ polygon(100*c(beta, rev(beta)),
 
 The results summarized in Section 5 @guerrier2020prevalence can be replicated as follows:
 
-1. Run the file `pempi/simulations/simulation_script.R` which should take a couple of hours on a standard laptop and generate the file `pempi/simulations/simulations.RData`.
-2. Run the file `pempi/simulations/figures.Rnw` (which reads `pempi/simulations/simulations.RData`) to generates the figures (as well as color versions of these figures).
+1. Run the file `pempi/simulations/simulation_script.R` which should take a couple of hours on a standard laptop (with $5 \times 10^4$ Monte Carlo replications). This allows to generate the file `pempi/simulations/simulations.RData`.
+2. Run the file `pempi/simulations/figures.Rnw` (which reads `pempi/simulations/simulations.RData`) to generate the figures associated to our simulation study.
 
 # References
 
