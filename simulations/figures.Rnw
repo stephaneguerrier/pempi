@@ -12,7 +12,7 @@
 
 <<load>>=
 # CHANGE LOCAL PATH!
-load("????/simulations.RData")
+load("...../simulations.RData")
 @
 
 <<graph1, eval = TRUE>>=
