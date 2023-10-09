@@ -5,8 +5,13 @@
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-4.0.0-6666ff.svg)](https://cran.r-project.org/)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2023--10--05-green.svg)](https://github.com/stephaneguerrier/pempi)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2023--10--09-green.svg)](https://github.com/stephaneguerrier/pempi)
 [![R-CMD-check](https://github.com/stephaneguerrier/pempi/workflows/R-CMD-check/badge.svg)](https://github.com/stephaneguerrier/pempi/actions)
+[![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=simts)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/pempi)](https://www.r-pkg.org/pkg/pempi)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/pempi)](https://www.r-pkg.org/pkg/pempi)
 <!-- badges: end -->
 
 # `pempi` Overview
@@ -29,7 +34,17 @@ instead R11, R2 instead of R10, R3 instead of R01 and R4 instead of R00.
 
 # Package installation
 
-The `pempi` package can be installed from GitHub as follows:
+The `pempi` package is available on both CRAN and GitHub. The CRAN
+version is considered stable while the GitHub version is subject to
+modifications/updates which may lead to installation problems or broken
+functions. You can install the stable version of the `pempi` package
+with:
+
+``` r
+install.packages("pempi")
+```
+
+The latest version can install from GitHub as follows:
 
 ``` r
 # Install devtools
