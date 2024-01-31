@@ -1,0 +1,5 @@
+
+
+- I know that the README is written to highlight important instructions for loading the R package (which is important). However, with the idea of reproducibility in mind, I think it would also be helpful to have a section that highlights the vignettes, simulation, and figure directories so that readers know exactly where to go to reproduce results from the corresponding paper.
+
+- Both the GitHub repo and the ACC form seem to be focused on reproducing the figures in the paper but leave out details on how to reproduce Tables 2 and 3. This information should also be included explicitly. I think these are indeed shown in the reproducibility.Rmd file --- but, again, I think it would be helpful to readers if the repo and ACC form were complete.

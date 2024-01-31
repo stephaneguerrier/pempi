@@ -106,7 +106,7 @@ error as well as for values for the FP and FN rates, that are plausible
 given the data and according to the sensitivity and specificity reported
 in or .</p>
 <p>The results presented in Table 2 of <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2023)</span> can be reproduced as
+Kuzmics, and Victoria-Feser (2024)</span> can be reproduced as
 follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load pempi</span></span>
@@ -218,7 +218,7 @@ which we use the following values:</p>
 </h3>
 <p>The Survey MLE (with and without measurement error) can be compute as
 follows and correspond to the number report in Table 3 of <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
-(2023)</span>:</p>
+(2024)</span>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Survey MLE without measurement error</span></span>
 <span><span class="op">(</span><span class="va">smle_no_meas_error_random</span> <span class="op">=</span> <span class="fu"><a href="../reference/survey_mle.html">survey_mle</a></span><span class="op">(</span>R <span class="op">=</span> <span class="va">R1</span> <span class="op">+</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -351,7 +351,7 @@ without measurement error) can be compute as follows:</p>
 <p>In the case of a stratified sampling, the MME (with and without
 measurement error) can be compute as follows and correspond to the
 number report in Table 3 of <span class="citation">Guerrier, Kuzmics,
-and Victoria-Feser (2023)</span>:</p>
+and Victoria-Feser (2024)</span>:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MME without measurement error</span></span>
 <span><span class="op">(</span><span class="va">mme_no_meas_error_strat</span> <span class="op">=</span> <span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3w</span>, n <span class="op">=</span> <span class="va">n</span>,</span>
@@ -845,7 +845,7 @@ be obtained as follows:</p>
 <h2 id="simulation-study">Simulation Study<a class="anchor" aria-label="anchor" href="#simulation-study"></a>
 </h2>
 <p>The results summarized in Section 5 <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2023)</span> can be replicated as
+Kuzmics, and Victoria-Feser (2024)</span> can be replicated as
 follows:</p>
 <ol style="list-style-type: decimal">
 <li>Run the file <code>pempi/simulations/simulation_script.R</code>
@@ -863,8 +863,9 @@ figures associated to our simulation study.</li>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-guerrier2020prevalence" class="csl-entry">
 Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.
-2023. <span>“Assessing COVID-19 Prevalence in Austria with Infection
-Surveys and Case Count Data as Auxiliary Information.”</span> <a href="https://arxiv.org/abs/2012.10745" class="external-link">https://arxiv.org/abs/2012.10745</a>.
+2024. <span>“Assessing COVID-19 Prevalence in Austria with Infection
+Surveys and Case Count Data as Auxiliary Information.”</span>
+<em>Journal of the American Statistical Association, in Press</em>.
 </div>
 <div id="ref-StatAU20" class="csl-entry">
 Statistics Austria. 2020. <span>“<span class="nocase">Prävalenz von

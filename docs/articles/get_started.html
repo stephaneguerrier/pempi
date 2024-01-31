@@ -108,7 +108,7 @@ criteria. It is obvious that using these measurements as if they would
 be like a complete census, would lead to an underestimation of the
 prevalence.</p>
 <p>In <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
-(2023)</span>, we propose to adequately use this information, together
+(2024)</span>, we propose to adequately use this information, together
 with data from a survey sample, in order to improve the accuracy of the
 prevalence estimation. In other terms, for a given (legal) statistical
 precision that might be required by authorities that finance a survey,
@@ -127,7 +127,7 @@ for these quantities.</p>
 <h2 id="mathematical-setup">Mathematical setup<a class="anchor" aria-label="anchor" href="#mathematical-setup"></a>
 </h2>
 <p>As in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
-(2023)</span>, we define the following unobserved random variable:</p>
+(2024)</span>, we define the following unobserved random variable:</p>
 <p><span class="math display">\[\begin{equation*}
          X_i=
          \left\{
@@ -208,14 +208,14 @@ the possible biases in the official data. Therefore, we define <span class="math
 rate of the official procedure and <span class="math inline">\(\beta_0 =
 \Pr(Z_i=0\vert X_i=1)\)</span> the FN rate of the official procedure. It
 turns out (see <span class="citation">Guerrier, Kuzmics, and
-Victoria-Feser (2023)</span> for details) that <span class="math inline">\(\alpha_0\)</span> is a negligible quantity and
+Victoria-Feser (2024)</span> for details) that <span class="math inline">\(\alpha_0\)</span> is a negligible quantity and
 hence can be set to <span class="math inline">\(0\)</span>, and <span class="math inline">\(\beta_0\)</span> can be deduced from the other
 available or estimable quantities as we have</p>
 <p><span class="math display">\[
 \beta_0 = 1- \frac{\pi_0-\alpha_0(1-\pi)}{\pi}.
 \]</span></p>
 <p>The success probabilities (see <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2023)</span> for their derivation), denoted
+Kuzmics, and Victoria-Feser (2024)</span> for their derivation), denoted
 by <span class="math inline">\(\tau_{jk}(\pi)\)</span> associated to
 each <span class="math inline">\(R_{jk}\)</span>, <span class="math inline">\(j,k \in \{0,1\}\)</span> are given by % <span class="math display">\[\begin{eqnarray}
     \begin{aligned}
@@ -235,7 +235,7 @@ each <span class="math inline">\(R_{jk}\)</span>, <span class="math inline">\(j,
 have <span class="math inline">\(\tau_{11}(\pi)=\pi_0\)</span>, <span class="math inline">\(\tau_{10}(\pi)=0\)</span>, <span class="math inline">\(\tau_{01}(\pi)=\pi-\pi_0\)</span>, <span class="math inline">\(\tau_{00}(\pi)=1-\pi\)</span>.</p>
 <p>Based on these definitions, we present a Conditional Maximum
 Likelihood Estimators (CMLE) and a Method of Moment Estimator (MME)
-estimator. The formal derivations and properties are provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2023)</span>.
+estimator. The formal derivations and properties are provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2024)</span>.
 There, we also consider a Marginal MLE (MMLE) when some data is missing,
 and some Generalized Method of Moment (GMM) estimators. The likelihood
 function for <span class="math inline">\(\pi\)</span> can be obtained
@@ -260,7 +260,7 @@ this further reduces to</p>
    \label{eqn:MLE}
 \end{equation}\]</span></p>
 <p>Considering the data used in <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2023)</span>, this estimator can be
+Kuzmics, and Victoria-Feser (2024)</span>, this estimator can be
 computed as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load pempi</span></span>
@@ -566,7 +566,7 @@ this further reduces to</p>
 <span class="math inline">\(R_{jk}\)</span> by their weighted
 counterparts <span class="math inline">\(\overline{R}_{jk}\)</span>.</p>
 <p>Considering the data used in <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2023)</span>, these estimators can be
+Kuzmics, and Victoria-Feser (2024)</span>, these estimators can be
 computed as follows:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load pempi</span></span>
@@ -676,8 +676,9 @@ measurement error. For example, for the MME:</p>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-guerrier2020prevalence" class="csl-entry">
 Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.
-2023. <span>“Assessing COVID-19 Prevalence in Austria with Infection
-Surveys and Case Count Data as Auxiliary Information.”</span> <a href="https://arxiv.org/abs/2012.10745" class="external-link">https://arxiv.org/abs/2012.10745</a>.
+2024. <span>“Assessing COVID-19 Prevalence in Austria with Infection
+Surveys and Case Count Data as Auxiliary Information.”</span>
+<em>Journal of the American Statistical Association, in Press</em>.
 </div>
 <div id="ref-Wool01" class="csl-entry">
 Wooldridge, J. M. 2001. <span>“Asymptotic Properties of Weighted
