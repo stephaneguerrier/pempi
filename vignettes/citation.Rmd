@@ -55,6 +55,3 @@ citation("pempi")
 }
 ```
 
-## Recognition
-
-🏆 The companion paper received the **2024 JASA Reproducibility Award** from the *Journal of the American Statistical Association*. The full reproducibility material lives in the [Reproducibility vignette](reproducibility.html). See the [JASA awardees page](https://jasa-acs.github.io/repro-award/awardees.html) for the full citation.
