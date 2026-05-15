@@ -47,19 +47,18 @@ navbar:
   type: light
   bg: light
   structure:
-    left:  [intro, articles, reference]
+    left:  [intro, reproducibility, citation, reference]
     right: [search, github]
   components:
     intro:
       text: Get Started
       href: articles/get_started.html
-    articles:
-      text: Articles
-      menu:
-      - text: "Reproducibility — JASA 2024"
-        href: articles/reproducibility.html
-      - text: "How to Cite"
-        href: articles/citation.html
+    reproducibility:
+      text: Reproducibility
+      href: articles/reproducibility.html
+    citation:
+      text: How to Cite
+      href: articles/citation.html
     github:
       icon: fab fa-github
       href: https://github.com/stephaneguerrier/pempi
