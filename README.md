@@ -3,11 +3,6 @@
 
 # pempi — Proportion Estimation with Marginal Proxy Information
 
-> Combine a small survey sample with population-level case-count data to
-> estimate disease prevalence — with full handling of measurement error.
-> The R companion to Guerrier, Kuzmics & Victoria-Feser (2024, *JASA*),
-> winner of the **2024 JASA Reproducibility Award**.
-
 <!-- badges: start -->
 
 [![JASA Reproducibility
@@ -23,14 +18,6 @@ downloads](http://cranlogs.r-pkg.org/badges/pempi)](https://www.r-pkg.org/pkg/pe
 [![CRAN
 total](https://cranlogs.r-pkg.org/badges/grand-total/pempi)](https://www.r-pkg.org/pkg/pempi)
 <!-- badges: end -->
-
-> **2024 JASA Reproducibility Award.** For the paper *Assessing
-> COVID-19 Prevalence in Austria with Infection Surveys and Case Count
-> Data as Auxiliary Information* — JASA **119**(547):1722–1735. Full
-> reproducibility material lives in the [Reproducibility
-> vignette](https://stephaneguerrier.github.io/pempi/articles/reproducibility.html);
-> see the [JASA awardees page](https://jasa-acs.github.io/repro-award/awardees.html)
-> for the citation.
 
 ## Install
 
