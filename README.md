@@ -139,7 +139,7 @@ case-count information — and shrink the standard error by roughly 30%.
 |     |                                                                                                                      |                                                                                                              |
 |-----|----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | 📐  | [**Get Started — Methodology**](https://stephaneguerrier.github.io/pempi/articles/get_started.html)                  | The mathematical setup, the four R-counts, and how each estimator corrects the survey-only baseline.         |
-| 🔬  | [**Reproducibility — JASA 2024**](https://stephaneguerrier.github.io/pempi/articles/reproducibility.html)            | Reproduce every table, figure, and simulation from the award-winning paper.                                  |
+| 🔬  | [**Reproducibility**](https://stephaneguerrier.github.io/pempi/articles/reproducibility.html)                        | Reproduce every table, figure, and simulation from the award-winning paper.                                  |
 | 🇦🇹 | [**Austrian COVID-19 Survey**](https://stephaneguerrier.github.io/pempi/reference/covid19_austria.html)               | The bundled real-world dataset (*n* = 2,287, November 2020) used throughout the package.                     |
 | 📑  | [**How to Cite**](https://stephaneguerrier.github.io/pempi/articles/citation.html)                                   | BibTeX, JASA citation, and DOI for the package and the underlying paper.                                     |
 

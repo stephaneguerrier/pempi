@@ -251,7 +251,9 @@ pre .at          { color: #be185d; }
 /* ---- "Where to next" tile-grid table ---- */
 main h2 + table:not(:has(thead tr th:not(:empty))) {
   border: none !important;
+  overflow: visible !important;   /* let hover-lift escape the .table clip */
   margin: 1rem 0 2rem !important;
+  padding-top: 4px;               /* room for the -2px lift on the top row */
   background: transparent;
   font-size: 1rem;
 }
