@@ -2,7 +2,7 @@ Package: pempi
 Type: Package
 Title: Proportion Estimation with Marginal Proxy Information
 Version: 1.0.0
-Date: 2023-09-15
+Date: 2026-05-15
 LazyData: true
 Authors@R: c(
     person("Stéphane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
@@ -10,7 +10,12 @@ Authors@R: c(
     person("Christoph", "Kuzmics", role = c("aut"))
     )
 Maintainer: Stéphane Guerrier <stef.guerrier@gmail.com>
-Description: A system contains easy-to-use tools for the conditional estimation of the prevalence of an emerging or rare infectious diseases using the methods proposed in Guerrier et al. (2023) <arXiv:2012.10745>.
+Description: Tools for the conditional estimation of the prevalence of an
+    emerging or rare infectious disease, combining a survey sample with
+    population-level case-count data and accounting for measurement error.
+    Implements the methods proposed in Guerrier, Kuzmics and Victoria-Feser
+    (2024) <doi:10.1080/01621459.2024.2313790>. The companion paper received
+    the 2024 JASA Reproducibility Award.
 Depends:
     R (>= 4.0.0)
 License: AGPL-3
@@ -20,5 +25,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: https://github.com/stephaneguerrier/pempi
+URL: https://github.com/stephaneguerrier/pempi, https://stephaneguerrier.github.io/pempi/
 BugReports: https://github.com/stephaneguerrier/pempi/issues

@@ -14,9 +14,13 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+> 🏆 **2024 JASA Reproducibility Award.** This vignette is the material recognized by the *Journal of the American Statistical Association* with its 2024 Reproducibility Award. See the [JASA awardees page](https://jasa-acs.github.io/repro-award/awardees.html).
+
 # Case study: Application to Austrian COVID-19 survey
 
-We use the methodology developed in this paper for the case of the COVID-19 prevalence estimation using the results of a survey done in November 2020 by @StatAU20. We also compare the different approaches, in order to illustrate, in practice, the impact of choosing one method rather than another one. In November 2020, a survey sample of $n=2287$ was collected to test for COVID-19 using PCR-tests. Seventy-two participants were tested positive, and among these ones, thirty-five ($R_1=35$) had declared to have been tested positive with the official procedure, during the same month. In November, there were $93914$  declared cases among the official (approximately) $7166167$ inhabitants in Austria (above 16 years old), so that $\pi_0 \approx 1.3105\%$. The sensitivity ($1-\alpha$) and the specificity ($1-\beta$) are not known with precision, so that we present estimates of the prevalence without misclassification error as well as for values for the FP and FN rates, that are plausible given the data and according to the sensitivity and specificity reported in \cite{KoWeGr:20} or \cite{surkova2020false}.
+We use the methodology developed in @guerrier2020prevalence to estimate COVID-19 prevalence from a survey conducted in November 2020 by @StatAU20, and we compare the different estimators to illustrate, in practice, the impact of choosing one method over another.
+
+In November 2020, a survey sample of $n=2287$ was collected to test for COVID-19 using PCR tests. Seventy-two participants tested positive; of those, thirty-five ($R_1=35$) reported having been declared positive by the official procedure during the same month. In November there were $93{,}914$ declared cases among the approximately $7{,}166{,}167$ Austrian inhabitants over 16 years old, so $\pi_0 \approx 1.3105\%$. The sensitivity ($1-\alpha$) and specificity ($1-\beta$) are not known with precision, so we present estimates without misclassification error alongside estimates for plausible FP/FN rates consistent with the sensitivities and specificities reported in @KoWeGr:20 and @surkova2020false.
 
 The results presented in Table 2 of @guerrier2020prevalence can be reproduced as follows:
 
@@ -88,7 +92,7 @@ beta = 10/100
 
 ## Survey MLE with random sampling
 
-The Survey MLE (with and without measurement error) can be compute as follows and correspond to the number report in Table 3 of @guerrier2020prevalence: 
+The Survey MLE (with and without measurement error) can be computed as follows and correspond to the numbers reported in Table 3 of @guerrier2020prevalence: 
 
 ```{r}
 # Survey MLE without measurement error
@@ -101,7 +105,7 @@ The Survey MLE (with and without measurement error) can be compute as follows an
 
 ## Survey MLE with stratified sampling
 
-In the case of a stratified sampling, the Survey MLE (with and without measurement error) can be compute as follows: 
+In the case of a stratified sampling, the Survey MLE (with and without measurement error) can be computed as follows: 
 
 ```{r}
 # Survey (weighted) MLE without measurement error
@@ -118,7 +122,7 @@ In the case of a stratified sampling, the Survey MLE (with and without measureme
 
 ## Moment-based estimator with random sampling
 
-In the case of a random sampling, the moment-based estimator or MME (with and without measurement error) can be compute as follows: 
+In the case of a random sampling, the moment-based estimator or MME (with and without measurement error) can be computed as follows: 
 
 ```{r}
 # MME without measurement error
@@ -133,7 +137,7 @@ In the case of a random sampling, the moment-based estimator or MME (with and wi
 
 ## Moment-based estimator with stratified sampling
 
-In the case of a stratified sampling, the MME (with and without measurement error) can be compute as follows and correspond to the number report in Table 3 of @guerrier2020prevalence:
+In the case of a stratified sampling, the MME (with and without measurement error) can be computed as follows and correspond to the numbers reported in Table 3 of @guerrier2020prevalence:
 
 ```{r}
 # MME without measurement error
@@ -152,7 +156,7 @@ In the case of a stratified sampling, the MME (with and without measurement erro
 
 ## Conditional MLE with random sampling
 
-In the case of a random sampling, the conditional MLE or CMLE (with and without measurement error) can be compute as follows: 
+In the case of a random sampling, the conditional MLE or CMLE (with and without measurement error) can be computed as follows: 
 
 ```{r}
 # CMLE without measurement error
@@ -168,7 +172,7 @@ In the case of a random sampling, the conditional MLE or CMLE (with and without 
 
 ## Conditional MLE with stratified sampling
 
-In the case of a stratified sampling, the CMLE (with and without measurement error) can be compute as follows: 
+In the case of a stratified sampling, the CMLE (with and without measurement error) can be computed as follows: 
 
 ```{r}
 # CMLE without measurement error
@@ -188,7 +192,7 @@ In the case of a stratified sampling, the CMLE (with and without measurement err
 
 ## Marginal MLE with random sampling
 
-In the case of a random sampling, the marginal MLE or MMLE (with and without measurement error) can be compute as follows: 
+In the case of a random sampling, the marginal MLE or MMLE (with and without measurement error) can be computed as follows: 
 
 ```{r}
 # MMLE without measurement error
@@ -267,16 +271,16 @@ abline(v = c(1.5, 2.5, 3.5), col = col_text)
 axis(2)
 
 mtext("Stratified sampling", side = 3, line = 1.75, cex = cex_text, at = 1, col = col_text)
-mtext("no measurment error", side = 3, line = 0.75, cex = cex_text2, at = 1, col = col_text)
+mtext("no measurement error", side = 3, line = 0.75, cex = cex_text2, at = 1, col = col_text)
 
 mtext("Random sampling", side = 3, line = 1.75, cex = cex_text, at = 2, col = col_text)
-mtext("no measurment error", side = 3, line = 0.75, cex = cex_text2, at = 2, col = col_text)
+mtext("no measurement error", side = 3, line = 0.75, cex = cex_text2, at = 2, col = col_text)
 
 mtext("Stratified sampling", side = 3, line = 1.75, cex = cex_text, at = 3, col = col_text)
-mtext("with measurment error", side = 3, line = 0.75, cex = cex_text2, at = 3, col = col_text)
+mtext("with measurement error", side = 3, line = 0.75, cex = cex_text2, at = 3, col = col_text)
 
 mtext("Random sampling", side = 3, line = 1.75, cex = cex_text, at = 4, col = col_text)
-mtext("with measurment error", side = 3, line = 0.75, cex = cex_text2, at = 4, col = col_text)
+mtext("with measurement error", side = 3, line = 0.75, cex = cex_text2, at = 4, col = col_text)
 
 mtext("Prevalence (%)", side = 2, line = 3, cex = 1.15)
 abline(h = 100*pi0, lwd = 2, lty = 2)

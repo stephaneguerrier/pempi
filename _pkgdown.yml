@@ -1,37 +1,121 @@
-template:
-  params:
-    bootswatch: flatly
+url: https://stephaneguerrier.github.io/pempi
 
-reference:
-  - title: Simulation
-    contents:
-    - sim_Rs
-    - get_prob
-  - title: Estimation
-    contents:
-    - conditional_mle
-    - marginal_mle
-    - moment_estimator
-    - survey_mle
-    - update_prevalence
-  - title: Data
-    contents:
-    - covid19_austria
-  - title: Print
-    contents:
-    - print.cpreval
-    - print.cpreval_sim
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#4f46e5"
+    secondary: "#64748b"
+    success: "#10b981"
+    danger:  "#dc2626"
+    warning: "#d97706"
+    info:    "#0284c7"
+    base_font:    {google: "Inter"}
+    heading_font: {google: "Inter"}
+    code_font:    {google: "JetBrains Mono"}
+    headings-font-weight: 700
+    border-radius: "0.5rem"
+    body-bg: "#ffffff"
+    body-color: "#1e293b"
+  includes:
+    in_header: |
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <meta name="color-scheme" content="light">
+
+home:
+  title: pempi — Proportion Estimation with Marginal Proxy Information
+  description: >
+    Estimate disease prevalence by combining a small survey sample with
+    population-level case-count data, with full handling of measurement
+    error. Companion R package to Guerrier, Kuzmics & Victoria-Feser
+    (2024, JASA) — winner of the 2024 JASA Reproducibility Award.
+  sidebar:
+    structure: [recognition, links, citation, license, authors, dev]
+    components:
+      recognition:
+        title: Recognition
+        text: |
+          🏆 [2024 JASA Reproducibility Award](https://jasa-acs.github.io/repro-award/awardees.html)
+      links:
+        title: Links
+        text: |
+          [Read the JASA paper](https://doi.org/10.1080/01621459.2024.2313790)<br />
+          [Browse source code](https://github.com/stephaneguerrier/pempi)<br />
+          [Report a bug](https://github.com/stephaneguerrier/pempi/issues)
 
 navbar:
-  left:
-  - icon: fa-home
-    href: index.html
-  - text: Get started
-    href: articles/get_started.html
-  - text: Reproducibility
-    href: articles/reproducibility.html
-  - text: Reference
-    href: reference/index.html
-  right:
-  - icon: fa-github
-    href: https://github.com/stephaneguerrier/pempi
+  type: light
+  bg: light
+  structure:
+    left:  [intro, articles, reference]
+    right: [search, github]
+  components:
+    intro:
+      text: Get Started
+      href: articles/get_started.html
+    articles:
+      text: Articles
+      menu:
+      - text: "Reproducibility — JASA 2024"
+        href: articles/reproducibility.html
+      - text: "How to Cite"
+        href: articles/citation.html
+    github:
+      icon: fab fa-github
+      href: https://github.com/stephaneguerrier/pempi
+      aria-label: GitHub
+
+reference:
+- title: Estimation
+  desc: Prevalence estimators with measurement-error correction.
+  contents:
+  - conditional_mle
+  - marginal_mle
+  - moment_estimator
+  - survey_mle
+  - update_prevalence
+- title: Data
+  desc: Austrian COVID-19 prevalence survey (November 2020).
+  contents:
+  - covid19_austria
+- title: Simulation
+  desc: Generate synthetic surveys for sensitivity studies.
+  contents:
+  - sim_Rs
+  - get_prob
+- title: Print Methods
+  desc: S3 methods for `cpreval` and `cpreval_sim` objects.
+  contents:
+  - print.cpreval
+  - print.cpreval_sim
+- title: internal
+  contents:
+  - log_modified
+  - neg_log_lik
+  - neg_log_lik_integrated
+  - neg_log_wlik
+
+articles:
+- title: Get Started
+  navbar: ~
+  contents:
+  - get_started
+- title: Going Further
+  navbar: Articles
+  contents:
+  - reproducibility
+  - citation
+
+authors:
+  Stéphane Guerrier:
+    href: https://github.com/stephaneguerrier
+  Christoph Kuzmics: {}
+  Maria-Pia Victoria-Feser: {}
+
+footer:
+  structure:
+    left: [developed_by, built_with]
+    right: [package]
+  components:
+    package: |
+      <code>pempi</code> · <a href="https://github.com/stephaneguerrier/pempi">Source</a>
