@@ -24,11 +24,9 @@ downloads](http://cranlogs.r-pkg.org/badges/pempi)](https://www.r-pkg.org/pkg/pe
 total](https://cranlogs.r-pkg.org/badges/grand-total/pempi)](https://www.r-pkg.org/pkg/pempi)
 <!-- badges: end -->
 
-> 🏆 **Winner — 2024 JASA Reproducibility Award.** Awarded by the
-> *Journal of the American Statistical Association* to Guerrier, Kuzmics
-> & Victoria-Feser for the companion paper *Assessing COVID-19
-> Prevalence in Austria with Infection Surveys and Case Count Data as
-> Auxiliary Information* — JASA **119**(547):1722–1735. Full
+> **2024 JASA Reproducibility Award.** For the paper *Assessing
+> COVID-19 Prevalence in Austria with Infection Surveys and Case Count
+> Data as Auxiliary Information* — JASA **119**(547):1722–1735. Full
 > reproducibility material lives in the [Reproducibility
 > vignette](https://stephaneguerrier.github.io/pempi/articles/reproducibility.html);
 > see the [JASA awardees page](https://jasa-acs.github.io/repro-award/awardees.html)
