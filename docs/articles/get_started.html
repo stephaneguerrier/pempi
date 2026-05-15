@@ -4,84 +4,70 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>`pempi` Vignette • pempi</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="`pempi` Vignette">
-<meta property="og:description" content="pempi">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Inter-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<script src="../extra.js"></script><meta property="og:title" content="`pempi` Vignette">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="color-scheme" content="light">
 </head>
-<body data-spy="scroll" data-target="#toc">
-    
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">pempi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
-      </span>
-    </div>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fa fa-home"></span>
-     
-  </a>
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
+    <a class="navbar-brand me-2" href="../index.html">pempi</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="active nav-item"><a class="nav-link" href="../articles/get_started.html">Get Started</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/reproducibility.html">Reproducibility — JASA 2024</a></li>
+    <li><a class="dropdown-item" href="../articles/citation.html">How to Cite</a></li>
+  </ul>
 </li>
-<li>
-  <a href="../articles/get_started.html">Get started</a>
-</li>
-<li>
-  <a href="../articles/reproducibility.html">Reproducibility</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/stephaneguerrier/pempi" class="external-link">
-    <span class="fa fa-github"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/stephaneguerrier/pempi" aria-label="GitHub"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
-      
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>
-<code>pempi</code> Vignette</h1>
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+
+      <h1>`pempi` Vignette</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/stephaneguerrier/pempi/blob/HEAD/vignettes/get_started.Rmd" class="external-link"><code>vignettes/get_started.Rmd</code></a></small>
-      <div class="hidden name"><code>get_started.Rmd</code></div>
-
+      <div class="d-none name"><code>get_started.Rmd</code></div>
     </div>
 
     
@@ -107,84 +93,85 @@ on the sub-population selected under some medical (and logistic)
 criteria. It is obvious that using these measurements as if they would
 be like a complete census, would lead to an underestimation of the
 prevalence.</p>
-<p>In <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
-(2024)</span>, we propose to adequately use this information, together
-with data from a survey sample, in order to improve the accuracy of the
-prevalence estimation. In other terms, for a given (legal) statistical
-precision that might be required by authorities that finance a survey,
-the sample size can be a lot smaller if one adequately uses the
-information provided by the data collected in the sub-population. The
-possible misclassification errors of the (medical) testing devices used
-to collect the data, are also taken into account. The misclassification
-errors are actually induced by the sensitivity, i.e. the complement to
-the false positive rate, and by the specificity, i.e. the complement to
-the false negative rate, of the medical testing devices. The approach is
-a frequentist one, i.e. using cutoff values for the sensitivity and
-specificity, hence without the need to specify a (prior) distribution
-for these quantities.</p>
+<p>In <span class="citation">Guerrier et al. (2024)</span>, we propose
+to combine this case-count information with data from a survey sample to
+improve the accuracy of the prevalence estimate. For a target
+statistical precision, the required sample size shrinks substantially
+when case-count data are used as auxiliary information. The possible
+misclassification errors of the medical tests are taken into account
+through the sensitivity
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">1-\beta</annotation></semantics></math>,
+the complement of the false negative rate) and the specificity
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">1-\alpha</annotation></semantics></math>,
+the complement of the false positive rate). The approach is frequentist
+— it uses fixed values for the sensitivity and specificity rather than
+priors.</p>
 </div>
 <div class="section level2">
 <h2 id="mathematical-setup">Mathematical setup<a class="anchor" aria-label="anchor" href="#mathematical-setup"></a>
 </h2>
-<p>As in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser
-(2024)</span>, we define the following unobserved random variable:</p>
-<p><span class="math display">\[\begin{equation*}
+<p>As in <span class="citation">Guerrier et al. (2024)</span>, we define
+the following unobserved random variable:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>i</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mspace width="1.0em"></mspace><mrow><mrow><mtext mathvariant="normal">if participant (in the survey sample) </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is positive,</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mspace width="1.0em"></mspace><mtext mathvariant="normal">otherwise;</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\begin{equation*}
          X_i=
          \left\{
     \begin{array}{ll}
-        1  &amp; \quad \mbox{if participant (in the survey sample) $i$
-is positive,} \\
+        1  &amp; \quad \mbox{if participant (in the survey sample) $i$ is positive,} \\
         0  &amp; \quad \mbox{otherwise;}
     \end{array}
 \right.
-\end{equation*}\]</span></p>
+\end{equation*}</annotation></semantics></math></p>
 <p>The objective is to provide an estimator for the unknown population
 proportion, i.e. the prevalence, given by</p>
-<p><span class="math display">\[\begin{equation*}
-        \pi = \Pr\left(X_i=1\right).
-\end{equation*}\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
+        \pi = \Pr\left(X_i=1\right). 
+\end{equation*}</annotation></semantics></math></p>
 <p>Next, we define the following quantities.</p>
-<p><span class="math display">\[\begin{eqnarray}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Y</mi><mi>i</mi></msub></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mspace width="1.0em"></mspace><mrow><mrow><mtext mathvariant="normal">if participant </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is tested positive in the survey sample,</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mspace width="1.0em"></mspace><mtext mathvariant="normal">otherwise;</mtext></mtd></mtr></mtable></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Z</mi><mi>i</mi></msub></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mspace width="1.0em"></mspace><mrow><mrow><mtext mathvariant="normal">if participant </mtext><mspace width="0.333em"></mspace></mrow><mi>i</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> was declared positive with the official procedure,</mtext></mrow></mrow></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mspace width="1.0em"></mspace><mtext mathvariant="normal">otherwise.</mtext></mtd></mtr></mtable></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{eqnarray}
          Y_i&amp;=&amp;
          \left\{
     \begin{array}{ll}
-        1  &amp; \quad \mbox{if participant $i$ is tested positive in
-the survey sample,} \\
+        1  &amp; \quad \mbox{if participant $i$ is tested positive in the survey sample,} \\
         0  &amp; \quad \mbox{otherwise;}
     \end{array}
 \right.\nonumber \\
          Z_i&amp;=&amp; \left\{
     \begin{array}{ll}
-        1  &amp; \quad \mbox{if participant $i$ was declared positive
-with the official procedure,} \\
+        1  &amp; \quad \mbox{if participant $i$ was declared positive with the official procedure,} \\
         0  &amp; \quad \mbox{otherwise.}
     \end{array}
 \right. \label{eqn:Y-Z}
-\end{eqnarray}\]</span></p>
+\end{eqnarray}</annotation></semantics></math></p>
 <p>and</p>
-<p><span class="math display">\[\begin{alignat}{4}
-    &amp;R_{11}&amp;&amp;=\sum_{i=1}^n Y_i Z_i, \quad\quad\quad
-    &amp;&amp;R_{10}&amp;&amp;=\sum_{i=1}^n(1-Y_i)Z_i, \label{eqn:R-R4}
-\\
-    &amp;R_{01}&amp;&amp;= \sum_{i=1}^nY_i(1-Z_i), \quad\quad \quad
-    &amp;&amp;R_{00}&amp;&amp;=
-\sum_{i=1}^n(1-Y_i)(1-Z_i)=n-R_{11}-R_{10}+R_{01}.
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><msub><mi>R</mi><mn>11</mn></msub></mtd><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>Y</mi><mi>i</mi></msub><msub><mi>Z</mi><mi>i</mi></msub><mo>,</mo><mspace width="1.0em"></mspace><mspace width="1.0em"></mspace><mspace width="1.0em"></mspace></mtd><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><msub><mi>R</mi><mn>10</mn></msub></mtd><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>Y</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><msub><mi>R</mi><mn>01</mn></msub></mtd><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>Y</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>Z</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><mspace width="1.0em"></mspace><mspace width="1.0em"></mspace></mtd><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><msub><mi>R</mi><mn>00</mn></msub></mtd><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>Y</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>Z</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>n</mi><mo>−</mo><msub><mi>R</mi><mn>11</mn></msub><mo>−</mo><msub><mi>R</mi><mn>10</mn></msub><mo>+</mo><msub><mi>R</mi><mn>01</mn></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{alignat}{4}
+    &amp;R_{11}&amp;&amp;=\sum_{i=1}^n Y_i Z_i, \quad\quad\quad 
+    &amp;&amp;R_{10}&amp;&amp;=\sum_{i=1}^n(1-Y_i)Z_i, \label{eqn:R-R4} \\
+    &amp;R_{01}&amp;&amp;= \sum_{i=1}^nY_i(1-Z_i), \quad\quad \quad 
+    &amp;&amp;R_{00}&amp;&amp;= \sum_{i=1}^n(1-Y_i)(1-Z_i)=n-R_{11}-R_{10}+R_{01}.
     \nonumber
-\end{alignat}\]</span></p>
-<p>In words, <span class="math inline">\(R_{11}\)</span> is the number
-of participants in the survey sample that are tested positive and have
-also been declared positive through the official procedure; <span class="math inline">\(R_{10}\)</span> is the number of participants in
-the survey sample that are tested negative but have been declared
-positive through the official procedure; <span class="math inline">\(R_{01}\)</span> is the number of participants in
-the survey sample that are tested positive but have been declared
-negative through the official procedure; <span class="math inline">\(R_{00}\)</span> is the number of participants in
-the survey sample that are tested negative and have been declared
-negative through the official procedure. We also make use of <span class="math inline">\(R_{\ast 1} = \sum_{i=1}^nY_i = R_{11} +
-R_{01}\)</span>, the number of participants that are tested positive in
-the survey sample. The <span class="math inline">\(R_{jk}\)</span> are
-central quantities for computing the proposed estimators. In the case of
-stratified sampling, these quantities can be modified accordingly (see
-below in the section on stratified sampling).</p>
+\end{alignat}</annotation></semantics></math></p>
+<p>In words,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>11</mn></msub><annotation encoding="application/x-tex">R_{11}</annotation></semantics></math>
+is the number of participants in the survey sample that are tested
+positive and have also been declared positive through the official
+procedure;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>10</mn></msub><annotation encoding="application/x-tex">R_{10}</annotation></semantics></math>
+is the number of participants in the survey sample that are tested
+negative but have been declared positive through the official procedure;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>01</mn></msub><annotation encoding="application/x-tex">R_{01}</annotation></semantics></math>
+is the number of participants in the survey sample that are tested
+positive but have been declared negative through the official procedure;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>00</mn></msub><annotation encoding="application/x-tex">R_{00}</annotation></semantics></math>
+is the number of participants in the survey sample that are tested
+negative and have been declared negative through the official procedure.
+We also make use of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>*</mi><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><msub><mi>R</mi><mn>11</mn></msub><mo>+</mo><msub><mi>R</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">R_{\ast 1} = \sum_{i=1}^nY_i = R_{11} + R_{01}</annotation></semantics></math>,
+the number of participants that are tested positive in the survey
+sample. The
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">R_{jk}</annotation></semantics></math>
+are central quantities for computing the proposed estimators. In the
+case of stratified sampling, these quantities can be modified
+accordingly (see below in the section on stratified sampling).</p>
 </div>
 <div class="section level2">
 <h2 id="random-sampling">Random sampling<a class="anchor" aria-label="anchor" href="#random-sampling"></a>
@@ -192,76 +179,98 @@ below in the section on stratified sampling).</p>
 <p>For simplicity of exposition, we first consider the unweighted (or
 random) sampling case, the weighted one is treated below.</p>
 <p>We also allow for the possibility that the outcome of (medical) tests
-can be subject to misclassification error. Hence, we define <span class="math inline">\(\alpha = \Pr(Y_i=1\vert X_i=0)\)</span> and <span class="math inline">\(\beta = \Pr(Y_i=0\vert X_i=1)\)</span>. The
-probabilities <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, are the (assumed known) FP rate
-(<span class="math inline">\(\alpha = 1-\mbox{specificity}\)</span>) and
-FN rate (<span class="math inline">\(\beta =
-1-\mbox{sensitivity}\)</span>) of the particular medical test employed
-in the survey. Moreover, we will make use of the (known) prevalence
-<span class="math inline">\(\pi_0 =\Pr(Z_i=1)\)</span> from the official
-procedure. As previously explained, <span class="math inline">\(\pi_0\)</span> is the joint probability of being
-selected in the official procedure and declared positive, so that we
-have <span class="math inline">\(\pi_0\leq \pi\)</span>.</p>
+can be subject to misclassification error. Hence, we define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">|</mo><msub><mi>X</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha = \Pr(Y_i=1\vert X_i=0)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">|</mo><msub><mi>X</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta = \Pr(Y_i=0\vert X_i=1)</annotation></semantics></math>.
+The probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>,
+are the (assumed known) FP rate
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>1</mn><mo>−</mo><mtext mathvariant="normal">specificity</mtext></mrow><annotation encoding="application/x-tex">\alpha = 1-\mbox{specificity}</annotation></semantics></math>)
+and FN rate
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>1</mn><mo>−</mo><mtext mathvariant="normal">sensitivity</mtext></mrow><annotation encoding="application/x-tex">\beta = 1-\mbox{sensitivity}</annotation></semantics></math>)
+of the particular medical test employed in the survey. Moreover, we will
+make use of the (known) prevalence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mn>0</mn></msub><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi_0 =\Pr(Z_i=1)</annotation></semantics></math>
+from the official procedure. As previously explained,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\pi_0</annotation></semantics></math>
+is the joint probability of being selected in the official procedure and
+declared positive, so that we have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mn>0</mn></msub><mo>≤</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi_0\leq \pi</annotation></semantics></math>.</p>
 <p>Since the objective is to take advantage of the information provided
-by the official procedure in estimating the prevalence <span class="math inline">\(\pi\)</span>, we also need to take into account
-the possible biases in the official data. Therefore, we define <span class="math inline">\(\alpha_0 = \Pr(Z_i=1\vert X_i=0)\)</span>, the FP
-rate of the official procedure and <span class="math inline">\(\beta_0 =
-\Pr(Z_i=0\vert X_i=1)\)</span> the FN rate of the official procedure. It
-turns out (see <span class="citation">Guerrier, Kuzmics, and
-Victoria-Feser (2024)</span> for details) that <span class="math inline">\(\alpha_0\)</span> is a negligible quantity and
-hence can be set to <span class="math inline">\(0\)</span>, and <span class="math inline">\(\beta_0\)</span> can be deduced from the other
-available or estimable quantities as we have</p>
-<p><span class="math display">\[
+by the official procedure in estimating the prevalence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>,
+we also need to take into account the possible biases in the official
+data. Therefore, we define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">|</mo><msub><mi>X</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\alpha_0 = \Pr(Z_i=1\vert X_i=0)</annotation></semantics></math>,
+the FP rate of the official procedure and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mn>0</mn></msub><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">|</mo><msub><mi>X</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta_0 = \Pr(Z_i=0\vert X_i=1)</annotation></semantics></math>
+the FN rate of the official procedure. It turns out (see <span class="citation">Guerrier et al. (2024)</span> for details) that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\alpha_0</annotation></semantics></math>
+is a negligible quantity and hence can be set to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\beta_0</annotation></semantics></math>
+can be deduced from the other available or estimable quantities as we
+have</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><mrow><msub><mi>π</mi><mn>0</mn></msub><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>π</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \beta_0 = 1- \frac{\pi_0-\alpha_0(1-\pi)}{\pi}.
-\]</span></p>
-<p>The success probabilities (see <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2024)</span> for their derivation), denoted
-by <span class="math inline">\(\tau_{jk}(\pi)\)</span> associated to
-each <span class="math inline">\(R_{jk}\)</span>, <span class="math inline">\(j,k \in \{0,1\}\)</span> are given by % <span class="math display">\[\begin{eqnarray}
+</annotation></semantics></math></p>
+<p>The success probabilities (see <span class="citation">Guerrier et al.
+(2024)</span> for their derivation), denoted by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\tau_{jk}(\pi)</annotation></semantics></math>
+associated to each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">R_{jk}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>,</mo><mi>k</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">j,k \in \{0,1\}</annotation></semantics></math>
+are given by %
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>τ</mi><mn>11</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo>,</mo><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>π</mi><mi mathvariant="normal">Δ</mi><msub><mi>α</mi><mn>0</mn></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>π</mi><mn>0</mn></msub><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>α</mi><msub><mi>α</mi><mn>0</mn></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>τ</mi><mn>10</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo>,</mo><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>π</mi><mi mathvariant="normal">Δ</mi><msub><mi>α</mi><mn>0</mn></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>π</mi><mn>0</mn></msub><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>β</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>α</mi><mn>0</mn></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>τ</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo>,</mo><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>π</mi><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>π</mi><mn>0</mn></msub><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>τ</mi><mn>00</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mrow><mi mathvariant="normal">Pr</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo>,</mo><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mi>π</mi><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>π</mi><mn>0</mn></msub><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>β</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mtd></mtr></mtable></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{eqnarray}
     \begin{aligned}
-    \tau_{11}(\pi) &amp;=  \Pr(Z_i=1, Y_i=1)
-=\pi\Delta\alpha_0+(\pi_0-\alpha_0)(1-\beta)+\alpha\alpha_0,   \\
-    \tau_{10}(\pi) &amp;=  \Pr(Z_i=1,Y_i=0) =
--\pi\Delta\alpha_0+(\pi_0-\alpha_0)\beta+(1-\alpha)\alpha_0,  \\
-    \tau_{01}(\pi) &amp;=  \Pr(Z_i=0,Y_i=1)
-=  \pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)(1-\beta)+\alpha(1-\alpha_0),
-\\
-    \tau_{00}(\pi) &amp;=  \Pr(Z_i=0,Y_i=0) =
--\pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)\beta+(1-\alpha)(1-\alpha_0),
+    \tau_{11}(\pi) &amp;=  \Pr(Z_i=1, Y_i=1) =\pi\Delta\alpha_0+(\pi_0-\alpha_0)(1-\beta)+\alpha\alpha_0,   \\
+    \tau_{10}(\pi) &amp;=  \Pr(Z_i=1,Y_i=0) = -\pi\Delta\alpha_0+(\pi_0-\alpha_0)\beta+(1-\alpha)\alpha_0,  \\
+    \tau_{01}(\pi) &amp;=  \Pr(Z_i=0,Y_i=1) =  \pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)(1-\beta)+\alpha(1-\alpha_0), \\
+    \tau_{00}(\pi) &amp;=  \Pr(Z_i=0,Y_i=0) = -\pi\Delta(1-\alpha_0)-(\pi_0-\alpha_0)\beta+(1-\alpha)(1-\alpha_0),
     \end{aligned}
     \label{eqn:tau-pi}
-\end{eqnarray}\]</span> % where <span class="math inline">\(\Delta
-=1-(\alpha+\beta)\)</span>. Without misclassification error, we would
-have <span class="math inline">\(\tau_{11}(\pi)=\pi_0\)</span>, <span class="math inline">\(\tau_{10}(\pi)=0\)</span>, <span class="math inline">\(\tau_{01}(\pi)=\pi-\pi_0\)</span>, <span class="math inline">\(\tau_{00}(\pi)=1-\pi\)</span>.</p>
+\end{eqnarray}</annotation></semantics></math> % where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta =1-(\alpha+\beta)</annotation></semantics></math>.
+Without misclassification error, we would have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mn>11</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>π</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\tau_{11}(\pi)=\pi_0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mn>10</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tau_{10}(\pi)=0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>π</mi><mo>−</mo><msub><mi>π</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\tau_{01}(\pi)=\pi-\pi_0</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mn>00</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\tau_{00}(\pi)=1-\pi</annotation></semantics></math>.</p>
 <p>Based on these definitions, we present a Conditional Maximum
-Likelihood Estimators (CMLE) and a Method of Moment Estimator (MME)
-estimator. The formal derivations and properties are provided in <span class="citation">Guerrier, Kuzmics, and Victoria-Feser (2024)</span>.
-There, we also consider a Marginal MLE (MMLE) when some data is missing,
-and some Generalized Method of Moment (GMM) estimators. The likelihood
-function for <span class="math inline">\(\pi\)</span> can be obtained
-from the multinomial distribution with categories provided by <span class="math inline">\(R_{11},R_{10},R_{01},R_{00}\)</span> and their
-associated success probabilities <span class="math inline">\(\tau_{11}(\pi),\tau_{10}(\pi),\tau_{01}(\pi),\tau_{00}(\pi)\)</span>.
+Likelihood Estimator (CMLE) and a Method of Moments Estimator (MME). The
+formal derivations and properties are provided in <span class="citation">Guerrier et al. (2024)</span>. There, we also consider
+a Marginal MLE (MMLE) when some data is missing, and some Generalized
+Method of Moment (GMM) estimators. The likelihood function for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>
+can be obtained from the multinomial distribution with categories
+provided by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mn>11</mn></msub><mo>,</mo><msub><mi>R</mi><mn>10</mn></msub><mo>,</mo><msub><mi>R</mi><mn>01</mn></msub><mo>,</mo><msub><mi>R</mi><mn>00</mn></msub></mrow><annotation encoding="application/x-tex">R_{11},R_{10},R_{01},R_{00}</annotation></semantics></math>
+and their associated success probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mn>11</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>τ</mi><mn>10</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>τ</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>τ</mi><mn>00</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\tau_{11}(\pi),\tau_{10}(\pi),\tau_{01}(\pi),\tau_{00}(\pi)</annotation></semantics></math>.
 The CMLE, conditional on the information provided by the official
-procedure, <span class="math inline">\(\widehat{\pi}\)</span>,
+procedure,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>π</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\widehat{\pi}</annotation></semantics></math>,
 generally, has no closed-form solution but can be computed numerically.
-However, in the case when <span class="math inline">\(\alpha_0 =
-0\)</span>, we obtain a closed-form solution given by</p>
-<p><span class="math display">\[\begin{equation}
-    \widehat{\pi} = \frac{\pi_0 R_{00} + R_{01}}{\Delta
-\left(R_{01}+R_{00}\right)} - \frac{\pi_0 \beta}{\Delta} -
-\frac{\alpha}{\Delta}.
+However, in the case when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0 = 0</annotation></semantics></math>,
+we obtain a closed-form solution given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>π</mi><mo accent="true">̂</mo></mover><mo>=</mo><mfrac><mrow><msub><mi>π</mi><mn>0</mn></msub><msub><mi>R</mi><mn>00</mn></msub><mo>+</mo><msub><mi>R</mi><mn>01</mn></msub></mrow><mrow><mi mathvariant="normal">Δ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>R</mi><mn>01</mn></msub><mo>+</mo><msub><mi>R</mi><mn>00</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>−</mo><mfrac><mrow><msub><mi>π</mi><mn>0</mn></msub><mi>β</mi></mrow><mi mathvariant="normal">Δ</mi></mfrac><mo>−</mo><mfrac><mi>α</mi><mi mathvariant="normal">Δ</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \widehat{\pi} = \frac{\pi_0 R_{00} + R_{01}}{\Delta \left(R_{01}+R_{00}\right)} - \frac{\pi_0 \beta}{\Delta} - \frac{\alpha}{\Delta}.
     \label{eq:cmle-closedform}
-\end{equation}\]</span></p>
-<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>,
+\end{equation}</annotation></semantics></math></p>
+<p>When
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mi>α</mi><mo>=</mo><mi>β</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0=\alpha=\beta=0</annotation></semantics></math>,
 this further reduces to</p>
-<p><span class="math display">\[\begin{equation}
-   \widehat{\pi} = \pi_0 \frac{n - R_{\ast 1}}{n - R_{11}} +
-\frac{R_{01}}{ \left(n - R_{11}\right)}.
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>π</mi><mo accent="true">̂</mo></mover><mo>=</mo><msub><mi>π</mi><mn>0</mn></msub><mfrac><mrow><mi>n</mi><mo>−</mo><msub><mi>R</mi><mrow><mi>*</mi><mn>1</mn></mrow></msub></mrow><mrow><mi>n</mi><mo>−</mo><msub><mi>R</mi><mn>11</mn></msub></mrow></mfrac><mo>+</mo><mfrac><msub><mi>R</mi><mn>01</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo>−</mo><msub><mi>R</mi><mn>11</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+   \widehat{\pi} = \pi_0 \frac{n - R_{\ast 1}}{n - R_{11}} + \frac{R_{01}}{ \left(n - R_{11}\right)}.
    \label{eqn:MLE}
-\end{equation}\]</span></p>
-<p>Considering the data used in <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2024)</span>, this estimator can be
-computed as follows:</p>
+\end{equation}</annotation></semantics></math></p>
+<p>Considering the data used in <span class="citation">Guerrier et al.
+(2024)</span>, this estimator can be computed as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load pempi</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stephaneguerrier/pempi" class="external-link">pempi</a></span><span class="op">)</span></span>
@@ -301,13 +310,22 @@ computed as follows:</p>
 <span><span class="co">## CI at the 95% level: 36.82% - 52.59%</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Random</span></span></code></pre>
-<p>Note that the notation and conventions used in the text and in are
-slightly amended for convenience in this package. In particular, we use
-<code>R1</code> for <span class="math inline">\(R_{11}\)</span>,
-<code>R2</code> for <span class="math inline">\(R_{10}\)</span>,
-<code>R3</code> for <span class="math inline">\(R_{01}\)</span> and
-<code>R4</code> for <span class="math inline">\(R_{00}\)</span>.
-Considering the following measurement error <span class="math inline">\(\alpha = 0.01\)</span>, <span class="math inline">\(\alpha_0 = 0\)</span> and <span class="math inline">\(\beta = 0.1\)</span>, we obtain:</p>
+<p>Note that the notation in the paper is slightly amended for
+convenience in this package. In particular, the package uses
+<code>R1</code> for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>11</mn></msub><annotation encoding="application/x-tex">R_{11}</annotation></semantics></math>,
+<code>R2</code> for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>10</mn></msub><annotation encoding="application/x-tex">R_{10}</annotation></semantics></math>,
+<code>R3</code> for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>01</mn></msub><annotation encoding="application/x-tex">R_{01}</annotation></semantics></math>
+and <code>R4</code> for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>00</mn></msub><annotation encoding="application/x-tex">R_{00}</annotation></semantics></math>.
+Considering the following measurement error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">\alpha = 0.01</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0 = 0</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\beta = 0.1</annotation></semantics></math>,
+we obtain:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Assumed measurement errors</span></span>
 <span><span class="va">alpha0</span> <span class="op">=</span> <span class="fl">0</span></span>
@@ -338,26 +356,29 @@ Considering the following measurement error <span class="math inline">\(\alpha =
 <span><span class="co">## </span></span>
 <span><span class="co">## Sampling: Random</span></span></code></pre>
 <p>Alternatively, we can consider an estimator from the class of GMM
-estimators based on the random variable <span class="math inline">\(\mathbf{R} =[R_{11}/n, R_{10}/n, R_{01}/n,
-R_{00}/n]\)</span> with expectation <span class="math inline">\(\mathbb{E}[\mathbf{R}] =
-{\tau}(\pi)=[\tau_{11}(\pi), \tau_{10}(\pi), \tau_{01}(\pi),
-\tau_{00}(\pi)]\)</span>. A particular case is given by an MME based on
-<span class="math inline">\(R_{01}\)</span> (with expectation <span class="math inline">\(\tau_{01}(\pi)\)</span>), which, again assuming an
-interior solution exists, is given by</p>
-<p><span class="math display">\[\begin{equation}
-    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)}
-\left(\frac{R_{01}}{n} + \pi_0 - \beta\pi_0 - \alpha_0 \Delta -
-\alpha\right).
+estimators based on the random variable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑹</mi><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>R</mi><mn>11</mn></msub><mi>/</mi><mi>n</mi><mo>,</mo><msub><mi>R</mi><mn>10</mn></msub><mi>/</mi><mi>n</mi><mo>,</mo><msub><mi>R</mi><mn>01</mn></msub><mi>/</mi><mi>n</mi><mo>,</mo><msub><mi>R</mi><mn>00</mn></msub><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbf{R} =[R_{11}/n, R_{10}/n, R_{01}/n, R_{00}/n]</annotation></semantics></math>
+with expectation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">𝔼</mi><mo stretchy="false" form="prefix">[</mo><mi mathvariant="bold-italic">𝑹</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>τ</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>τ</mi><mn>11</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>τ</mi><mn>10</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>τ</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>τ</mi><mn>00</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\mathbb{E}[\mathbf{R}] = {\tau}(\pi)=[\tau_{11}(\pi), \tau_{10}(\pi), \tau_{01}(\pi), \tau_{00}(\pi)]</annotation></semantics></math>.
+A particular case is given by an MME based on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mn>01</mn></msub><annotation encoding="application/x-tex">R_{01}</annotation></semantics></math>
+(with expectation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mn>01</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\tau_{01}(\pi)</annotation></semantics></math>),
+which, again assuming an interior solution exists, is given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>π</mi><mo accent="true">̃</mo></mover><mo>=</mo><mfrac><mn>1</mn><mrow><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mi>R</mi><mn>01</mn></msub><mi>n</mi></mfrac><mo>+</mo><msub><mi>π</mi><mn>0</mn></msub><mo>−</mo><mi>β</mi><msub><mi>π</mi><mn>0</mn></msub><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mi mathvariant="normal">Δ</mi><mo>−</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left(\frac{R_{01}}{n} + \pi_0 - \beta\pi_0 - \alpha_0 \Delta - \alpha\right).
     \label{eqn:MME-ME}
-\end{equation}\]</span></p>
-<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>,
+\end{equation}</annotation></semantics></math></p>
+<p>When
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mi>α</mi><mo>=</mo><mi>β</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0=\alpha=\beta=0</annotation></semantics></math>,
 this reduces to</p>
-<p><span class="math display">\[\begin{equation}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>π</mi><mo accent="true">̃</mo></mover><mo>=</mo><msub><mi>π</mi><mn>0</mn></msub><mo>+</mo><mfrac><msub><mi>R</mi><mn>01</mn></msub><mi>n</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
    \widetilde{\pi} = \pi_0 + \frac{R_{01}}{n}.
     \label{eqn:MME}
-\end{equation}\]</span></p>
-<p>Since we have that <span class="math inline">\(\mathbb{E}[\widetilde{\pi} ] = \pi\)</span>, the
-MME is unbiased. This estimator can be computed as follows:</p>
+\end{equation}</annotation></semantics></math></p>
+<p>Since we have that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">𝔼</mi><mo stretchy="false" form="prefix">[</mo><mover><mi>π</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\mathbb{E}[\widetilde{\pi} ] = \pi</annotation></semantics></math>,
+the MME is unbiased. This estimator can be computed as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Without measurement error</span></span>
 <span><span class="fu"><a href="../reference/moment_estimator.html">moment_estimator</a></span><span class="op">(</span>R3 <span class="op">=</span> <span class="va">R3</span>, n <span class="op">=</span> <span class="va">n</span>, pi0 <span class="op">=</span> <span class="va">pi0</span><span class="op">)</span></span></code></pre></div>
@@ -495,79 +516,98 @@ stratified. This is also the case for the COVID-19 data from the
 Austrian survey sample that we apply our method to. For such cases, one
 can use different approaches. In this section, we present a method that
 considers a prevalence estimator formed as a weighted sum of prevalence
-estimators <span class="math inline">\(\widetilde{\pi}^k\)</span>
-associated to each stratum <span class="math inline">\(k\)</span>, i.e.,
-a generalization of the MME, as well as a Weighted M-Estimator (WME). In
-both cases, we have to rely on asymptotic theory for computing CIs.</p>
+estimators
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi>π</mi><mo accent="true">̃</mo></mover><mi>k</mi></msup><annotation encoding="application/x-tex">\widetilde{\pi}^k</annotation></semantics></math>
+associated to each stratum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+i.e., a generalization of the MME, as well as a Weighted M-Estimator
+(WME). In both cases, we have to rely on asymptotic theory for computing
+CIs.</p>
 <p>It actually turns out that the resulting estimators are based on
-similar quantities provided previously, but weighted ones. Let <span class="math inline">\(\gamma_i\)</span> denote the sampling weight
-associated to subject <span class="math inline">\(i=1,\ldots,n\)</span>,
+similar quantities provided previously, but weighted ones. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>γ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\gamma_i</annotation></semantics></math>
+denote the sampling weight associated to subject
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">i=1,\ldots,n</annotation></semantics></math>,
 which is proportional to the reciprocal of the sampling probability for
-subject <span class="math inline">\(i\)</span>, and adjusted such that
-<span class="math inline">\(\sum_{i=1}^n \gamma_i = n\)</span>. Let
-also</p>
-<p><span class="math display">\[\begin{eqnarray}
-\overline{R}_{11}&amp;=&amp;\sum_{i=1}^n\gamma_iY_i
-Z_i=\sum_{i=1}^n\gamma_iR_{i11}, \nonumber \\
-\overline{R}_{10}&amp;=&amp;\sum_{i=1}^n\gamma_i(1-Y_i)Z_i=\sum_{i=1}^n\gamma_iR_{i10},
-\nonumber \\
-\overline{R}_{01}&amp;=&amp; \sum_{i=1}^n\gamma_iY_i(1-Z_i)=
-\sum_{i=1}^n\gamma_iR_{i01}, \nonumber\\
-\overline{R}_{00}&amp;=&amp;
-\sum_{i=1}^n\gamma_i(1-Y_i)(1-Z_i)=\sum_{i=1}^n\gamma_iR_{i00},
-\nonumber \\
+subject
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+and adjusted such that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>γ</mi><mi>i</mi></msub><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\sum_{i=1}^n \gamma_i = n</annotation></semantics></math>.
+Let also</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>11</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>Y</mi><mi>i</mi></msub><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>R</mi><mrow><mi>i</mi><mn>11</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>10</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>Y</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>Z</mi><mi>i</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>R</mi><mrow><mi>i</mi><mn>10</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>01</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>Y</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>Z</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>R</mi><mrow><mi>i</mi><mn>01</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>00</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>Y</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>Z</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>R</mi><mrow><mi>i</mi><mn>00</mn></mrow></msub><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mrow><mi>*</mi><mn>1</mn></mrow></msub></mtd><mtd columnalign="center" style="text-align: center"><mo>=</mo></mtd><mtd columnalign="left" style="text-align: left"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>11</mn></msub><mo>+</mo><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>01</mn></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{eqnarray}
+\overline{R}_{11}&amp;=&amp;\sum_{i=1}^n\gamma_iY_i Z_i=\sum_{i=1}^n\gamma_iR_{i11}, \nonumber \\
+\overline{R}_{10}&amp;=&amp;\sum_{i=1}^n\gamma_i(1-Y_i)Z_i=\sum_{i=1}^n\gamma_iR_{i10}, \nonumber \\
+\overline{R}_{01}&amp;=&amp; \sum_{i=1}^n\gamma_iY_i(1-Z_i)= \sum_{i=1}^n\gamma_iR_{i01}, \nonumber\\ 
+\overline{R}_{00}&amp;=&amp; \sum_{i=1}^n\gamma_i(1-Y_i)(1-Z_i)=\sum_{i=1}^n\gamma_iR_{i00}, \nonumber \\
 \overline{R}_{*1}&amp;=&amp;\sum_{i=1}^n\gamma_iY_i=\overline{R}_{11}+\overline{R}_{01}.     \nonumber
-\end{eqnarray}\]</span></p>
+\end{eqnarray}</annotation></semantics></math></p>
 <p>With the MME approach, we consider the possibility that different
 groups of people (such as in different towns or provinces), or even each
-participant <span class="math inline">\(i\)</span>, are associated to
-different prevalence <span class="math inline">\(\pi_i\)</span>. We are,
-however, only interested in the overall prevalence <span class="math inline">\(\pi=(1/n)\sum_{i=1}^n \gamma_i \pi_i\)</span>,
+participant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+are associated to different prevalence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\pi_i</annotation></semantics></math>.
+We are, however, only interested in the overall prevalence
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>π</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\pi=(1/n)\sum_{i=1}^n \gamma_i \pi_i</annotation></semantics></math>,
 given the additional information provided by the official procedure.
 Moreover, the (known but biased) prevalence from the official procedure
-could also be different for each (groups of) subject(s) <span class="math inline">\(i\)</span>, with <span class="math inline">\(\pi_{i0}, i=1,\ldots,n\)</span>. Note, however,
-that <span class="math inline">\(\pi_0 =(1/n) \sum_{i=1}^n \gamma_i
-\pi_{i0}\)</span> and that <span class="math inline">\(\pi_0\)</span> is
-known. A general approach then consists in obtaining estimates for each
-<span class="math inline">\(\pi_i\)</span> using some method and then
-take their weighted average as an estimator for <span class="math inline">\(\pi\)</span>. Using the MME approach based on the
-<span class="math inline">\(R_{i01}\)</span> and assuming, as done
-before, that the parameters <span class="math inline">\(\alpha,\beta\)</span> are specific to the medical
-test used and, thus, independent of subject <span class="math inline">\(i\)</span>, we obtain a weighted MME for <span class="math inline">\(\pi\)</span> as</p>
-<p><span class="math display">\[\begin{equation}
-    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left(
-\frac{\overline{R}_{01}}{n} + \pi_0 (1 - \beta) - \alpha_0 \Delta -
-\alpha\right).
+could also be different for each (groups of) subject(s)
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mrow><mi>i</mi><mn>0</mn></mrow></msub><mo>,</mo><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">\pi_{i0}, i=1,\ldots,n</annotation></semantics></math>.
+Note, however, that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mn>0</mn></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>γ</mi><mi>i</mi></msub><msub><mi>π</mi><mrow><mi>i</mi><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\pi_0 =(1/n) \sum_{i=1}^n \gamma_i \pi_{i0}</annotation></semantics></math>
+and that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\pi_0</annotation></semantics></math>
+is known. A general approach then consists in obtaining estimates for
+each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>π</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\pi_i</annotation></semantics></math>
+using some method and then take their weighted average as an estimator
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>.
+Using the MME approach based on the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mrow><mi>i</mi><mn>01</mn></mrow></msub><annotation encoding="application/x-tex">R_{i01}</annotation></semantics></math>
+and assuming, as done before, that the parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>,</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">\alpha,\beta</annotation></semantics></math>
+are specific to the medical test used and, thus, independent of subject
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+we obtain a weighted MME for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>
+as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>π</mi><mo accent="true">̃</mo></mover><mo>=</mo><mfrac><mn>1</mn><mrow><mi mathvariant="normal">Δ</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>01</mn></msub><mi>n</mi></mfrac><mo>+</mo><msub><mi>π</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>β</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>α</mi><mn>0</mn></msub><mi mathvariant="normal">Δ</mi><mo>−</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \widetilde{\pi} = \frac{1}{\Delta(1-\alpha_0)} \left( \frac{\overline{R}_{01}}{n} + \pi_0 (1 - \beta) - \alpha_0 \Delta - \alpha\right).
     \label{eqn:CWMLE-alpha0}
-\end{equation}\]</span></p>
-<p>We also have that <span class="math inline">\(\mathbb{E}\left[\widetilde{\pi}\right]=
-\pi\)</span>. When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>, we get</p>
-<p><span class="math display">\[\begin{equation*}
+\end{equation}</annotation></semantics></math></p>
+<p>We also have that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="double-struck">𝔼</mi><mrow><mo stretchy="true" form="prefix">[</mo><mover><mi>π</mi><mo accent="true">̃</mo></mover><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\mathbb{E}\left[\widetilde{\pi}\right]= \pi</annotation></semantics></math>.
+When
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mi>α</mi><mo>=</mo><mi>β</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0=\alpha=\beta=0</annotation></semantics></math>,
+we get</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>π</mi><mo accent="true">̃</mo></mover><mo>=</mo><msub><mi>π</mi><mn>0</mn></msub><mo>+</mo><mfrac><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>01</mn></msub><mi>n</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
    \widetilde{\pi} = \pi_0 + \frac{\overline{R}_{01}}{n}.
-\end{equation*}\]</span></p>
-<p>An alternative approach is to consider a WME <span class="math inline">\(\widehat{\pi}\)</span> as proposed for example by
-<span class="citation">Wooldridge (2001)</span>. Generally, it has no
-closed-form solution but can be computed numerically. However, in the
-case when <span class="math inline">\(\alpha_0 = 0\)</span>, we obtain a
-closed-form solution given by</p>
-<p><span class="math display">\[\begin{equation*}
-    \widehat{\pi} = \frac{\pi_0 \overline{R}_{00} +
-\overline{R}_{01}}{\Delta
-\left(\overline{R}_{01}+\overline{R}_{00}\right)} - \frac{\pi_0
-\beta}{\Delta} - \frac{\alpha}{\Delta}.
-\end{equation*}\]</span></p>
-<p>When <span class="math inline">\(\alpha_0=\alpha=\beta=0\)</span>,
+\end{equation*}</annotation></semantics></math></p>
+<p>An alternative approach is to consider a WME
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>π</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\widehat{\pi}</annotation></semantics></math>
+as proposed for example by <span class="citation">Wooldridge
+(2001)</span>. Generally, it has no closed-form solution but can be
+computed numerically. However, in the case when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0 = 0</annotation></semantics></math>,
+we obtain a closed-form solution given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>π</mi><mo accent="true">̂</mo></mover><mo>=</mo><mfrac><mrow><msub><mi>π</mi><mn>0</mn></msub><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>00</mn></msub><mo>+</mo><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>01</mn></msub></mrow><mrow><mi mathvariant="normal">Δ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>01</mn></msub><mo>+</mo><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>00</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>−</mo><mfrac><mrow><msub><mi>π</mi><mn>0</mn></msub><mi>β</mi></mrow><mi mathvariant="normal">Δ</mi></mfrac><mo>−</mo><mfrac><mi>α</mi><mi mathvariant="normal">Δ</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
+    \widehat{\pi} = \frac{\pi_0 \overline{R}_{00} + \overline{R}_{01}}{\Delta \left(\overline{R}_{01}+\overline{R}_{00}\right)} - \frac{\pi_0 \beta}{\Delta} - \frac{\alpha}{\Delta}.
+\end{equation*}</annotation></semantics></math></p>
+<p>When
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mi>α</mi><mo>=</mo><mi>β</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0=\alpha=\beta=0</annotation></semantics></math>,
 this further reduces to</p>
-<p><span class="math display">\[\begin{equation*}
-   \widehat{\pi} = \pi_0 \frac{n - \overline{R}_{\ast 1}}{n -
-\overline{R}_{11}} + \frac{R_{01}}{ \left(n - R_{11}\right)}.
-\end{equation*}\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>π</mi><mo accent="true">̂</mo></mover><mo>=</mo><msub><mi>π</mi><mn>0</mn></msub><mfrac><mrow><mi>n</mi><mo>−</mo><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mrow><mi>*</mi><mn>1</mn></mrow></msub></mrow><mrow><mi>n</mi><mo>−</mo><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mn>11</mn></msub></mrow></mfrac><mo>+</mo><mfrac><msub><mi>R</mi><mn>01</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo>−</mo><msub><mi>R</mi><mn>11</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
+   \widehat{\pi} = \pi_0 \frac{n - \overline{R}_{\ast 1}}{n - \overline{R}_{11}} + \frac{R_{01}}{ \left(n - R_{11}\right)}.
+\end{equation*}</annotation></semantics></math></p>
 <p>In other words, in the case of stratified sampling, one replaces the
-<span class="math inline">\(R_{jk}\)</span> by their weighted
-counterparts <span class="math inline">\(\overline{R}_{jk}\)</span>.</p>
-<p>Considering the data used in <span class="citation">Guerrier,
-Kuzmics, and Victoria-Feser (2024)</span>, these estimators can be
-computed as follows:</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">R_{jk}</annotation></semantics></math>
+by their weighted counterparts
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>R</mi><mo accent="true">¯</mo></mover><mrow><mi>j</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">\overline{R}_{jk}</annotation></semantics></math>.</p>
+<p>Considering the data used in <span class="citation">Guerrier et al.
+(2024)</span>, these estimators can be computed as follows:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load pempi</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stephaneguerrier/pempi" class="external-link">pempi</a></span><span class="op">)</span></span>
@@ -676,9 +716,10 @@ measurement error. For example, for the MME:</p>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-guerrier2020prevalence" class="csl-entry">
 Guerrier, Stéphane, Christoph Kuzmics, and Maria-Pia Victoria-Feser.
-2024. <span>“Assessing COVID-19 Prevalence in Austria with Infection
-Surveys and Case Count Data as Auxiliary Information.”</span>
-<em>Journal of the American Statistical Association, in Press</em>.
+2024. <span>“Assessing <span>COVID-19</span> Prevalence in
+<span>Austria</span> with Infection Surveys and Case Count Data as
+Auxiliary Information.”</span> <em>Journal of the American Statistical
+Association</em> 119 (547): 1722–35. <a href="https://doi.org/10.1080/01621459.2024.2313790" class="external-link">https://doi.org/10.1080/01621459.2024.2313790</a>.
 </div>
 <div id="ref-Wool01" class="csl-entry">
 Wooldridge, J. M. 2001. <span>“Asymptotic Properties of Weighted
@@ -687,35 +728,26 @@ Wooldridge, J. M. 2001. <span>“Asymptotic Properties of Weighted
 </div>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by Stéphane Guerrier, Maria-Pia Victoria-Feser, Christoph Kuzmics.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by <a href="https://github.com/stephaneguerrier" class="external-link">Stéphane Guerrier</a>, Maria-Pia Victoria-Feser, Christoph Kuzmics. Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<div class="pkgdown-footer-right">
+  <p><code>pempi</code> · <a href="https://github.com/stephaneguerrier/pempi" class="external-link">Source</a></p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
-  
 
 
-  
+
 
   </body>
 </html>

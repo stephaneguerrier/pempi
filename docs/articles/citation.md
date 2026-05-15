@@ -1,0 +1,57 @@
+# How to Cite
+
+## How to cite `pempi`
+
+If you use `pempi` in published research, please cite **both** the
+methodological paper and the R package.
+
+### The paper
+
+> Guerrier, S., Kuzmics, C., Victoria-Feser, M.-P. (2024). *Assessing
+> COVID-19 Prevalence in Austria with Infection Surveys and Case Count
+> Data as Auxiliary Information.* **Journal of the American Statistical
+> Association**, 119(547), 1722–1735.
+> [doi:10.1080/01621459.2024.2313790](https://doi.org/10.1080/01621459.2024.2313790)
+
+``` bibtex
+@article{guerrier2024prevalence,
+  title   = {Assessing {COVID-19} Prevalence in {Austria} with Infection
+             Surveys and Case Count Data as Auxiliary Information},
+  author  = {Guerrier, St\'ephane and Kuzmics, Christoph and
+             Victoria-Feser, Maria-Pia},
+  journal = {Journal of the American Statistical Association},
+  volume  = {119},
+  number  = {547},
+  pages   = {1722--1735},
+  year    = {2024},
+  doi     = {10.1080/01621459.2024.2313790}
+}
+```
+
+### The R package
+
+``` r
+
+citation("pempi")
+```
+
+``` bibtex
+@Manual{guerrier2024pempi,
+  title  = {{pempi}: Proportion Estimation with Marginal Proxy Information},
+  author = {Guerrier, St\'ephane and Kuzmics, Christoph and
+            Victoria-Feser, Maria-Pia},
+  year   = {2024},
+  note   = {R package},
+  url    = {https://github.com/stephaneguerrier/pempi}
+}
+```
+
+### Recognition
+
+🏆 The companion paper received the **2024 JASA Reproducibility Award**
+from the *Journal of the American Statistical Association*. The full
+reproducibility material lives in the [Reproducibility
+vignette](https://stephaneguerrier.github.io/pempi/articles/reproducibility.md).
+See the [JASA awardees
+page](https://jasa-acs.github.io/repro-award/awardees.html) for the full
+citation.
