@@ -39,7 +39,7 @@ home:
       links:
         title: Links
         text: |
-          [Read the JASA paper](https://doi.org/10.1080/01621459.2024.2313790)<br />
+          [Paper](https://doi.org/10.1080/01621459.2024.2313790)<br />
           [Browse source code](https://github.com/stephaneguerrier/pempi)<br />
           [Report a bug](https://github.com/stephaneguerrier/pempi/issues)
 
