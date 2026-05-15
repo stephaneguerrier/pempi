@@ -1,11 +1,11 @@
 ---
-title: "`pempi` Vignette"
+title: "Get Started"
 bibliography: bibliography.bib
-output: 
+output:
   rmarkdown::html_vignette:
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{`pempi` Vignette}
+  %\VignetteIndexEntry{Get Started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
